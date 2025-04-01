@@ -3,7 +3,7 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
 // Define available themes
-export type ThemeType = "default";
+export type ThemeType = "default" | "netflix";
 
 // Theme context props
 interface ThemeContextProps {
