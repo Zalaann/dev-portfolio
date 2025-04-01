@@ -1,24 +1,27 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"] });
+import { Metadata } from 'next'
+import './globals.css'
+import { ThemeProvider } from '@/contexts/ThemeContext'
+import { unstable_noStore as noStore } from 'next/cache'
 
 export const metadata: Metadata = {
-  title: "Muhammad Ibrahim Tariq | Portfolio",
-  description: "Portfolio website showcasing my projects, skills, and experience in AI, web development, and e-commerce.",
-};
+  title: 'My Portfolio',
+  description: 'A personal portfolio website showcasing my projects and skills',
+}
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: React.ReactNode
+}) {
+  noStore(); // Prevent static rendering and caching
+  
   return (
-    <html lang="en" className="scroll-smooth">
-      <body className={`${inter.className} bg-background text-foreground`}>
-        {children}
+    <html lang="en">
+      <body>
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
-  );
+  )
 }

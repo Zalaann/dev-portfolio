@@ -65,10 +65,31 @@ const config: Config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "gradient-x": {
+          "0%": { "background-position": "0% 0%" },
+          "100%": { "background-position": "100% 0%" },
+        },
+        "gradient-y": {
+          "0%": { "background-position": "0% 0%" },
+          "100%": { "background-position": "0% 100%" },
+        },
+        "gradient-xy": {
+          "0%": { "background-position": "0% 0%" },
+          "100%": { "background-position": "100% 100%" },
+        },
+        "spin-slow": {
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(360deg)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "gradient-x": "gradient-x 10s ease infinite",
+        "gradient-y": "gradient-y 10s ease infinite",
+        "gradient-xy": "gradient-xy 10s ease infinite",
+        "spin-slow": "spin 3s linear infinite",
+        "spin-fast": "spin 1.5s linear infinite",
       },
     },
   },
