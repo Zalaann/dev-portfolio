@@ -109,35 +109,35 @@ export default function Home() {
         <section 
           ref={containerRef}
           id="home" 
-          className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
+          className="relative min-h-[100vh] flex flex-col items-center justify-center overflow-hidden px-4 sm:px-6 pt-12 sm:pt-16"
         >
-          {/* Background Elements */}
-          <div className="absolute inset-0 overflow-hidden">
-            <div className="absolute w-[500px] h-[500px] bg-primary/20 rounded-full blur-3xl -top-20 -right-20 animate-pulse"></div>
-            <div className="absolute w-[500px] h-[500px] bg-secondary/20 rounded-full blur-3xl -bottom-20 -left-20 animate-pulse delay-1000"></div>
+          {/* Background Elements - Adjusted for mobile */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <div className="absolute w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-primary/20 rounded-full blur-3xl -top-20 -right-20 animate-pulse"></div>
+            <div className="absolute w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-secondary/20 rounded-full blur-3xl -bottom-20 -left-20 animate-pulse delay-1000"></div>
           </div>
 
           <motion.div
             style={{ y, opacity }}
-            className="relative z-10 text-center max-w-4xl mx-auto px-4 space-y-8"
+            className="relative z-10 text-center w-full max-w-4xl mx-auto space-y-6 sm:space-y-8 mt-8 sm:mt-0"
           >
-            {/* Profile Image with Creative Border */}
+            {/* Profile Image - Fine-tuned spacing */}
             <motion.div
               initial={{ scale: 0.5, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.7, ease: "easeOut" }}
-              className="relative w-48 h-48 mx-auto mb-8 group"
+              className="relative w-28 h-28 sm:w-40 md:w-48 sm:h-40 md:h-48 mx-auto mb-4 sm:mb-8 group"
             >
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-primary via-secondary to-primary animate-gradient-x"></div>
               <div className="absolute inset-[3px] rounded-2xl bg-background"></div>
-              <div className="relative w-full h-full p-3">
+              <div className="relative w-full h-full p-2 sm:p-3">
                 <div className="w-full h-full rounded-xl overflow-hidden relative group-hover:scale-105 transition-transform duration-500">
                   <Image
                     src="/profile.jpg"
                     alt="Muhammad Ibrahim Tariq"
                     width={192}
                     height={192}
-                    className="object-cover"
+                    className="object-cover w-full h-full"
                     priority
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -145,33 +145,32 @@ export default function Home() {
               </div>
             </motion.div>
 
-            {/* Main Content */}
-            <div className="space-y-6">
-              {/* Greeting */}
+            {/* Main Content - Adjusted spacing for mobile */}
+            <div className="space-y-3 sm:space-y-6">
               <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-                className="space-y-4"
+                className="space-y-3 sm:space-y-4"
               >
-                <div className="flex items-center justify-center space-x-2 text-sm text-primary font-medium">
-                  <span className="px-3 py-1 rounded-full border border-primary/20 backdrop-blur-sm">
+                <div className="flex flex-wrap items-center justify-center gap-2 px-2">
+                  <span className="px-3 py-1 rounded-full border border-primary/20 backdrop-blur-sm text-xs sm:text-sm text-primary font-medium">
                     AI Developer
                   </span>
-                  <span className="px-3 py-1 rounded-full border border-primary/20 backdrop-blur-sm">
+                  <span className="px-3 py-1 rounded-full border border-primary/20 backdrop-blur-sm text-xs sm:text-sm text-primary font-medium">
                     E-commerce Expert
                   </span>
                 </div>
-                <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight">
+                <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight px-2 sm:px-4">
                   Hey, I'm{" "}
                   <span className="relative inline-block">
                     <span className="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary animate-gradient-x">
                       Muhammad Ibrahim
                     </span>
-                    <span className="absolute inset-x-0 bottom-0 h-3 bg-primary/10 -rotate-1"></span>
+                    <span className="absolute inset-x-0 bottom-0 h-2 sm:h-3 bg-primary/10 -rotate-1"></span>
                   </span>
                 </h1>
-                <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto">
+                <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground max-w-2xl mx-auto px-2 sm:px-4">
                   Crafting digital experiences with{" "}
                   <motion.span
                     initial={{ opacity: 0 }}
@@ -193,12 +192,12 @@ export default function Home() {
                 </p>
               </motion.div>
 
-              {/* CTA Buttons */}
+              {/* CTA Buttons - Made responsive */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-                className="flex flex-wrap justify-center gap-4"
+                className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 px-4 w-full max-w-md mx-auto"
               >
                 <a
                   href="#projects"
@@ -222,12 +221,12 @@ export default function Home() {
                 </a>
               </motion.div>
 
-              {/* Social Links */}
+              {/* Social Links - Adjusted spacing */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.6 }}
-                className="flex justify-center gap-6"
+                className="flex justify-center gap-3 sm:gap-6"
               >
                 {[
                   { icon: Github, href: "https://github.com/yourusername", label: "GitHub" },
@@ -254,7 +253,7 @@ export default function Home() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1 }}
-            className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+            className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2"
           >
             <motion.div
               animate={{ y: [0, 8, 0] }}
@@ -278,7 +277,7 @@ export default function Home() {
       </section>
 
       {/* About Section */}
-        <section id="about" className="relative py-32 bg-background overflow-hidden">
+        <section id="about" className="relative py-16 sm:py-24 md:py-32 bg-background overflow-hidden mt-8 sm:mt-0">
           {/* Background Elements */}
           <div className="absolute inset-0 overflow-hidden">
             <div className="absolute w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl top-20 -right-32"></div>
@@ -291,7 +290,7 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
-            className="grid md:grid-cols-2 gap-12 items-center"
+            className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center"
           >
               <div className="space-y-8">
               <div className="space-y-4">
@@ -428,7 +427,7 @@ export default function Home() {
       </section>
 
       {/* Projects Section */}
-        <section id="projects" className="relative py-32 bg-muted overflow-hidden">
+        <section id="projects" className="relative py-16 sm:py-24 md:py-32 bg-muted overflow-hidden">
           {/* Background Elements */}
           <div className="absolute inset-0 overflow-hidden">
             <div className="absolute w-[800px] h-[800px] bg-primary/5 rounded-full blur-3xl -top-96 -right-96"></div>
@@ -462,7 +461,7 @@ export default function Home() {
               </motion.h2>
             </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
             {/* Recello Project */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -482,7 +481,7 @@ export default function Home() {
                       className="w-full h-full bg-muted"
                     />
                   </div>
-                  <div className="p-8">
+                  <div className="p-4 sm:p-8">
                     <div className="flex items-center justify-between mb-4">
                       <h3 className="text-2xl font-bold">Recello</h3>
                       <div className="flex items-center space-x-2">
@@ -506,7 +505,7 @@ export default function Home() {
                   A marketplace app similar to OLX, built with React Native and Supabase. Features include
                   multi-image uploads, location selection, and automated brand/model system.
                 </p>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-2 mt-4">
                       {[
                         { name: "React Native", icon: TbBrandReactNative, color: "#61DAFB" },
                         { name: "Supabase", icon: SiSupabase, color: "#3ECF8E" },
@@ -545,7 +544,7 @@ export default function Home() {
                       className="w-full h-full bg-muted"
                     />
                   </div>
-                  <div className="p-8">
+                  <div className="p-4 sm:p-8">
                     <div className="flex items-center justify-between mb-4">
                       <h3 className="text-2xl font-bold">Preorder Store Dashboard</h3>
                       <div className="flex items-center space-x-2">
@@ -569,7 +568,7 @@ export default function Home() {
                   An admin panel for managing preorders with Supabase backend. Features include order tracking,
                   customer management, and Kanban-style task system.
                 </p>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-2 mt-4">
                       {[
                         { name: "React", icon: SiReact, color: "#61DAFB" },
                         { name: "Supabase", icon: SiSupabase, color: "#3ECF8E" },
@@ -592,8 +591,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Experience Section */}
-        <section id="experience" className="relative py-32 bg-background overflow-hidden">
+      {/* Experience Section - Timeline made responsive */}
+        <section id="experience" className="relative py-16 sm:py-24 md:py-32 bg-background overflow-hidden">
           {/* Background Elements */}
           <div className="absolute inset-0 overflow-hidden">
             <div className="absolute w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl top-0 -right-64"></div>
@@ -628,10 +627,10 @@ export default function Home() {
             </div>
 
             <div className="relative">
-              {/* Timeline Line */}
-              <div className="absolute left-1/2 transform -translate-x-px h-full w-0.5 bg-gradient-to-b from-primary/50 via-secondary/50 to-primary/50"></div>
+              {/* Timeline line adjusted for mobile */}
+              <div className="absolute left-4 sm:left-1/2 transform sm:-translate-x-px h-full w-0.5 bg-gradient-to-b from-primary/50 via-secondary/50 to-primary/50"></div>
 
-              <div className="space-y-12">
+              <div className="space-y-8 sm:space-y-12">
                 {/* E-Commerce Store Owner */}
                 <motion.div
                   initial={{ opacity: 0, x: -50 }}
@@ -640,10 +639,10 @@ export default function Home() {
                   viewport={{ once: true }}
                   className="relative"
                 >
-                  <div className="flex items-center justify-center absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                  <div className="flex items-center absolute left-4 sm:left-1/2 transform -translate-x-1/2">
                     <div className="w-4 h-4 rounded-full bg-primary animate-pulse"></div>
                   </div>
-                  <div className="ml-auto w-1/2 pl-8">
+                  <div className="ml-12 sm:ml-auto sm:w-1/2 sm:pl-8">
                     <div className="group relative">
                       <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-2xl opacity-50 blur-lg group-hover:opacity-75 transition-opacity duration-500"></div>
                       <div className="relative bg-background rounded-xl p-8 border border-border/50 group-hover:border-primary/50 transition-colors duration-300">
@@ -756,7 +755,7 @@ export default function Home() {
       </section>
 
       {/* Education Section */}
-        <section id="education" className="relative py-32 bg-muted overflow-hidden">
+        <section id="education" className="relative py-16 sm:py-24 md:py-32 bg-muted overflow-hidden">
           {/* Background Elements */}
           <div className="absolute inset-0 overflow-hidden">
             <div className="absolute w-[800px] h-[800px] bg-primary/5 rounded-full blur-3xl -top-96 -left-96"></div>
@@ -790,7 +789,7 @@ export default function Home() {
               </motion.h2>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
               {/* UEL */}
               <motion.div
                 initial={{ opacity: 0, x: -50 }}
@@ -905,7 +904,7 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-        <section id="contact" className="relative py-32 bg-background overflow-hidden">
+        <section id="contact" className="relative py-16 sm:py-24 md:py-32 bg-background overflow-hidden">
           {/* Background Elements */}
           <div className="absolute inset-0 overflow-hidden">
             <div className="absolute w-[800px] h-[800px] bg-primary/5 rounded-full blur-3xl -top-96 -right-96 animate-pulse"></div>
@@ -953,7 +952,7 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
               viewport={{ once: true }}
-              className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-4xl mx-auto"
             >
               {/* Email Card */}
             <a
@@ -1004,13 +1003,13 @@ export default function Home() {
               </div>
             </motion.div>
 
-            {/* Social Links */}
+            {/* Social Links - Adjusted spacing */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.6 }}
               viewport={{ once: true }}
-              className="flex justify-center gap-6 mt-16"
+              className="flex justify-center gap-4 sm:gap-6 mt-8 sm:mt-16"
             >
               {[
                 { icon: Github, href: "https://github.com/yourusername", label: "GitHub" },
