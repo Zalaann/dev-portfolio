@@ -30,13 +30,12 @@ export default function HeroSection() {
     <section 
       ref={containerRef}
       id="home" 
-      className="relative min-h-[100vh] flex flex-col items-center justify-center overflow-hidden px-4 sm:px-6 pt-8 pb-16 md:py-0"
+      className="relative min-h-[100vh] flex flex-col items-center justify-center overflow-hidden px-4 sm:px-6 pt-0 pb-16 md:py-0"
     >
       {/* Particle Background */}
       <ParticleBackground 
-        particleColor="#4338ca"
-        linkColor="#4338ca"
-        backgroundColor="transparent"
+        density={70}
+        interactive={true}
       />
 
       {/* Background Elements - Simplified and optimized */}
@@ -47,7 +46,7 @@ export default function HeroSection() {
 
       <motion.div
         style={{ y, opacity }}
-        className="relative z-10 text-center w-full max-w-4xl mx-auto space-y-4 sm:space-y-8 mt-4 sm:mt-0"
+        className="relative z-10 text-center w-full max-w-4xl mx-auto space-y-4 sm:space-y-8 mt-0 sm:mt-0"
       >
         {/* Profile Image - Optimized animations */}
         <motion.div
@@ -163,7 +162,7 @@ export default function HeroSection() {
             </motion.a>
           </motion.div>
 
-          {/* Social Links - Simplified */}
+          {/* Social Links */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

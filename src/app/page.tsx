@@ -12,12 +12,12 @@ import LoadingScreen from "@/components/LoadingScreen";
 import Footer from "@/components/Footer";
 import InteractiveShowcase from "@/components/InteractiveShowcase";
 import Navbar from "@/components/Navbar";
+import ParticleBackground from "@/components/ParticleBackground";
 import { useState, useEffect, useCallback } from "react";
 import { AnimatePresence } from "framer-motion";
-import { SectionProvider } from "@/components/SectionContext";
 
 export default function Home() {
-  const { theme, hasSelectedTheme } = useTheme();
+  const { theme } = useTheme();
   const [isLoading, setIsLoading] = useState(true);
   const [progress, setProgress] = useState(0);
 
@@ -93,14 +93,15 @@ export default function Home() {
   }, []);
 
   return (
-    <SectionProvider>
+    <div>
       <AnimatePresence mode="wait">
         {isLoading ? (
           <LoadingScreen key="loading" progress={progress} />
         ) : (
           <>
             <Navbar />
-            <main className="flex min-h-screen flex-col items-center justify-between">
+            <main className="flex min-h-screen flex-col items-center justify-between relative">
+              <ParticleBackground density={70} interactive={true} />
               <HeroSection />
               <AboutSection />
               <InteractiveShowcase />
@@ -109,10 +110,10 @@ export default function Home() {
               <EducationSection />
               <ContactSection />
               <Footer />
-    </main>
+            </main>
           </>
         )}
       </AnimatePresence>
-    </SectionProvider>
+    </div>
   );
 }

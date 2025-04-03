@@ -106,187 +106,6 @@ const categoryGroups = {
   'ai': skills.filter(skill => skill.category === 'ai'),
 };
 
-// Draggable Skills Component
-function DraggableSkills() {
-  const [positions, setPositions] = useState<{[key: string]: {x: number, y: number}}>({});
-  const [selectedSkill, setSelectedSkill] = useState<Skill | null>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [containerWidth, setContainerWidth] = useState(0);
-
-  // Update container width on resize
-  useEffect(() => {
-    const updateWidth = () => {
-      if (containerRef.current) {
-        setContainerWidth(containerRef.current.offsetWidth);
-      }
-    };
-    
-    updateWidth();
-    window.addEventListener('resize', updateWidth);
-    return () => window.removeEventListener('resize', updateWidth);
-  }, []);
-
-  // Initialize positions by category
-  useEffect(() => {
-    if (containerWidth === 0) return;
-    
-    const initialPositions: {[key: string]: {x: number, y: number}} = {};
-    
-    // Use specific positioning for each skill to prevent overlap
-    // Adjust positions based on screen size for better mobile support
-    const isMobile = containerWidth < 768;
-    
-    const skillPositions: Record<string, {x: number, y: number}> = isMobile ? 
-    {
-      // Mobile positions - more compact layout
-      'React': { x: -150, y: -160 },
-      'Next.js': { x: 50, y: -160 },
-      'Tailwind CSS': { x: -150, y: -80 },
-      'TypeScript': { x: 50, y: -80 },
-      
-      'Python': { x: -150, y: 0 },
-      'MongoDB': { x: 50, y: 0 },
-      'Supabase': { x: -150, y: 80 },
-      'AWS': { x: 50, y: 80 },
-      
-      'Mobile Dev': { x: -150, y: 160 },
-      'TensorFlow': { x: -50, y: 240 },
-      'AI/ML': { x: 50, y: 160 }
-    } : 
-    {
-      // Desktop positions - spread out
-      'React': { x: -450, y: -100 },
-      'Next.js': { x: -200, y: -100 },
-      'Tailwind CSS': { x: 0, y: -100 },
-      'TypeScript': { x: 250, y: -100 },
-      
-      'Python': { x: -450, y: 0 },
-      'MongoDB': { x: -200, y: 0 },
-      'Supabase': { x: 0, y: 0 },
-      'AWS': { x: 250, y: 0 },
-      
-      'Mobile Dev': { x: -350, y: 100 },
-      'TensorFlow': { x: -100, y: 100 },
-      'AI/ML': { x: 150, y: 100 }
-    };
-    
-    // Apply positions for each skill
-    skills.forEach(skill => {
-      if (skillPositions[skill.name]) {
-        initialPositions[skill.name] = skillPositions[skill.name];
-      }
-    });
-    
-    setPositions(initialPositions);
-  }, [containerWidth]);
-
-  const handleSkillClick = (skill: Skill) => {
-    setSelectedSkill(prev => prev?.name === skill.name ? null : skill);
-  };
-
-  const handleOutsideClick = (e: React.MouseEvent) => {
-    if (e.target === containerRef.current) {
-      setSelectedSkill(null);
-    }
-  };
-
-  return (
-    <div className="flex flex-col items-center">
-      <div 
-        className="relative h-[550px] w-full mt-2 overflow-visible"
-        ref={containerRef}
-        onClick={handleOutsideClick}
-        style={{ maxWidth: '100%' }}
-      >
-        {/* Draggable Skill Items */}
-        {skills.map((skill) => (
-          <motion.div
-            key={skill.name}
-            className="absolute rounded-lg cursor-grab active:cursor-grabbing shadow-md transform -translate-x-1/2 -translate-y-1/2"
-            style={{ 
-              backgroundColor: `${skill.color}20`, 
-              border: `2px solid ${skill.color}`,
-              backdropFilter: "blur(4px)",
-              left: '50%',
-              top: '50%',
-              zIndex: selectedSkill?.name === skill.name ? 10 : 1,
-              boxShadow: selectedSkill?.name === skill.name ? `0 0 10px ${skill.color}40` : 'none',
-            }}
-            initial={{ x: positions[skill.name]?.x || 0, y: positions[skill.name]?.y || 0 }}
-            animate={{ 
-              x: positions[skill.name]?.x || 0, 
-              y: positions[skill.name]?.y || 0,
-              scale: selectedSkill?.name === skill.name ? 1.1 : 1
-            }}
-            drag
-            dragTransition={{ bounceStiffness: 300, bounceDamping: 20 }}
-            dragElastic={0.5}
-            whileDrag={{ scale: 1.1, zIndex: 20 }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 1.05 }}
-            onClick={() => handleSkillClick(skill)}
-            onDragEnd={(e, info) => {
-              const newX = positions[skill.name]?.x + info.offset.x;
-              const newY = positions[skill.name]?.y + info.offset.y;
-              
-              // Determine bounds based on container width
-              const isMobile = containerWidth < 768;
-              const maxX = isMobile ? containerWidth/2 - 30 : containerWidth/2 - 50;
-              const maxY = isMobile ? 260 : 200;
-              
-              // Keep within bounds - allow more horizontal space
-              const boundedX = Math.max(Math.min(newX, maxX), -maxX);
-              const boundedY = Math.max(Math.min(newY, maxY), -maxY);
-              
-              setPositions(prev => ({
-                ...prev,
-                [skill.name]: { 
-                  x: boundedX,
-                  y: boundedY
-                }
-              }));
-            }}
-          >
-            <div className="flex items-center space-x-2 p-3">
-              <skill.icon className="w-5 h-5" style={{ color: skill.color }} />
-              <span className="font-medium text-sm">{skill.name}</span>
-            </div>
-          </motion.div>
-        ))}
-      </div>
-
-      {/* Skill Detail Popup - Below the container */}
-      <AnimatePresence>
-        {selectedSkill && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="w-full max-w-2xl mt-6 mb-4"
-          >
-            <div className="backdrop-blur-md bg-background/30 border border-white/10 rounded-xl p-5 shadow-xl">
-              <div className="flex items-start gap-4">
-                <div 
-                  className="p-3 rounded-full" 
-                  style={{ backgroundColor: `${selectedSkill.color}20` }}
-                >
-                  <selectedSkill.icon className="w-8 h-8" style={{ color: selectedSkill.color }} />
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-xl font-bold flex items-center gap-2">
-                    {selectedSkill.name}
-                  </h3>
-                  <p className="text-muted-foreground mt-1">{selectedSkill.description}</p>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-}
-
 // Main Interactive Showcase component
 export default function InteractiveShowcase() {
   const containerRef = useRef(null);
@@ -309,11 +128,11 @@ export default function InteractiveShowcase() {
       >
         <motion.div 
           style={{ y }} 
-          className="absolute w-[800px] h-[800px] rounded-full bg-gradient-to-br from-primary/1 to-secondary/1 blur-3xl -top-1/4 -right-1/4"
+          className="absolute w-[800px] h-[800px] rounded-full bg-gradient-to-br from-primary/1 to-secondary/1 blur-3xl -top-1/4 -right-1/4 dark:from-primary/2 dark:to-secondary/2"
         />
         <motion.div 
           style={{ y: useTransform(scrollYProgress, [0, 1], ["-30px", "30px"]) }} 
-          className="absolute w-[600px] h-[600px] rounded-full bg-gradient-to-tr from-secondary/1 to-primary/1 blur-3xl -bottom-1/4 -left-1/4"
+          className="absolute w-[600px] h-[600px] rounded-full bg-gradient-to-tr from-secondary/1 to-primary/1 blur-3xl -bottom-1/4 -left-1/4 dark:from-secondary/2 dark:to-primary/2"
         />
       </motion.div>
       
@@ -336,9 +155,308 @@ export default function InteractiveShowcase() {
           </p>
         </motion.div>
         
-        {/* Draggable Skills Component */}
-        <DraggableSkills />
+        {/* Skills Constellation */}
+        <SkillsConstellation />
       </div>
     </section>
+  );
+}
+
+// Skills Constellation Component
+function SkillsConstellation() {
+  const [selectedSkill, setSelectedSkill] = useState<Skill | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
+  const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
+
+  // Update container dimensions on resize
+  useEffect(() => {
+    const updateSize = () => {
+      if (containerRef.current) {
+        setContainerSize({
+          width: containerRef.current.offsetWidth,
+          height: containerRef.current.offsetHeight
+        });
+      }
+    };
+    
+    updateSize();
+    window.addEventListener('resize', updateSize);
+    return () => window.removeEventListener('resize', updateSize);
+  }, []);
+
+  // Define relationships between skills
+  const relationships: Record<string, string[]> = {
+    'React': ['TypeScript', 'Next.js', 'Tailwind CSS'],
+    'Next.js': ['React', 'TypeScript', 'MongoDB', 'Supabase'],
+    'Tailwind CSS': ['React', 'Next.js'],
+    'TypeScript': ['React', 'Next.js', 'MongoDB', 'Supabase'],
+    'MongoDB': ['Next.js', 'Supabase', 'TypeScript'],
+    'Supabase': ['Next.js', 'MongoDB', 'TypeScript'],
+    'Python': ['TensorFlow', 'AI/ML'],
+    'TensorFlow': ['Python', 'AI/ML'],
+    'AI/ML': ['Python', 'TensorFlow'],
+    'AWS': ['MongoDB', 'Supabase', 'Mobile Dev'],
+    'Mobile Dev': ['React', 'AWS']
+  };
+
+  const handleSkillClick = (skill: Skill) => {
+    setSelectedSkill(prev => prev?.name === skill.name ? null : skill);
+  };
+
+  const handleOutsideClick = (e: React.MouseEvent) => {
+    if (e.target === containerRef.current) {
+      setSelectedSkill(null);
+    }
+  };
+
+  // Get position for a skill
+  const getPosition = (name: string): { x: number, y: number } => {
+    const isMobile = containerSize.width < 768;
+    
+    const positions: Record<string, {x: number, y: number}> = isMobile ? {
+      // Mobile positions
+      'React': { x: -150, y: -160 },
+      'Next.js': { x: 50, y: -160 },
+      'Tailwind CSS': { x: -150, y: -80 },
+      'TypeScript': { x: 50, y: -80 },
+      'Python': { x: -150, y: 0 },
+      'MongoDB': { x: 50, y: 0 },
+      'Supabase': { x: -150, y: 80 },
+      'AWS': { x: 50, y: 80 },
+      'Mobile Dev': { x: -150, y: 160 },
+      'TensorFlow': { x: -50, y: 240 },
+      'AI/ML': { x: 50, y: 160 }
+    } : {
+      // Desktop positions
+      'React': { x: -450, y: -100 },
+      'Next.js': { x: -200, y: -100 },
+      'Tailwind CSS': { x: 0, y: -100 },
+      'TypeScript': { x: 250, y: -100 },
+      'Python': { x: -450, y: 0 },
+      'MongoDB': { x: -200, y: 0 },
+      'Supabase': { x: 0, y: 0 },
+      'AWS': { x: 250, y: 0 },
+      'Mobile Dev': { x: -350, y: 100 },
+      'TensorFlow': { x: -100, y: 100 },
+      'AI/ML': { x: 150, y: 100 }
+    };
+    
+    // Adjust for center position
+    return {
+      x: positions[name]?.x || 0,
+      y: positions[name]?.y || 0
+    };
+  };
+
+  // Transform relative position to absolute
+  const getAbsolutePosition = (pos: { x: number, y: number }) => {
+    if (!containerRef.current) return { x: 0, y: 0 };
+    
+    const center = {
+      x: containerSize.width / 2,
+      y: containerSize.height / 2
+    };
+    
+    return {
+      x: center.x + pos.x,
+      y: center.y + pos.y
+    };
+  };
+
+  // Check if two skills should be connected
+  const shouldConnect = (name1: string, name2: string): boolean => {
+    if (!hoveredSkill) return false;
+    if (hoveredSkill !== name1 && hoveredSkill !== name2) return false;
+    
+    return relationships[name1]?.includes(name2) || relationships[name2]?.includes(name1);
+  };
+
+  return (
+    <div className="flex flex-col items-center">
+      <div 
+        className="relative h-[550px] w-full mt-2 overflow-visible"
+        ref={containerRef}
+        onClick={handleOutsideClick}
+        style={{ maxWidth: '100%' }}
+      >
+        {/* Connection lines */}
+        <svg 
+          className="absolute inset-0 w-full h-full pointer-events-none z-0" 
+          style={{ overflow: 'visible' }}
+        >
+          {skills.map((skill1) => (
+            skills.map((skill2) => {
+              if (skill1.name === skill2.name) return null;
+              
+              const shouldShow = shouldConnect(skill1.name, skill2.name);
+              if (!shouldShow) return null;
+              
+              const pos1 = getAbsolutePosition(getPosition(skill1.name));
+              const pos2 = getAbsolutePosition(getPosition(skill2.name));
+              
+              return (
+                <motion.line
+                  key={`${skill1.name}-${skill2.name}`}
+                  x1={pos1.x}
+                  y1={pos1.y}
+                  x2={pos2.x}
+                  y2={pos2.y}
+                  stroke={`url(#gradient-${skill1.name}-${skill2.name})`}
+                  strokeWidth="2"
+                  strokeOpacity="0.6"
+                  strokeDasharray="5,5"
+                  initial={{ pathLength: 0 }}
+                  animate={{ pathLength: 1 }}
+                  transition={{ duration: 0.6, ease: "easeInOut" }}
+                />
+              );
+            })
+          ))}
+          
+          {/* Gradient definitions for lines */}
+          <defs>
+            {skills.map((skill1) => (
+              skills.map((skill2) => {
+                if (skill1.name === skill2.name) return null;
+                return (
+                  <linearGradient
+                    key={`gradient-${skill1.name}-${skill2.name}`}
+                    id={`gradient-${skill1.name}-${skill2.name}`}
+                    x1="0%"
+                    y1="0%"
+                    x2="100%"
+                    y2="0%"
+                  >
+                    <stop offset="0%" stopColor={skill1.color} />
+                    <stop offset="100%" stopColor={skill2.color} />
+                  </linearGradient>
+                );
+              })
+            ))}
+          </defs>
+        </svg>
+        
+        {/* Skill Nodes */}
+        {skills.map((skill) => {
+          const position = getPosition(skill.name);
+          const isActive = hoveredSkill === skill.name || 
+                         relationships[hoveredSkill || '']?.includes(skill.name);
+          
+          return (
+            <motion.div
+              key={skill.name}
+              className="absolute rounded-lg cursor-pointer shadow-md transform -translate-x-1/2 -translate-y-1/2"
+              style={{ 
+                backgroundColor: `${skill.color}${isActive ? '30' : '20'}`, 
+                border: `2px solid ${skill.color}${isActive ? '' : '80'}`,
+                backdropFilter: "blur(4px)",
+                left: '50%',
+                top: '50%',
+                zIndex: selectedSkill?.name === skill.name ? 10 : 1,
+                boxShadow: isActive ? `0 0 20px ${skill.color}40` : 'none',
+              }}
+              initial={{ x: position.x, y: position.y, scale: 0 }}
+              animate={{ 
+                x: position.x, 
+                y: position.y,
+                scale: 1,
+                transition: { 
+                  type: "spring", 
+                  stiffness: 300, 
+                  damping: 20,
+                  delay: 0.1 * skills.indexOf(skill) 
+                }
+              }}
+              whileHover={{ scale: 1.05 }}
+              onMouseEnter={() => {
+                setHoveredSkill(skill.name);
+              }}
+              onMouseLeave={() => setHoveredSkill(null)}
+              onClick={() => handleSkillClick(skill)}
+            >
+              <div className="flex items-center space-x-2 p-3">
+                <skill.icon className="w-5 h-5" style={{ color: skill.color }} />
+                <span className="font-medium text-sm">{skill.name}</span>
+              </div>
+              
+              {/* Pulsing effect for active nodes */}
+              {isActive && (
+                <motion.div
+                  className="absolute inset-0 rounded-lg"
+                  style={{ backgroundColor: skill.color }}
+                  initial={{ opacity: 0 }}
+                  animate={{ 
+                    opacity: [0, 0.2, 0],
+                    scale: [0.8, 1.2, 0.8]
+                  }}
+                  transition={{ 
+                    repeat: Infinity, 
+                    duration: 2,
+                    ease: "easeInOut" 
+                  }}
+                />
+              )}
+            </motion.div>
+          );
+        })}
+      </div>
+
+      {/* Skill Detail Popup */}
+      <AnimatePresence>
+        {selectedSkill && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="w-full max-w-2xl mt-6 mb-4"
+          >
+            <div className="backdrop-blur-md bg-background/30 border border-white/10 rounded-xl p-5 shadow-xl">
+              <div className="flex items-start gap-4">
+                <div 
+                  className="p-3 rounded-full" 
+                  style={{ backgroundColor: `${selectedSkill.color}20` }}
+                >
+                  <selectedSkill.icon className="w-8 h-8" style={{ color: selectedSkill.color }} />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold flex items-center gap-2">
+                    {selectedSkill.name}
+                  </h3>
+                  <p className="text-muted-foreground mt-1">{selectedSkill.description}</p>
+                  
+                  {/* Related skills */}
+                  {relationships[selectedSkill.name] && (
+                    <div className="mt-4">
+                      <p className="text-sm text-muted-foreground mb-2">Related Technologies:</p>
+                      <div className="flex flex-wrap gap-2">
+                        {relationships[selectedSkill.name].map(relatedName => {
+                          const relatedSkill = skills.find(s => s.name === relatedName);
+                          if (!relatedSkill) return null;
+                          
+                          return (
+                            <span
+                              key={relatedName}
+                              className="px-2 py-1 text-xs rounded-full flex items-center gap-1"
+                              style={{ 
+                                backgroundColor: `${relatedSkill.color}20`,
+                                color: relatedSkill.color 
+                              }}
+                            >
+                              <relatedSkill.icon className="w-3 h-3" />
+                              {relatedName}
+                            </span>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 } 

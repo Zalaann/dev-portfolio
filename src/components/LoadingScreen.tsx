@@ -76,7 +76,7 @@ export default function LoadingScreen({ progress }: LoadingScreenProps) {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
       onAnimationComplete={() => document.body.style.overflow = 'auto'}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-background will-change-auto"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black will-change-auto"
     >
       <div className="relative transform-gpu">
         {/* Logo/Text Animation */}

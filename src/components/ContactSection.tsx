@@ -156,7 +156,7 @@ export default function ContactSection() {
                 viewport={{ once: true }}
                 className="relative"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-2xl opacity-20 blur-lg"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/30 to-secondary/30 rounded-2xl opacity-10 blur-lg"></div>
                 <div className="bg-background/40 backdrop-blur-sm rounded-xl p-8 border border-white/20 shadow-lg relative">
                   <h3 className="text-xl font-bold mb-4">Send a Message</h3>
                   <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
@@ -169,7 +169,7 @@ export default function ContactSection() {
                         id="name"
                         name="name"
                         required
-                        className="w-full px-4 py-2 bg-background/50 border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 transition-colors"
+                        className="w-full px-4 py-2 bg-background/50 border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 transition-colors"
                         placeholder="John Doe"
                       />
                     </div>
@@ -182,7 +182,7 @@ export default function ContactSection() {
                         id="email"
                         name="email"
                         required
-                        className="w-full px-4 py-2 bg-background/50 border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 transition-colors"
+                        className="w-full px-4 py-2 bg-background/50 border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 transition-colors"
                         placeholder="john@example.com"
                       />
                     </div>
@@ -195,7 +195,7 @@ export default function ContactSection() {
                         id="subject"
                         name="subject"
                         required
-                        className="w-full px-4 py-2 bg-background/50 border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 transition-colors"
+                        className="w-full px-4 py-2 bg-background/50 border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 transition-colors"
                         placeholder="Project Inquiry"
                       />
                     </div>
@@ -208,7 +208,7 @@ export default function ContactSection() {
                         name="message"
                         rows={4}
                         required
-                        className="w-full px-4 py-2 bg-background/50 border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 transition-colors resize-y"
+                        className="w-full px-4 py-2 bg-background/50 border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 transition-colors resize-y"
                         placeholder="Hello, I'd like to discuss a potential project..."
                       ></textarea>
                     </div>

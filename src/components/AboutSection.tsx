@@ -28,7 +28,7 @@ export default function AboutSection() {
           viewport={{ once: true }}
           className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center"
         >
-          <div className="space-y-8 backdrop-blur-sm bg-background/30 p-6 rounded-xl border border-white/10">
+          <div className="space-y-8">
             <div className="space-y-4">
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
@@ -100,13 +100,9 @@ export default function AboutSection() {
               viewport={{ once: true }}
               className="grid grid-cols-2 gap-6 relative p-6"
             >
-              {/* Container for languages and skills */}
-              <div className="absolute inset-0 rounded-2xl border border-white/20 bg-gradient-to-br from-primary/5 to-secondary/5 backdrop-blur-md z-0"></div>
-              
               {/* Languages Card */}
               <div className="group relative z-10">
-                <div className="absolute inset-0 rounded-lg opacity-20 blur-lg group-hover:opacity-30 transition-opacity duration-500 bg-background"></div>
-                <div className="relative p-6 backdrop-blur-sm bg-background/30 rounded-lg border border-white/10 hover:border-primary/50 transition-colors duration-300">
+                <div className="relative p-6 rounded-lg">
                   <h3 className="font-semibold mb-4 text-lg">Languages</h3>
                   <ul className="space-y-3">
                     {["English", "Urdu"].map((lang, index) => (
@@ -128,8 +124,7 @@ export default function AboutSection() {
 
               {/* Skills Card */}
               <div className="group relative z-10">
-                <div className="absolute inset-0 rounded-lg opacity-20 blur-lg group-hover:opacity-30 transition-opacity duration-500 bg-background"></div>
-                <div className="relative p-6 backdrop-blur-sm bg-background/30 rounded-lg border border-white/10 hover:border-primary/50 transition-colors duration-300">
+                <div className="relative p-6 rounded-lg">
                   <h3 className="font-semibold mb-4 text-lg">Skills</h3>
                   <ul className="space-y-3">
                     {[

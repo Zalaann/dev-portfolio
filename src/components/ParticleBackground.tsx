@@ -4,102 +4,131 @@ import React, { useCallback } from "react";
 import Particles from "react-tsparticles";
 import { loadSlim } from "tsparticles-slim";
 import type { Engine } from "tsparticles-engine";
+import { useTheme } from "@/contexts/ThemeContext";
+import { motion } from "framer-motion";
 
 type ParticleBackgroundProps = {
   className?: string;
   id?: string;
-  particleColor?: string;
-  linkColor?: string;
-  backgroundColor?: string;
+  density?: number;
   interactive?: boolean;
 };
 
 export default function ParticleBackground({
   className = "",
   id = "tsparticles",
-  particleColor = "#4338ca",
-  linkColor = "#4338ca",
-  backgroundColor = "transparent",
+  density = 80,
   interactive = true,
 }: ParticleBackgroundProps) {
+  const { theme } = useTheme();
+  
   const particlesInit = useCallback(async (engine: Engine) => {
     await loadSlim(engine);
   }, []);
 
+  // Define theme-based colors
+  const primaryColor = theme === "dark" ? "#8b5cf6" : "#4f46e5"; // Violet in dark, indigo in light
+  const backgroundColor = "transparent";
+
   return (
-    <Particles
-      id={id}
+    <motion.div 
       className={`w-full h-full absolute top-0 left-0 z-0 ${className}`}
-      init={particlesInit}
-      options={{
-        background: {
-          color: {
-            value: backgroundColor,
-          },
-        },
-        fpsLimit: 60,
-        interactivity: {
-          events: {
-            onClick: {
-              enable: interactive,
-              mode: "push",
-            },
-            onHover: {
-              enable: interactive,
-              mode: "repulse",
-            },
-            resize: true,
-          },
-          modes: {
-            push: {
-              quantity: 4,
-            },
-            repulse: {
-              distance: 100,
-              duration: 0.4,
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1.5 }}
+    >
+      <Particles
+        id={id}
+        className="w-full h-full"
+        init={particlesInit}
+        options={{
+          background: {
+            color: {
+              value: backgroundColor,
             },
           },
-        },
-        particles: {
-          color: {
-            value: particleColor,
-          },
-          links: {
-            color: linkColor,
-            distance: 150,
-            enable: true,
-            opacity: 0.3,
-            width: 1,
-          },
-          move: {
-            direction: "none",
-            enable: true,
-            outModes: {
-              default: "bounce",
+          fpsLimit: 60,
+          interactivity: {
+            events: {
+              onClick: {
+                enable: interactive,
+                mode: "push",
+              },
+              onHover: {
+                enable: interactive,
+                mode: "grab",
+              },
+              resize: true,
             },
-            random: false,
-            speed: 1,
-            straight: false,
+            modes: {
+              push: {
+                quantity: 4,
+              },
+              grab: {
+                distance: 150,
+                line_linked: {
+                  opacity: 0.5,
+                },
+              },
+              repulse: {
+                distance: 100,
+                duration: 0.4,
+              },
+            },
           },
-          number: {
-            density: {
+          particles: {
+            color: {
+              value: primaryColor,
+            },
+            links: {
+              color: theme === "dark" ? "#8b5cf680" : "#4f46e580",
+              distance: 150,
               enable: true,
-              area: 800,
+              opacity: 0.4,
+              width: 1,
             },
-            value: 70,
+            move: {
+              direction: "none",
+              enable: true,
+              outMode: "bounce",
+              random: false,
+              speed: 2,
+              straight: false,
+            },
+            number: {
+              density: {
+                enable: true,
+                value_area: 800,
+              },
+              value: density,
+            },
+            opacity: {
+              value: 0.5,
+              random: true,
+              anim: {
+                enable: true,
+                speed: 1,
+                opacity_min: 0.1,
+                sync: false,
+              },
+            },
+            shape: {
+              type: "circle",
+            },
+            size: {
+              value: 3,
+              random: true,
+              anim: {
+                enable: true,
+                speed: 2,
+                size_min: 0.5,
+                sync: false,
+              },
+            },
           },
-          opacity: {
-            value: 0.3,
-          },
-          shape: {
-            type: "circle",
-          },
-          size: {
-            value: { min: 1, max: 3 },
-          },
-        },
-        detectRetina: true,
-      }}
-    />
+          detectRetina: true,
+        }}
+      />
+    </motion.div>
   );
 } 

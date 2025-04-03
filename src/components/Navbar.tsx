@@ -5,6 +5,7 @@ import { Home, User, Code, Briefcase, GraduationCap, Mail, Sparkles } from "luci
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "@/contexts/ThemeContext";
 import { useSection } from "@/components/SectionContext";
+import ThemeToggle from "@/components/ThemeToggle";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -89,6 +90,7 @@ export default function Navbar() {
                 </AnimatePresence>
               </a>
             ))}
+            <ThemeToggle />
           </div>
         </nav>
       </motion.header>
@@ -127,6 +129,7 @@ export default function Navbar() {
                 </AnimatePresence>
               </a>
             ))}
+            <ThemeToggle />
           </div>
         </div>
       </motion.nav>
