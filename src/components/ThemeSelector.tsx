@@ -16,15 +16,21 @@ interface ThemeOption {
 // Available theme options
 const themes: ThemeOption[] = [
   {
-    id: "default",
-    name: "Professional Portfolio",
-    description: "A modern, professional portfolio showcasing my work and experience.",
-    previewImage: "/theme-previews/default-theme.jpg",
+    id: "dark",
+    name: "Professional Portfolio - Dark",
+    description: "A sleek, dark themed portfolio with modern design elements.",
+    previewImage: "/theme-previews/dark-theme.jpg",
+  },
+  {
+    id: "light",
+    name: "Professional Portfolio - Light",
+    description: "A clean, light themed portfolio showcasing my work and experience.",
+    previewImage: "/theme-previews/light-theme.jpg",
   },
 ];
 
 export default function ThemeSelector() {
-  const { setTheme, setHasSelectedTheme } = useTheme();
+  const { setTheme } = useTheme();
   const [hoveredTheme, setHoveredTheme] = useState<string | null>(null);
   const [selectedTheme, setSelectedTheme] = useState<string | null>(null);
 
@@ -34,8 +40,9 @@ export default function ThemeSelector() {
     
     // Animate selection before applying theme
     setTimeout(() => {
-      setTheme(themeId as "default");
-      setHasSelectedTheme(true);
+      setTheme(themeId as "light" | "dark");
+      // Store a flag in localStorage to indicate theme has been selected
+      localStorage.setItem("portfolio-theme-selected", "true");
     }, 750);
   };
 
