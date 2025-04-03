@@ -49,12 +49,12 @@ export default function EducationSection() {
         {/* Add outer box container with defined border and gradient styling */}
         <div className="relative rounded-2xl border border-white/20 shadow-xl overflow-hidden">
           {/* Gradient background */}
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/2 to-secondary/2"></div>
           
           {/* Background Elements */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <div className="absolute w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl -top-64 -left-32"></div>
-            <div className="absolute w-[500px] h-[500px] bg-secondary/5 rounded-full blur-3xl bottom-0 right-0"></div>
+            <div className="absolute w-[600px] h-[600px] bg-primary/2 rounded-full blur-3xl -top-64 -left-32"></div>
+            <div className="absolute w-[500px] h-[500px] bg-secondary/2 rounded-full blur-3xl bottom-0 right-0"></div>
           </div>
 
           {/* Content */}
@@ -67,7 +67,7 @@ export default function EducationSection() {
                 viewport={{ once: true }}
                 className="inline-block"
               >
-                <span className="px-4 py-1.5 rounded-full bg-primary/20 backdrop-blur-sm text-primary text-sm font-medium">
+                <span className="px-4 py-1.5 rounded-full bg-primary/5 backdrop-blur-sm text-primary text-sm font-medium">
                   Education
                 </span>
               </motion.div>
@@ -95,9 +95,9 @@ export default function EducationSection() {
                 className="relative"
               >
                 <div className="group relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-2xl opacity-20 blur-lg"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-2xl opacity-10 blur-lg"></div>
                   <div className="relative bg-background/40 backdrop-blur-sm rounded-xl p-8 border border-white/20 shadow-lg transition-colors duration-300 h-full">
-                    <div className="absolute -top-3 left-6 px-4 py-1 bg-primary/20 backdrop-blur-sm rounded-full text-primary text-sm font-medium">
+                    <div className="absolute -top-3 left-6 px-4 py-1 bg-primary/5 backdrop-blur-sm rounded-full text-primary text-sm font-medium">
                       2022 - 2025
                     </div>
                     <div className="pt-6">
@@ -136,9 +136,9 @@ export default function EducationSection() {
                 className="relative"
               >
                 <div className="group relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-secondary to-primary rounded-2xl opacity-20 blur-lg"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-secondary to-primary rounded-2xl opacity-10 blur-lg"></div>
                   <div className="relative bg-background/40 backdrop-blur-sm rounded-xl p-8 border border-white/20 shadow-lg transition-colors duration-300 h-full">
-                    <div className="absolute -top-3 left-6 px-4 py-1 bg-secondary/20 backdrop-blur-sm rounded-full text-secondary text-sm font-medium">
+                    <div className="absolute -top-3 left-6 px-4 py-1 bg-secondary/5 backdrop-blur-sm rounded-full text-secondary text-sm font-medium">
                       2020 - 2022
                     </div>
                     <div className="pt-6">
@@ -196,7 +196,7 @@ export default function EducationSection() {
                     onClick={() => setSelectedCertificate(cert)}
                     className="relative cursor-pointer group"
                   >
-                    <div className="absolute inset-0 bg-gradient-to-r from-primary/40 to-secondary/40 rounded-xl opacity-20 blur-md transform transition-all duration-300 group-hover:opacity-30 group-hover:blur-lg"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-xl opacity-10 blur-md transform transition-all duration-300 group-hover:opacity-20 group-hover:blur-lg"></div>
                     <div className="relative bg-background/40 backdrop-blur-sm p-6 rounded-xl border border-white/20 shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
                       <div className="flex flex-col h-full">
                         <div className="flex items-center justify-between mb-2">

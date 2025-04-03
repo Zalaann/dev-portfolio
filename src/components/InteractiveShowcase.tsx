@@ -139,35 +139,35 @@ function DraggableSkills() {
     const skillPositions: Record<string, {x: number, y: number}> = isMobile ? 
     {
       // Mobile positions - more compact layout
-      'React': { x: -100, y: -100 },
-      'Next.js': { x: 100, y: -100 },
-      'Tailwind CSS': { x: -100, y: -30 },
-      'TypeScript': { x: 100, y: -30 },
+      'React': { x: -150, y: -160 },
+      'Next.js': { x: 50, y: -160 },
+      'Tailwind CSS': { x: -150, y: -80 },
+      'TypeScript': { x: 50, y: -80 },
       
-      'Python': { x: -100, y: 40 },
-      'MongoDB': { x: 100, y: 40 },
-      'Supabase': { x: -100, y: 110 },
-      'AWS': { x: 100, y: 110 },
+      'Python': { x: -150, y: 0 },
+      'MongoDB': { x: 50, y: 0 },
+      'Supabase': { x: -150, y: 80 },
+      'AWS': { x: 50, y: 80 },
       
-      'Mobile Dev': { x: -100, y: 180 },
-      'TensorFlow': { x: 0, y: 180 },
-      'AI/ML': { x: 100, y: 180 }
+      'Mobile Dev': { x: -150, y: 160 },
+      'TensorFlow': { x: -50, y: 240 },
+      'AI/ML': { x: 50, y: 160 }
     } : 
     {
       // Desktop positions - spread out
-      'React': { x: -350, y: -80 },
-      'Next.js': { x: -100, y: -80 },
-      'Tailwind CSS': { x: 100, y: -80 },
-      'TypeScript': { x: 250, y: -80 },
+      'React': { x: -450, y: -100 },
+      'Next.js': { x: -200, y: -100 },
+      'Tailwind CSS': { x: 0, y: -100 },
+      'TypeScript': { x: 250, y: -100 },
       
-      'Python': { x: -350, y: 0 },
-      'MongoDB': { x: -100, y: 0 },
-      'Supabase': { x: 100, y: 0 },
+      'Python': { x: -450, y: 0 },
+      'MongoDB': { x: -200, y: 0 },
+      'Supabase': { x: 0, y: 0 },
       'AWS': { x: 250, y: 0 },
       
-      'Mobile Dev': { x: -150, y: 80 },
-      'TensorFlow': { x: 50, y: 80 },
-      'AI/ML': { x: 250, y: 80 }
+      'Mobile Dev': { x: -350, y: 100 },
+      'TensorFlow': { x: -100, y: 100 },
+      'AI/ML': { x: 150, y: 100 }
     };
     
     // Apply positions for each skill
@@ -193,7 +193,7 @@ function DraggableSkills() {
   return (
     <div className="flex flex-col items-center">
       <div 
-        className="relative h-[450px] w-full mt-2 overflow-visible"
+        className="relative h-[550px] w-full mt-2 overflow-visible"
         ref={containerRef}
         onClick={handleOutsideClick}
         style={{ maxWidth: '100%' }}
@@ -232,7 +232,7 @@ function DraggableSkills() {
               // Determine bounds based on container width
               const isMobile = containerWidth < 768;
               const maxX = isMobile ? containerWidth/2 - 30 : containerWidth/2 - 50;
-              const maxY = isMobile ? 210 : 180;
+              const maxY = isMobile ? 260 : 200;
               
               // Keep within bounds - allow more horizontal space
               const boundedX = Math.max(Math.min(newX, maxX), -maxX);
@@ -309,11 +309,11 @@ export default function InteractiveShowcase() {
       >
         <motion.div 
           style={{ y }} 
-          className="absolute w-[800px] h-[800px] rounded-full bg-gradient-to-br from-primary/2 to-secondary/2 blur-3xl -top-1/4 -right-1/4"
+          className="absolute w-[800px] h-[800px] rounded-full bg-gradient-to-br from-primary/1 to-secondary/1 blur-3xl -top-1/4 -right-1/4"
         />
         <motion.div 
           style={{ y: useTransform(scrollYProgress, [0, 1], ["-30px", "30px"]) }} 
-          className="absolute w-[600px] h-[600px] rounded-full bg-gradient-to-tr from-secondary/2 to-primary/2 blur-3xl -bottom-1/4 -left-1/4"
+          className="absolute w-[600px] h-[600px] rounded-full bg-gradient-to-tr from-secondary/1 to-primary/1 blur-3xl -bottom-1/4 -left-1/4"
         />
       </motion.div>
       
@@ -325,9 +325,6 @@ export default function InteractiveShowcase() {
           viewport={{ once: true }}
           className="text-center space-y-1 mb-2"
         >
-          <span className="px-4 py-1 rounded-full bg-primary/10 backdrop-blur-sm text-primary text-sm font-medium">
-            Interactive Showcase
-          </span>
           <h2 className="text-4xl font-bold tracking-tight">
             My Tech{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">

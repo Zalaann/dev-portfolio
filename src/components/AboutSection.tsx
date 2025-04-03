@@ -98,11 +98,14 @@ export default function AboutSection() {
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.3 }}
               viewport={{ once: true }}
-              className="grid grid-cols-2 gap-6"
+              className="grid grid-cols-2 gap-6 relative p-6"
             >
+              {/* Container for languages and skills */}
+              <div className="absolute inset-0 rounded-2xl border border-white/20 bg-gradient-to-br from-primary/5 to-secondary/5 backdrop-blur-md z-0"></div>
+              
               {/* Languages Card */}
-              <div className="group relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-lg opacity-30 blur-lg group-hover:opacity-50 transition-opacity duration-500"></div>
+              <div className="group relative z-10">
+                <div className="absolute inset-0 rounded-lg opacity-20 blur-lg group-hover:opacity-30 transition-opacity duration-500 bg-background"></div>
                 <div className="relative p-6 backdrop-blur-sm bg-background/30 rounded-lg border border-white/10 hover:border-primary/50 transition-colors duration-300">
                   <h3 className="font-semibold mb-4 text-lg">Languages</h3>
                   <ul className="space-y-3">
@@ -124,8 +127,8 @@ export default function AboutSection() {
               </div>
 
               {/* Skills Card */}
-              <div className="group relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-secondary to-primary rounded-lg opacity-30 blur-lg group-hover:opacity-50 transition-opacity duration-500"></div>
+              <div className="group relative z-10">
+                <div className="absolute inset-0 rounded-lg opacity-20 blur-lg group-hover:opacity-30 transition-opacity duration-500 bg-background"></div>
                 <div className="relative p-6 backdrop-blur-sm bg-background/30 rounded-lg border border-white/10 hover:border-primary/50 transition-colors duration-300">
                   <h3 className="font-semibold mb-4 text-lg">Skills</h3>
                   <ul className="space-y-3">

@@ -109,7 +109,7 @@ export default function Home() {
               <EducationSection />
               <ContactSection />
               <Footer />
-            </main>
+    </main>
           </>
         )}
       </AnimatePresence>

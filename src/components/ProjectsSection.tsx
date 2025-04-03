@@ -10,8 +10,8 @@ export default function ProjectsSection() {
     <section id="projects" className="relative py-12 sm:py-24 md:py-32 bg-background/30 backdrop-blur-sm overflow-hidden">
       {/* Simplified Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute w-[800px] h-[800px] bg-primary/2 rounded-full blur-3xl -top-96 -right-96"></div>
-        <div className="absolute w-[600px] h-[600px] bg-secondary/2 rounded-full blur-3xl -bottom-32 -left-32"></div>
+        <div className="absolute w-[800px] h-[800px] bg-primary/1 rounded-full blur-3xl -top-96 -right-96"></div>
+        <div className="absolute w-[600px] h-[600px] bg-secondary/1 rounded-full blur-3xl -bottom-32 -left-32"></div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -23,7 +23,7 @@ export default function ProjectsSection() {
             viewport={{ once: true }}
             className="inline-block"
           >
-            <span className="px-4 py-1.5 rounded-full bg-primary/10 backdrop-blur-sm text-primary text-sm font-medium">
+            <span className="px-4 py-1.5 rounded-full bg-primary/5 backdrop-blur-sm text-primary text-sm font-medium">
               Portfolio
             </span>
           </motion.div>
@@ -50,7 +50,7 @@ export default function ProjectsSection() {
             viewport={{ once: true }}
             className="group relative"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-2xl opacity-20 blur-lg"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-2xl opacity-10 blur-lg"></div>
             <div className="relative bg-background/40 backdrop-blur-sm rounded-xl overflow-hidden border border-white/10 transition-colors duration-300">
               <div className="aspect-video bg-muted-foreground/5 relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -89,7 +89,7 @@ export default function ProjectsSection() {
                   ].map((tech) => (
                     <span
                       key={tech.name}
-                      className="px-3 py-1 text-sm rounded-full bg-primary/10 backdrop-blur-sm text-primary flex items-center gap-1"
+                      className="px-3 py-1 text-sm rounded-full bg-primary/5 backdrop-blur-sm text-primary flex items-center gap-1"
                     >
                       <tech.icon className="w-4 h-4" style={{ color: tech.color }} />
                       {tech.name}
@@ -108,7 +108,7 @@ export default function ProjectsSection() {
             viewport={{ once: true }}
             className="group relative"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-secondary to-primary rounded-2xl opacity-20 blur-lg"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-secondary to-primary rounded-2xl opacity-10 blur-lg"></div>
             <div className="relative bg-background/40 backdrop-blur-sm rounded-xl overflow-hidden border border-white/10 transition-colors duration-300">
               <div className="aspect-video bg-muted-foreground/5 relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -147,7 +147,7 @@ export default function ProjectsSection() {
                   ].map((tech) => (
                     <span
                       key={tech.name}
-                      className="px-3 py-1 text-sm rounded-full bg-primary/10 backdrop-blur-sm text-primary flex items-center gap-1"
+                      className="px-3 py-1 text-sm rounded-full bg-primary/5 backdrop-blur-sm text-primary flex items-center gap-1"
                     >
                       <tech.icon className="w-4 h-4" style={{ color: tech.color }} />
                       {tech.name}

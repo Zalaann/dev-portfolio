@@ -16,7 +16,7 @@ export default function ExperienceSection() {
             viewport={{ once: true }}
             className="inline-block"
           >
-            <span className="px-4 py-1.5 rounded-full bg-primary/20 backdrop-blur-sm text-primary text-sm font-medium">
+            <span className="px-4 py-1.5 rounded-full bg-primary/5 backdrop-blur-sm text-primary text-sm font-medium">
               Career
             </span>
           </motion.div>
@@ -36,7 +36,7 @@ export default function ExperienceSection() {
 
         <div className="relative">
           {/* Timeline line adjusted for mobile - lighter version */}
-          <div className="absolute left-4 sm:left-1/2 transform sm:-translate-x-px h-full w-0.5 bg-gradient-to-b from-primary/20 via-secondary/20 to-primary/20"></div>
+          <div className="absolute left-4 sm:left-1/2 transform sm:-translate-x-px h-full w-0.5 bg-gradient-to-b from-primary/10 via-secondary/10 to-primary/10"></div>
 
           <div className="space-y-8 sm:space-y-12">
             {/* E-Commerce Store Owner - Simplified */}
@@ -52,7 +52,7 @@ export default function ExperienceSection() {
               </div>
               <div className="ml-12 sm:ml-auto sm:w-1/2 sm:pl-8">
                 <div className="group relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-2xl opacity-20 blur-lg"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-2xl opacity-10 blur-lg"></div>
                   <div className="relative bg-background/40 backdrop-blur-sm rounded-xl p-8 border border-white/20 shadow-lg transition-colors duration-300">
                     <div className="flex items-center justify-between mb-4">
                       <h3 className="text-xl font-bold">E-Commerce Store Owner</h3>
@@ -93,7 +93,7 @@ export default function ExperienceSection() {
               </div>
               <div className="ml-12 sm:ml-0 sm:mr-auto sm:w-1/2 sm:pr-8">
                 <div className="group relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-secondary to-primary rounded-2xl opacity-20 blur-lg"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-secondary to-primary rounded-2xl opacity-10 blur-lg"></div>
                   <div className="relative bg-background/40 backdrop-blur-sm rounded-xl p-8 border border-white/20 shadow-lg transition-colors duration-300">
                     <div className="flex items-center justify-between mb-4">
                       <h3 className="text-xl font-bold">Amazon Warehouse Operative</h3>
@@ -123,7 +123,7 @@ export default function ExperienceSection() {
               </div>
               <div className="ml-12 sm:ml-auto sm:w-1/2 sm:pl-8">
                 <div className="group relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-2xl opacity-20 blur-lg"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-2xl opacity-10 blur-lg"></div>
                   <div className="relative bg-background/40 backdrop-blur-sm rounded-xl p-8 border border-white/20 shadow-lg transition-colors duration-300">
                     <div className="flex items-center justify-between mb-4">
                       <h3 className="text-xl font-bold">Tesco Retail Merchandiser</h3>
