@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Home, User, Code, Briefcase, GraduationCap, Mail } from "lucide-react";
+import { Home, User, Code, Briefcase, GraduationCap, Mail, Sparkles } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "@/contexts/ThemeContext";
 
@@ -15,7 +15,7 @@ export default function Navbar() {
       setIsScrolled(window.scrollY > 10);
 
       // More precise active section detection based on viewport position
-      const sections = ["home", "about", "projects", "experience", "education", "contact"];
+      const sections = ["home", "about", "skills-showcase", "projects", "experience", "education", "contact"];
       const sectionPositions = sections.map(id => {
         const element = document.getElementById(id);
         if (!element) return { id, top: 0, bottom: 0, visible: false };
@@ -54,6 +54,7 @@ export default function Navbar() {
   const navItems = [
     { name: "Home", href: "#home", icon: Home },
     { name: "About", href: "#about", icon: User },
+    { name: "Interactive", href: "#skills-showcase", icon: Sparkles },
     { name: "Projects", href: "#projects", icon: Code },
     { name: "Experience", href: "#experience", icon: Briefcase },
     { name: "Education", href: "#education", icon: GraduationCap },

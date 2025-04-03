@@ -1,38 +1,31 @@
 # Muhammad Ibrahim Tariq - Portfolio Website
 
-A modern, responsive portfolio website built with Next.js, Tailwind CSS, and shadcn/ui components. The website showcases my professional experience, projects, and skills in AI development, web development, and e-commerce management.
+A modern, responsive portfolio website built with Next.js 14, TypeScript, and Tailwind CSS.
 
 ## Features
 
-- 🎨 Modern and clean design with smooth animations
-- 📱 Fully responsive layout
+- 🎨 Modern, responsive design
+- ⚡ Fast page loads with Next.js 14
+- 🎭 Smooth animations with Framer Motion
+- 📱 Mobile-first approach
 - 🌙 Dark mode support
-- ⚡ Fast performance with Next.js
-- 🎯 Smooth scrolling navigation
-- 🎭 Beautiful UI components with shadcn/ui
-- 📦 Project showcase with technology tags
-- 📝 Detailed experience and education sections
+- 🎯 SEO optimized
+- 📊 Interactive project showcase
+- 🎓 Education timeline
+- 💼 Work experience section
 - 📞 Contact information with clickable links
+- 🎨 Custom 3D animations
+- 🔍 Fully TypeScript
 
-## Technologies Used
-
-- Next.js 14
-- TypeScript
-- Tailwind CSS
-- shadcn/ui
-- Framer Motion
-- Lucide Icons
-
-## Getting Started
+## Installation
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/portfolio.git
+git clone https://github.com/Zalaann/My-Portfolio.git
 ```
 
 2. Install dependencies:
 ```bash
-cd portfolio
 npm install
 ```
 
@@ -41,33 +34,23 @@ npm install
 npm run dev
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Technologies Used
+
+- Next.js 14
+- TypeScript
+- Tailwind CSS
+- Framer Motion
+- Three.js
+- React Three Fiber
+- Lucide Icons
 
 ## Project Structure
 
-```
-src/
-├── app/
-│   ├── layout.tsx
-│   ├── page.tsx
-│   └── globals.css
-├── components/
-│   └── Navbar.tsx
-└── styles/
-    └── animations.css
-```
+- `/src/app` - Next.js pages and layouts
+- `/src/components` - React components
+- `/src/contexts` - React context providers
+- `/public` - Static assets
 
-## Customization
+## Performance Optimization
 
-1. Update personal information in `src/app/page.tsx`
-2. Modify theme colors in `src/app/globals.css`
-3. Add new sections or components as needed
-4. Update project images and links
-
-## Deployment
-
-The site is ready to be deployed on Vercel or any other hosting platform that supports Next.js applications.
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
+See [PERFORMANCE-OPTIMIZATION.md](PERFORMANCE-OPTIMIZATION.md) for details on performance improvements.

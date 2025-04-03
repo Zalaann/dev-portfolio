@@ -5,18 +5,19 @@ import { MapPin, Phone, Mail } from "lucide-react";
 import { SiPython, SiTensorflow, SiScikitlearn, SiJavascript } from "react-icons/si";
 import { BsRobot } from "react-icons/bs";
 import { AiOutlineProject } from "react-icons/ai";
-import dynamic from 'next/dynamic';
-
-// Import the 3D scene dynamically to avoid server-side rendering issues
-const Scene3D = dynamic(() => import('./3DScene'), { ssr: false });
 
 export default function AboutSection() {
+  const contactInfo = [
+    { icon: MapPin, text: "London, United Kingdom", href: null },
+    { icon: Mail, text: "mibrahimtariq@icloud.com", href: "mailto:mibrahimtariq@icloud.com" },
+  ];
+
   return (
-    <section id="about" className="relative py-12 sm:py-24 md:py-32 bg-background overflow-hidden mt-0">
-      {/* Background Elements */}
+    <section id="about" className="relative py-12 sm:py-24 md:py-32 bg-transparent overflow-hidden mt-0">
+      {/* Background Elements - more subtle */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl top-20 -right-32"></div>
-        <div className="absolute w-[500px] h-[500px] bg-secondary/5 rounded-full blur-3xl -bottom-32 -left-32"></div>
+        <div className="absolute w-[500px] h-[500px] bg-primary/2 rounded-full blur-3xl top-20 -right-32"></div>
+        <div className="absolute w-[500px] h-[500px] bg-secondary/2 rounded-full blur-3xl -bottom-32 -left-32"></div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -27,7 +28,7 @@ export default function AboutSection() {
           viewport={{ once: true }}
           className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center"
         >
-          <div className="space-y-8">
+          <div className="space-y-8 backdrop-blur-sm bg-background/30 p-6 rounded-xl border border-white/10">
             <div className="space-y-4">
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
@@ -36,7 +37,7 @@ export default function AboutSection() {
                 viewport={{ once: true }}
                 className="inline-block"
               >
-                <span className="px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium">
+                <span className="px-4 py-1.5 rounded-full bg-primary/20 text-primary text-sm font-medium backdrop-blur-sm">
                   About Me
                 </span>
               </motion.div>
@@ -61,9 +62,9 @@ export default function AboutSection() {
               viewport={{ once: true }}
               className="text-muted-foreground text-lg leading-relaxed"
             >
-              Dedicated professional with 3 years of Artificial Intelligence studies and over 3 years
-              of experience in customer care and e-commerce management. Equipped with a strong
-              foundation in AI development, machine learning, and web development.
+              Full-stack developer and e-commerce entrepreneur with expertise in web and mobile applications,
+               crafting innovative solutions to enhance user experience and drive business growth,
+                with a strong focus on AI and machine learning.
             </motion.p>
 
             <motion.div
@@ -73,11 +74,7 @@ export default function AboutSection() {
               viewport={{ once: true }}
               className="space-y-4"
             >
-              {[
-                { icon: MapPin, text: "London, United Kingdom", href: null },
-                { icon: Phone, text: "+44 7480 438571", href: "tel:+447480438571" },
-                { icon: Mail, text: "mibrahimtariq@icloud.com", href: "mailto:mibrahimtariq@icloud.com" }
-              ].map((item, index) => (
+              {contactInfo.map((item, index) => (
                 <div
                   key={index}
                   className={`group flex items-center space-x-3 ${item.href ? 'cursor-pointer' : ''}`}
@@ -105,8 +102,8 @@ export default function AboutSection() {
             >
               {/* Languages Card */}
               <div className="group relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-lg opacity-50 blur-lg group-hover:opacity-75 transition-opacity duration-500"></div>
-                <div className="relative p-6 bg-background rounded-lg border border-border/50 hover:border-primary/50 transition-colors duration-300">
+                <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-lg opacity-30 blur-lg group-hover:opacity-50 transition-opacity duration-500"></div>
+                <div className="relative p-6 backdrop-blur-sm bg-background/30 rounded-lg border border-white/10 hover:border-primary/50 transition-colors duration-300">
                   <h3 className="font-semibold mb-4 text-lg">Languages</h3>
                   <ul className="space-y-3">
                     {["English", "Urdu"].map((lang, index) => (
@@ -128,8 +125,8 @@ export default function AboutSection() {
 
               {/* Skills Card */}
               <div className="group relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-secondary to-primary rounded-lg opacity-50 blur-lg group-hover:opacity-75 transition-opacity duration-500"></div>
-                <div className="relative p-6 bg-background rounded-lg border border-border/50 hover:border-primary/50 transition-colors duration-300">
+                <div className="absolute inset-0 bg-gradient-to-r from-secondary to-primary rounded-lg opacity-30 blur-lg group-hover:opacity-50 transition-opacity duration-500"></div>
+                <div className="relative p-6 backdrop-blur-sm bg-background/30 rounded-lg border border-white/10 hover:border-primary/50 transition-colors duration-300">
                   <h3 className="font-semibold mb-4 text-lg">Skills</h3>
                   <ul className="space-y-3">
                     {[
@@ -156,23 +153,6 @@ export default function AboutSection() {
                 </div>
               </div>
             </motion.div>
-          </div>
-        </motion.div>
-        
-        {/* 3D Tech Scene */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.5 }}
-          viewport={{ once: true }}
-          className="mt-20 rounded-xl overflow-hidden bg-gradient-to-r from-primary/5 to-secondary/5 p-1"
-        >
-          <div className="rounded-lg bg-background/60 backdrop-blur-sm overflow-hidden">
-            <h2 className="text-2xl font-bold text-center pt-8 pb-2">My Tech Stack</h2>
-            <p className="text-center text-muted-foreground pb-4 px-4">
-              Interactive visualization of technologies I work with
-            </p>
-            <Scene3D />
           </div>
         </motion.div>
       </div>

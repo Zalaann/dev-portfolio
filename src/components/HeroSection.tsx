@@ -20,6 +20,12 @@ export default function HeroSection() {
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
+  const socialLinks = [
+    { icon: Github, href: "https://github.com/Zalaann", label: "GitHub" },
+    { icon: Linkedin, href: "https://www.linkedin.com/in/muhammad-ibrahim-tariq-b9126932b", label: "LinkedIn" },
+    { icon: Mail, href: "mailto:mibrahimtariq@icloud.com", label: "Email" }
+  ];
+
   return (
     <section 
       ref={containerRef}
@@ -34,9 +40,9 @@ export default function HeroSection() {
       />
 
       {/* Background Elements - Simplified and optimized */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-50">
-        <div className="absolute w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-primary/20 rounded-full blur-xl -top-20 -right-20"></div>
-        <div className="absolute w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-secondary/20 rounded-full blur-xl -bottom-20 -left-20"></div>
+      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
+        <div className="absolute w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-primary/10 rounded-full blur-3xl -top-20 -right-20"></div>
+        <div className="absolute w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-secondary/10 rounded-full blur-3xl -bottom-20 -left-20"></div>
       </div>
 
       <motion.div
@@ -119,8 +125,8 @@ export default function HeroSection() {
                 <MatrixText text="passion" scrambleSpeed={50} />
               </motion.span>
               {" "}and{" "}
-              <span className="inline-block text-red-500">
-                <Heart className="inline-block w-6 h-6 text-red-500" />
+              <span className="inline-flex items-center text-red-500">
+                <Heart className="w-6 h-6 text-red-500" />
               </span>
             </p>
           </motion.div>
@@ -164,11 +170,7 @@ export default function HeroSection() {
             transition={{ duration: 0.5, delay: 0.6 }}
             className="flex justify-center gap-3 sm:gap-6"
           >
-            {[
-              { icon: Github, href: "https://github.com/yourusername", label: "GitHub" },
-              { icon: Linkedin, href: "https://www.linkedin.com/in/muhammad-ibrahim-tariq-b9126932b", label: "LinkedIn" },
-              { icon: Mail, href: "mailto:mibrahimtariq@icloud.com", label: "Email" }
-            ].map((social, index) => (
+            {socialLinks.map((social, index) => (
               <motion.a
                 key={social.label}
                 href={social.href}
@@ -191,7 +193,7 @@ export default function HeroSection() {
 
       {/* Scroll Indicator - Enhanced */}
       <motion.div 
-        className="absolute bottom-20 sm:bottom-8 left-1/2 transform -translate-x-1/2 hidden sm:block"
+        className="absolute bottom-10 left-1/2 transform -translate-x-1/2 block"
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ 

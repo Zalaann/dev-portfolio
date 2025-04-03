@@ -5,15 +5,10 @@ import { Calendar } from "lucide-react";
 
 export default function ExperienceSection() {
   return (
-    <section id="experience" className="relative py-12 sm:py-24 md:py-32 bg-background overflow-hidden">
-      {/* Simplified Background Elements */}
-      <div className="absolute inset-0 overflow-hidden opacity-50 pointer-events-none">
-        <div className="absolute w-[600px] h-[600px] bg-primary/5 rounded-full blur-xl top-0 -right-64"></div>
-        <div className="absolute w-[500px] h-[500px] bg-secondary/5 rounded-full blur-xl -bottom-32 -left-32"></div>
-      </div>
-
+    <section id="experience" className="relative py-12 sm:py-24 md:py-32 overflow-hidden">
+      {/* Main container without box styling and without background blurs */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center space-y-4 mb-16">
+        <div className="text-center space-y-4 mb-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -21,7 +16,7 @@ export default function ExperienceSection() {
             viewport={{ once: true }}
             className="inline-block"
           >
-            <span className="px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium">
+            <span className="px-4 py-1.5 rounded-full bg-primary/20 backdrop-blur-sm text-primary text-sm font-medium">
               Career
             </span>
           </motion.div>
@@ -41,7 +36,7 @@ export default function ExperienceSection() {
 
         <div className="relative">
           {/* Timeline line adjusted for mobile - lighter version */}
-          <div className="absolute left-4 sm:left-1/2 transform sm:-translate-x-px h-full w-0.5 bg-gradient-to-b from-primary/40 via-secondary/40 to-primary/40"></div>
+          <div className="absolute left-4 sm:left-1/2 transform sm:-translate-x-px h-full w-0.5 bg-gradient-to-b from-primary/20 via-secondary/20 to-primary/20"></div>
 
           <div className="space-y-8 sm:space-y-12">
             {/* E-Commerce Store Owner - Simplified */}
@@ -57,8 +52,8 @@ export default function ExperienceSection() {
               </div>
               <div className="ml-12 sm:ml-auto sm:w-1/2 sm:pl-8">
                 <div className="group relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-2xl opacity-30 blur-lg"></div>
-                  <div className="relative bg-background rounded-xl p-8 border border-border/50 transition-colors duration-300">
+                  <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-2xl opacity-20 blur-lg"></div>
+                  <div className="relative bg-background/40 backdrop-blur-sm rounded-xl p-8 border border-white/20 shadow-lg transition-colors duration-300">
                     <div className="flex items-center justify-between mb-4">
                       <h3 className="text-xl font-bold">E-Commerce Store Owner</h3>
                       <div className="flex items-center space-x-2 text-sm text-muted-foreground">
@@ -98,8 +93,8 @@ export default function ExperienceSection() {
               </div>
               <div className="ml-12 sm:ml-0 sm:mr-auto sm:w-1/2 sm:pr-8">
                 <div className="group relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-secondary to-primary rounded-2xl opacity-30 blur-lg"></div>
-                  <div className="relative bg-background rounded-xl p-8 border border-border/50 transition-colors duration-300">
+                  <div className="absolute inset-0 bg-gradient-to-r from-secondary to-primary rounded-2xl opacity-20 blur-lg"></div>
+                  <div className="relative bg-background/40 backdrop-blur-sm rounded-xl p-8 border border-white/20 shadow-lg transition-colors duration-300">
                     <div className="flex items-center justify-between mb-4">
                       <h3 className="text-xl font-bold">Amazon Warehouse Operative</h3>
                       <div className="flex items-center space-x-2 text-sm text-muted-foreground">
@@ -128,8 +123,8 @@ export default function ExperienceSection() {
               </div>
               <div className="ml-12 sm:ml-auto sm:w-1/2 sm:pl-8">
                 <div className="group relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-2xl opacity-30 blur-lg"></div>
-                  <div className="relative bg-background rounded-xl p-8 border border-border/50 transition-colors duration-300">
+                  <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-2xl opacity-20 blur-lg"></div>
+                  <div className="relative bg-background/40 backdrop-blur-sm rounded-xl p-8 border border-white/20 shadow-lg transition-colors duration-300">
                     <div className="flex items-center justify-between mb-4">
                       <h3 className="text-xl font-bold">Tesco Retail Merchandiser</h3>
                       <div className="flex items-center space-x-2 text-sm text-muted-foreground">
