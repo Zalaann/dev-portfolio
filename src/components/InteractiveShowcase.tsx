@@ -133,7 +133,28 @@ function DraggableSkills() {
     const initialPositions: {[key: string]: {x: number, y: number}} = {};
     
     // Use specific positioning for each skill to prevent overlap
-    const skillPositions: Record<string, {x: number, y: number}> = {
+    // Adjust positions based on screen size for better mobile support
+    const isMobile = containerWidth < 768;
+    
+    const skillPositions: Record<string, {x: number, y: number}> = isMobile ? 
+    {
+      // Mobile positions - more compact layout
+      'React': { x: -100, y: -100 },
+      'Next.js': { x: 100, y: -100 },
+      'Tailwind CSS': { x: -100, y: -30 },
+      'TypeScript': { x: 100, y: -30 },
+      
+      'Python': { x: -100, y: 40 },
+      'MongoDB': { x: 100, y: 40 },
+      'Supabase': { x: -100, y: 110 },
+      'AWS': { x: 100, y: 110 },
+      
+      'Mobile Dev': { x: -100, y: 180 },
+      'TensorFlow': { x: 0, y: 180 },
+      'AI/ML': { x: 100, y: 180 }
+    } : 
+    {
+      // Desktop positions - spread out
       'React': { x: -350, y: -80 },
       'Next.js': { x: -100, y: -80 },
       'Tailwind CSS': { x: 100, y: -80 },
@@ -172,7 +193,7 @@ function DraggableSkills() {
   return (
     <div className="flex flex-col items-center">
       <div 
-        className="relative h-[350px] w-full mt-2 overflow-visible"
+        className="relative h-[450px] w-full mt-2 overflow-visible"
         ref={containerRef}
         onClick={handleOutsideClick}
         style={{ maxWidth: '100%' }}
@@ -189,6 +210,7 @@ function DraggableSkills() {
               left: '50%',
               top: '50%',
               zIndex: selectedSkill?.name === skill.name ? 10 : 1,
+              boxShadow: selectedSkill?.name === skill.name ? `0 0 10px ${skill.color}40` : 'none',
             }}
             initial={{ x: positions[skill.name]?.x || 0, y: positions[skill.name]?.y || 0 }}
             animate={{ 
@@ -207,9 +229,14 @@ function DraggableSkills() {
               const newX = positions[skill.name]?.x + info.offset.x;
               const newY = positions[skill.name]?.y + info.offset.y;
               
+              // Determine bounds based on container width
+              const isMobile = containerWidth < 768;
+              const maxX = isMobile ? containerWidth/2 - 30 : containerWidth/2 - 50;
+              const maxY = isMobile ? 210 : 180;
+              
               // Keep within bounds - allow more horizontal space
-              const boundedX = Math.max(Math.min(newX, containerWidth/2 - 50), -containerWidth/2 + 50);
-              const boundedY = Math.max(Math.min(newY, 180), -180);
+              const boundedX = Math.max(Math.min(newX, maxX), -maxX);
+              const boundedY = Math.max(Math.min(newY, maxY), -maxY);
               
               setPositions(prev => ({
                 ...prev,

@@ -193,7 +193,7 @@ export default function HeroSection() {
 
       {/* Scroll Indicator - Enhanced */}
       <motion.div 
-        className="absolute bottom-10 left-1/2 transform -translate-x-1/2 block"
+        className="absolute bottom-10 left-0 right-0 mx-auto w-max text-center"
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ 
@@ -205,7 +205,7 @@ export default function HeroSection() {
       >
         <div className="flex flex-col items-center space-y-2">
           <span className="text-sm text-muted-foreground">Scroll to explore</span>
-          <div className="w-5 h-9 rounded-full border-2 border-primary/20 flex items-start justify-center p-1.5">
+          <div className="w-5 h-9 rounded-full border-2 border-primary/20 flex items-start justify-center p-1.5 mx-auto">
             <motion.div 
               className="w-1 h-1.5 rounded-full bg-primary"
               animate={{ 
