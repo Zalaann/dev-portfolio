@@ -3,7 +3,11 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
-export default function LoadingScreen() {
+interface LoadingScreenProps {
+  progress: number;
+}
+
+export default function LoadingScreen({ progress }: LoadingScreenProps) {
   // Track if we're running on a device that might struggle with animations
   const [isLowPowerDevice, setIsLowPowerDevice] = useState(false);
 
@@ -68,8 +72,9 @@ export default function LoadingScreen() {
   return (
     <motion.div
       initial={{ opacity: 1 }}
-      animate={{ opacity: 0 }}
-      transition={{ duration: 0.3, delay: 1.2 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
       onAnimationComplete={() => document.body.style.overflow = 'auto'}
       className="fixed inset-0 z-50 flex items-center justify-center bg-background will-change-auto"
     >
@@ -78,12 +83,36 @@ export default function LoadingScreen() {
         <motion.div
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
+          exit={{ scale: 1.2, opacity: 0 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
           className="relative z-10 text-4xl font-bold will-change-transform"
         >
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
             MIT
           </span>
+        </motion.div>
+
+        {/* Progress Bar */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4 }}
+          className="absolute -bottom-12 left-1/2 -translate-x-1/2 w-48 h-1 bg-gray-200/10 rounded-full overflow-hidden"
+        >
+          <motion.div 
+            className="h-full bg-gradient-to-r from-primary to-secondary"
+            initial={{ width: "0%" }}
+            animate={{ width: `${progress}%` }}
+            transition={{ duration: 0.2 }}
+          />
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          className="absolute -bottom-18 left-1/2 -translate-x-1/2 text-xs text-muted-foreground mt-2"
+        >
+          {Math.round(progress)}%
         </motion.div>
 
         {/* Circular Animation - orbital rings */}
