@@ -5,6 +5,8 @@ import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { SiReact, SiNextdotjs, SiTailwindcss, SiSupabase, SiTypescript, SiPython, SiTensorflow, SiMongodb } from 'react-icons/si';
 import { FaAws, FaMobileAlt } from 'react-icons/fa';
 import { BsRobot } from 'react-icons/bs';
+import { Sparkles } from 'lucide-react';
+import { MatrixText } from '@/components/MatrixText';
 
 // Types for skills data
 interface Skill {
@@ -27,7 +29,7 @@ const skills: Skill[] = [
   { 
     name: 'Next.js', 
     icon: SiNextdotjs, 
-    color: '#000000',
+    color: '#ffffff',
     category: 'frontend',
     description: 'Using Next.js for server-side rendering, static site generation, and efficient client-side routing'
   },
@@ -150,9 +152,15 @@ export default function InteractiveShowcase() {
               Stack
             </span>
           </h2>
-          <p className="text-muted-foreground max-w-3xl mx-auto text-sm">
-            Drag the skills around to interact with my tech stack. Click on a skill to see more details about my experience with it.
-          </p>
+          <motion.p 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center font-mono text-[#00ff00] text-sm"
+          >
+            <Sparkles className="w-4 h-4 text-[#00ff00] mr-1" />
+            <MatrixText text="Click on a skill to see more details about my experience with it" scrambleSpeed={50} />
+          </motion.p>
         </motion.div>
         
         {/* Skills Constellation */}

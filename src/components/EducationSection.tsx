@@ -97,37 +97,23 @@ export default function EducationSection() {
                 <div className="group relative">
                   <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-2xl opacity-10 blur-lg"></div>
                   <div className="relative bg-background/40 backdrop-blur-sm rounded-xl p-8 border border-white/20 shadow-lg transition-colors duration-300 h-full">
-                    <div className="absolute -top-3 left-6 px-4 py-1 bg-primary/5 backdrop-blur-sm rounded-full text-primary text-sm font-medium">
-                      2022 - 2025
+                    <div className="mb-4 px-4 py-1 inline-block bg-primary/15 backdrop-blur-sm rounded-full text-primary font-semibold text-base">
+                      January 2024 — January 2025
                     </div>
-                    <div className="pt-6">
+                    <div>
                       <div className="flex items-center space-x-2 mb-2">
                         <BookOpen className="w-5 h-5 text-primary" />
-                        <h3 className="text-xl font-bold">BSc (Hons) Computing</h3>
+                        <h3 className="text-xl font-bold">Applied Computing BSc (Hons)</h3>
                       </div>
                       <p className="text-muted-foreground mb-4">
-                        Manchester Metropolitan University, UK
+                        University of East London, London
                       </p>
-                      <div className="space-y-2 text-sm text-muted-foreground">
-                        <div className="flex items-start space-x-3">
-                          <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary flex-shrink-0"></span>
-                          <span>First-year GPA: 74% (Distinction)</span>
-                        </div>
-                        <div className="flex items-start space-x-3">
-                          <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary flex-shrink-0"></span>
-                          <span>Expected graduation: July 2025</span>
-                        </div>
-                        <div className="flex items-start space-x-3">
-                          <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary flex-shrink-0"></span>
-                          <span>Focus areas: Full-stack development, cloud computing, data analytics</span>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>
               </motion.div>
 
-              {/* Graduate Program */}
+              {/* AI Program */}
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -138,31 +124,74 @@ export default function EducationSection() {
                 <div className="group relative">
                   <div className="absolute inset-0 bg-gradient-to-r from-secondary to-primary rounded-2xl opacity-10 blur-lg"></div>
                   <div className="relative bg-background/40 backdrop-blur-sm rounded-xl p-8 border border-white/20 shadow-lg transition-colors duration-300 h-full">
-                    <div className="absolute -top-3 left-6 px-4 py-1 bg-secondary/5 backdrop-blur-sm rounded-full text-secondary text-sm font-medium">
-                      2020 - 2022
+                    <div className="mb-4 px-4 py-1 inline-block bg-primary/15 backdrop-blur-sm rounded-full text-primary font-semibold text-base">
+                      September 2020 — July 2024
                     </div>
-                    <div className="pt-6">
+                    <div>
                       <div className="flex items-center space-x-2 mb-2">
-                        <Clock className="w-5 h-5 text-secondary" />
-                        <h3 className="text-xl font-bold">Intermediate in Computer Science</h3>
+                        <BookOpen className="w-5 h-5 text-primary" />
+                        <h3 className="text-xl font-bold">Artificial Intelligence</h3>
                       </div>
                       <p className="text-muted-foreground mb-4">
-                        Punjab Group of Colleges, Pakistan
+                        National University of Computer and Emerging Sciences
                       </p>
-                      <div className="space-y-2 text-sm text-muted-foreground">
-                        <div className="flex items-start space-x-3">
-                          <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-secondary flex-shrink-0"></span>
-                          <span>Grade: A+ (93%)</span>
-                        </div>
-                        <div className="flex items-start space-x-3">
-                          <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-secondary flex-shrink-0"></span>
-                          <span>Subjects: Programming, Database, Computer Networks, Mathematics</span>
-                        </div>
-                        <div className="flex items-start space-x-3">
-                          <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-secondary flex-shrink-0"></span>
-                          <span>Graduated with distinction and excellence awards</span>
-                        </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+
+            {/* Additional Education */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+              {/* Computer Sciences */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                viewport={{ once: true }}
+                className="relative"
+              >
+                <div className="group relative">
+                  <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-2xl opacity-10 blur-lg"></div>
+                  <div className="relative bg-background/40 backdrop-blur-sm rounded-xl p-8 border border-white/20 shadow-lg transition-colors duration-300 h-full">
+                    <div className="mb-4 px-4 py-1 inline-block bg-primary/15 backdrop-blur-sm rounded-full text-primary font-semibold text-base">
+                      January 2018 — January 2020
+                    </div>
+                    <div>
+                      <div className="flex items-center space-x-2 mb-2">
+                        <BookOpen className="w-5 h-5 text-primary" />
+                        <h3 className="text-xl font-bold">Computer Sciences</h3>
                       </div>
+                      <p className="text-muted-foreground mb-4">
+                        Steps College
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Sciences */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                viewport={{ once: true }}
+                className="relative"
+              >
+                <div className="group relative">
+                  <div className="absolute inset-0 bg-gradient-to-r from-secondary to-primary rounded-2xl opacity-10 blur-lg"></div>
+                  <div className="relative bg-background/40 backdrop-blur-sm rounded-xl p-8 border border-white/20 shadow-lg transition-colors duration-300 h-full">
+                    <div className="mb-4 px-4 py-1 inline-block bg-primary/15 backdrop-blur-sm rounded-full text-primary font-semibold text-base">
+                      January 2014 — January 2017
+                    </div>
+                    <div>
+                      <div className="flex items-center space-x-2 mb-2">
+                        <BookOpen className="w-5 h-5 text-primary" />
+                        <h3 className="text-xl font-bold">Sciences</h3>
+                      </div>
+                      <p className="text-muted-foreground mb-4">
+                        Cadet College Kallar Kahar, Islamabad
+                      </p>
                     </div>
                   </div>
                 </div>

@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { motion } from "framer-motion";
-import { Github, Mail, Linkedin, Send, Loader2 } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Github, Mail, Linkedin, Send, Loader2, CheckCircle2, XCircle } from "lucide-react";
+import { toast } from "sonner";
 
 export default function ContactSection() {
   const [formStatus, setFormStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -12,16 +13,43 @@ export default function ContactSection() {
     e.preventDefault();
     setFormStatus("loading");
 
-    // Simulate form submission delay
-    setTimeout(() => {
+    try {
+      const formData = new FormData(e.currentTarget);
+      const data = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        subject: formData.get('subject'),
+        message: formData.get('message')
+      };
+
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send message');
+      }
+
       setFormStatus("success");
       formRef.current?.reset();
       
       // Reset after showing success message
       setTimeout(() => {
         setFormStatus("idle");
-      }, 3000);
-    }, 1500);
+      }, 5000);
+    } catch (error) {
+      console.error('Error sending message:', error);
+      setFormStatus("error");
+      
+      // Reset after showing error message
+      setTimeout(() => {
+        setFormStatus("idle");
+      }, 5000);
+    }
   };
 
   return (
@@ -98,7 +126,7 @@ export default function ContactSection() {
                     </div>
                     <div>
                       <h4 className="font-medium">Email</h4>
-                      <p className="text-sm text-muted-foreground">ibrahimtariq8193@gmail.com</p>
+                      <p className="text-sm text-muted-foreground">mibrahimtariq@icloud.com</p>
                     </div>
                   </motion.a>
 
@@ -158,6 +186,36 @@ export default function ContactSection() {
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/30 to-secondary/30 rounded-2xl opacity-10 blur-lg"></div>
                 <div className="bg-background/40 backdrop-blur-sm rounded-xl p-8 border border-white/20 shadow-lg relative">
+                  {/* Status Overlay */}
+                  <AnimatePresence>
+                    {(formStatus === "success" || formStatus === "error") && (
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="absolute inset-0 z-10 backdrop-blur-md bg-background/60 rounded-xl flex items-center justify-center"
+                      >
+                        <motion.div
+                          initial={{ scale: 0.8, opacity: 0 }}
+                          animate={{ scale: 1, opacity: 1 }}
+                          exit={{ scale: 0.8, opacity: 0 }}
+                          className="text-center p-4"
+                        >
+                          {formStatus === "success" ? (
+                            <>
+                              <CheckCircle2 className="w-12 h-12 text-green-500 mx-auto mb-2" />
+                              <p className="text-lg font-medium text-green-500">Message sent successfully!</p>
+                            </>
+                          ) : (
+                            <>
+                              <XCircle className="w-12 h-12 text-red-500 mx-auto mb-2" />
+                              <p className="text-lg font-medium text-red-500">Failed to send message</p>
+                            </>
+                          )}
+                        </motion.div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                   <h3 className="text-xl font-bold mb-4">Send a Message</h3>
                   <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
                     <div>

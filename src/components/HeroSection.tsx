@@ -26,11 +26,11 @@ export default function HeroSection() {
     { icon: Mail, href: "mailto:mibrahimtariq@icloud.com", label: "Email" }
   ];
 
-  return (
+  return ( 
     <section 
       ref={containerRef}
       id="home" 
-      className="relative min-h-[100vh] flex flex-col items-center justify-center overflow-hidden px-4 sm:px-6 pt-0 pb-16 md:py-0"
+      className="relative min-h-[100vh] flex flex-col items-center overflow-hidden px-4 sm:px-6 pt-16 sm:pt-24 pb-16"
     >
       {/* Particle Background */}
       <ParticleBackground 
@@ -39,22 +39,22 @@ export default function HeroSection() {
       />
 
       {/* Background Elements - Simplified and optimized */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
-        <div className="absolute w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-primary/10 rounded-full blur-3xl -top-20 -right-20"></div>
-        <div className="absolute w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-secondary/10 rounded-full blur-3xl -bottom-20 -left-20"></div>
+      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-5">
+        <div className="absolute w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-primary/5 rounded-full blur-3xl -top-20 -right-20"></div>
+        <div className="absolute w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-secondary/5 rounded-full blur-3xl -bottom-20 -left-20"></div>
       </div>
 
       <motion.div
         style={{ y, opacity }}
-        className="relative z-10 text-center w-full max-w-4xl mx-auto space-y-4 sm:space-y-8 mt-0 sm:mt-0"
+        className="relative z-10 text-center w-full max-w-4xl mx-auto space-y-3 sm:space-y-8 mt-4 sm:mt-8"
       >
         {/* Profile Image - Optimized animations */}
         <motion.div
           initial={{ scale: 0.5, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.7, ease: "easeOut" }}
-          className="relative w-28 h-28 sm:w-40 md:w-48 sm:h-40 md:h-48 mx-auto mb-4 sm:mb-8 group will-change-transform"
-        >
+          className="relative w-28 h-28 sm:w-40 md:w-48 sm:h-40 md:h-48 mx-auto mb-2 sm:mb-4 group will-change-transform"
+          >
           {/* Simplified border animation */}
           <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-primary to-secondary"></div>
           <div className="absolute inset-[3px] rounded-2xl bg-background"></div>
@@ -90,7 +90,7 @@ export default function HeroSection() {
                   transition: { duration: 0.2 } 
                 }}
               >
-                AI Developer
+                Full Stack Developer
               </motion.span>
               <motion.span 
                 className="px-3 py-1 rounded-full border border-primary/20 text-xs sm:text-sm text-primary font-medium"
@@ -135,7 +135,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 px-4 w-full max-w-md mx-auto"
+            className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 px-4 w-full max-w-[210px] sm:max-w-md mx-auto"
           >
             <motion.a
               href="#projects"
