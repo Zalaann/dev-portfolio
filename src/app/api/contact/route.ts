@@ -5,6 +5,13 @@ import { NextResponse } from 'next/server';
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: Request) {
+  if (!process.env.RESEND_API_KEY) {
+    return NextResponse.json(
+      { error: 'Resend API key is not configured' },
+      { status: 500 }
+    );
+  }
+
   try {
     const body = await request.json();
     const { name, email, subject, message } = body;
@@ -19,8 +26,8 @@ export async function POST(request: Request) {
 
     // Send email using Resend
     const data = await resend.emails.send({
-      from: 'Portfolio Contact Form <onboarding@resend.dev>',
-      to: ['mibrahimtariq@icloud.com'], // Your email address
+      from: `Portfolio Contact <onboarding@resend.dev>`,
+      to: ['mibrahimtariq@icloud.com'],
       subject: `Portfolio Contact: ${subject}`,
       html: `
         <h2>New Contact Form Submission</h2>
@@ -35,6 +42,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json(data);
   } catch (error) {
+    console.error('Error sending email:', error);
     return NextResponse.json(
       { error: 'Error sending email' },
       { status: 500 }

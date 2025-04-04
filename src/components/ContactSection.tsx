@@ -31,7 +31,8 @@ export default function ContactSection() {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to send message');
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to send message');
       }
 
       setFormStatus("success");
@@ -205,11 +206,13 @@ export default function ContactSection() {
                             <>
                               <CheckCircle2 className="w-12 h-12 text-green-500 mx-auto mb-2" />
                               <p className="text-lg font-medium text-green-500">Message sent successfully!</p>
+                              <p className="text-sm text-muted-foreground mt-1">Thank you for reaching out!</p>
                             </>
                           ) : (
                             <>
                               <XCircle className="w-12 h-12 text-red-500 mx-auto mb-2" />
                               <p className="text-lg font-medium text-red-500">Failed to send message</p>
+                              <p className="text-sm text-muted-foreground mt-1">Please try again later</p>
                             </>
                           )}
                         </motion.div>
