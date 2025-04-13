@@ -125,4 +125,30 @@ export const contactAnimations = {
       easing: 'easeOutElastic(1, .8)'
     });
   }
-}; 
+};
+
+// Export the functions that use anime.js
+export function fadeIn(element: HTMLElement, delay: number = 0, duration: number = 800) {
+  anime({
+    targets: element,
+    opacity: [0, 1],
+    translateY: [20, 0],
+    duration,
+    delay,
+    easing: 'easeOutExpo'
+  });
+}
+
+export function fadeOut(element: HTMLElement, delay: number = 0, duration: number = 800) {
+  anime({
+    targets: element,
+    opacity: [1, 0],
+    translateY: [0, -20],
+    duration,
+    delay,
+    easing: 'easeOutExpo'
+  });
+}
+
+// Also export anime directly
+export default anime; 
