@@ -2,14 +2,16 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Home, User, Code, Briefcase, GraduationCap, Mail, Menu, X, Sparkles } from "lucide-react";
+import { Home, User, Code, Briefcase, GraduationCap, Mail, Sparkles, Clock, Zap } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
+import { MatrixText } from './MatrixText';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [timeSpent, setTimeSpent] = useState(0);
+  const [scrollPercent, setScrollPercent] = useState(0);
 
   // Nav items with icons
   const navItems = [
@@ -22,14 +24,34 @@ export default function Navbar() {
     { name: "Contact", href: "#contact", icon: Mail },
   ];
 
+  // Mobile nav items (a subset for mobile for better spacing)
+  const mobileNavItems = [
+    { name: "Home", href: "#home", icon: Home },
+    { name: "About", href: "#about", icon: User },
+    { name: "Skills", href: "#skills-showcase", icon: Sparkles },
+    { name: "Projects", href: "#projects", icon: Code },
+    { name: "Experience", href: "#experience", icon: Briefcase },
+    { name: "Contact", href: "#contact", icon: Mail },
+  ];
+
   useEffect(() => {
     const timeout = setTimeout(() => {
       setIsVisible(true);
     }, 1500); // Delay appearance to let loading screen finish
 
+    const timer = setInterval(() => {
+      setTimeSpent(prev => prev + 1);
+    }, 1000);
+
     const handleScroll = () => {
       const scrollY = window.scrollY;
       setIsScrolled(scrollY > 50);
+
+      // Calculate scroll percentage
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      setScrollPercent(scrolled);
 
       // Determine which section is in view
       const sections = document.querySelectorAll("section[id]");
@@ -60,6 +82,7 @@ export default function Navbar() {
 
     return () => {
       clearTimeout(timeout);
+      clearInterval(timer);
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
@@ -70,112 +93,128 @@ export default function Navbar() {
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
       setActiveSection(sectionId);
-      setIsMobileMenuOpen(false);
     }
   };
 
+  const formatTime = (seconds: number) => {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const remainingSeconds = seconds % 60;
+    return `${hours > 0 ? `${hours}:` : ''}${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+  };
+
   return (
-    <motion.header
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-        isScrolled ? "bg-background/80 backdrop-blur-lg shadow-sm" : "bg-transparent"
-      }`}
-      initial={{ y: -100, opacity: 0 }}
-      animate={{ 
-        y: isVisible ? 0 : -100, 
-        opacity: isVisible ? 1 : 0 
-      }}
-      transition={{ duration: 0.5 }}
-    >
-      <div className="container mx-auto px-4 sm:px-6 h-16 flex items-center justify-center">
-        <div className="flex items-center">
-          <div className="hidden md:flex items-center space-x-1">
+    <>
+      {/* Desktop Navigation (Top) */}
+      <motion.header
+        className="fixed top-4 left-0 right-0 z-40 transition-all duration-300 hidden md:flex justify-center"
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ 
+          y: isVisible ? 0 : -100, 
+          opacity: isVisible ? 1 : 0 
+        }}
+        transition={{ duration: 0.5 }}
+      >
+        <motion.div 
+          className="bg-background/80 backdrop-blur-md shadow-lg rounded-full px-3 py-2 border border-border/20"
+        >
+          <div className="flex items-center space-x-1">
             {navItems.map((item) => (
               <a
                 key={item.name}
                 href={item.href}
                 className={`nav-link group px-4 py-2 rounded-full transition-all duration-300 flex items-center justify-center space-x-2 relative ${
                   activeSection === item.href.substring(1)
-                    ? "text-primary bg-primary/10"
-                    : "text-foreground/60 hover:text-primary hover:bg-primary/5"
+                    ? "text-background bg-foreground"
+                    : "text-foreground/60 hover:text-foreground hover:bg-foreground/5"
                 }`}
                 onClick={(e) => handleNavClick(e, item.href.substring(1))}
               >
                 <item.icon className="w-4 h-4" />
                 <span>{item.name}</span>
-                <AnimatePresence>
-                  {activeSection === item.href.substring(1) && (
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.5 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.5 }}
-                      className="nav-dot absolute bottom-0.5 inset-x-0 flex justify-center items-center"
-                    >
-                      <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
               </a>
             ))}
             <div className="ml-2">
               <ThemeToggle />
             </div>
           </div>
+        </motion.div>
+      </motion.header>
 
-          <div className="md:hidden flex items-center">
-            <ThemeToggle />
-            <button
-              className="ml-2 p-2 rounded-full text-muted-foreground hover:text-primary hover:bg-primary/5 transition"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+      {/* Mobile Navigation (Bottom) with Session Info behind */}
+      <div className="fixed bottom-4 left-0 right-0 z-50 md:hidden flex flex-col items-center">
+        {/* Session Timer (behind) */}
+        <motion.div
+          className="absolute -top-8 bg-background/60 backdrop-blur-md rounded-full border border-border/10 px-3 py-0.5 shadow-sm"
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ 
+            y: isVisible ? 0 : 20, 
+            opacity: isVisible ? 1 : 0 
+          }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          <div className="flex items-center gap-3">
+            <motion.div 
+              className="flex items-center gap-1 font-mono text-[10px]"
+              animate={{
+                textShadow: [
+                  "0 0 3px rgba(0, 255, 0, 0.5)",
+                  "0 0 5px rgba(0, 255, 0, 0.8)",
+                  "0 0 3px rgba(0, 255, 0, 0.5)"
+                ],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
             >
-              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
+              <Clock className="w-2.5 h-2.5 text-[#00ff00]" />
+              <MatrixText text={formatTime(timeSpent)} scrambleSpeed={30} />
+            </motion.div>
+            
+            <motion.div 
+              className="flex items-center gap-1 text-[10px]"
+            >
+              <Zap className="w-2.5 h-2.5 text-yellow-500" />
+              <span>{Math.round(scrollPercent)}%</span>
+            </motion.div>
           </div>
-        </div>
-      </div>
+        </motion.div>
 
-      {/* Mobile menu */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            className="md:hidden fixed inset-0 top-16 bg-background/95 backdrop-blur-sm z-30"
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.2 }}
-          >
-            <div className="container mx-auto px-4 py-8 flex flex-col items-center justify-center h-full">
-              <div className="grid grid-cols-3 gap-4 w-full max-w-xs mx-auto">
-                {navItems.map((item) => (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    className={`relative p-3 rounded-full transition-all duration-300 group flex items-center justify-center ${
-                      activeSection === item.href.substring(1)
-                        ? "text-primary bg-primary/10"
-                        : "text-foreground/60 hover:text-primary hover:bg-primary/5"
-                    }`}
-                    onClick={(e) => handleNavClick(e, item.href.substring(1))}
-                  >
-                    <item.icon className="w-5 h-5" />
-                    <AnimatePresence>
-                      {activeSection === item.href.substring(1) && (
-                        <motion.div
-                          initial={{ opacity: 0, scale: 0.5 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          exit={{ opacity: 0, scale: 0.5 }}
-                          className="nav-dot absolute -bottom-1 inset-x-0 flex justify-center items-center"
-                        >
-                          <div className="w-1 h-1 rounded-full bg-primary" />
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </a>
-                ))}
-              </div>
+        {/* Compact Navigation */}
+        <motion.div
+          className="bg-background/80 backdrop-blur-md shadow-lg rounded-full border border-border/20 px-2 py-1.5"
+          style={{ maxWidth: "80%" }}
+          initial={{ y: 100, opacity: 0 }}
+          animate={{ 
+            y: isVisible ? 0 : 100, 
+            opacity: isVisible ? 1 : 0 
+          }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="flex items-center justify-between space-x-1">
+            {mobileNavItems.map((item) => (
+              <a
+                key={item.name}
+                href={item.href}
+                className={`flex flex-col items-center justify-center px-1.5 py-0.5 rounded-full transition-all duration-300 ${
+                  activeSection === item.href.substring(1)
+                    ? "text-background bg-foreground"
+                    : "text-foreground/60 hover:text-foreground"
+                }`}
+                onClick={(e) => handleNavClick(e, item.href.substring(1))}
+              >
+                <item.icon className="w-4 h-4" />
+                <span className="text-[8px] mt-0.5 font-medium">{item.name}</span>
+              </a>
+            ))}
+            <div className="scale-90">
+              <ThemeToggle />
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.header>
+          </div>
+        </motion.div>
+      </div>
+    </>
   );
 } 

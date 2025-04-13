@@ -50,7 +50,7 @@ export function SiteTimer() {
 
   return (
     <motion.div 
-      className="fixed top-16 left-0 right-0 z-50 py-2 overflow-hidden"
+      className="fixed top-20 left-0 right-0 z-40 py-2 overflow-hidden hidden md:flex justify-center"
       style={{ 
         y: translateY,
       }}
@@ -58,50 +58,10 @@ export function SiteTimer() {
       animate={{ y: 0, opacity: 1 }}
       transition={{ delay: 1, duration: 0.5 }}
     >
-      {/* Moving particles */}
-      {particles.map((particle, i) => (
-        <motion.div
-          key={i}
-          className="absolute top-0 h-full pointer-events-none"
-          style={{
-            left: `${particle.x}%`,
-            opacity: 0.4,
-          }}
-          animate={{
-            y: ["0%", "100%", "0%"],
-          }}
-          transition={{
-            duration: particle.speed,
-            delay: particle.delay,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        >
-          <motion.div
-            className="w-1 h-1 rounded-full bg-primary/30"
-            style={{
-              width: particle.size,
-              height: particle.size,
-            }}
-            animate={{
-              opacity: [0.2, 0.6, 0.2],
-              boxShadow: [
-                "0 0 2px rgba(var(--primary), 0.3)",
-                "0 0 4px rgba(var(--primary), 0.6)",
-                "0 0 2px rgba(var(--primary), 0.3)",
-              ],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-        </motion.div>
-      ))}
-
-      <div className="container max-w-7xl mx-auto px-4 relative z-10">
-        <div className="flex justify-between items-center">
+      <motion.div
+        className="bg-background/60 backdrop-blur-md shadow-md rounded-full px-4 py-1.5 border border-border/20"
+      >
+        <div className="flex items-center justify-between space-x-12">
           <motion.div 
             className="flex items-center gap-2 font-mono text-xs sm:text-sm matrix-text"
             animate={{
@@ -158,7 +118,49 @@ export function SiteTimer() {
             <span>{Math.round(scrollPercent)}% explored</span>
           </motion.div>
         </div>
-      </div>
+      </motion.div>
+      
+      {/* Moving particles (desktop) */}
+      {particles.map((particle, i) => (
+        <motion.div
+          key={i}
+          className="absolute top-0 h-full pointer-events-none"
+          style={{
+            left: `${particle.x}%`,
+            opacity: 0.4,
+          }}
+          animate={{
+            y: ["0%", "100%", "0%"],
+          }}
+          transition={{
+            duration: particle.speed,
+            delay: particle.delay,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        >
+          <motion.div
+            className="w-1 h-1 rounded-full bg-primary/30"
+            style={{
+              width: particle.size,
+              height: particle.size,
+            }}
+            animate={{
+              opacity: [0.2, 0.6, 0.2],
+              boxShadow: [
+                "0 0 2px rgba(var(--primary), 0.3)",
+                "0 0 4px rgba(var(--primary), 0.6)",
+                "0 0 2px rgba(var(--primary), 0.3)",
+              ],
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        </motion.div>
+      ))}
     </motion.div>
   );
 } 
