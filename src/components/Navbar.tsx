@@ -1,37 +1,15 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Home, User, Code, Briefcase, GraduationCap, Mail, Sparkles } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useTheme } from "@/contexts/ThemeContext";
-import { useSection } from "@/components/SectionContext";
-import ThemeToggle from "@/components/ThemeToggle";
+import { Home, User, Code, Briefcase, GraduationCap, Mail, Menu, X, Sparkles } from "lucide-react";
+import ThemeToggle from "./ThemeToggle";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  const { theme } = useTheme();
-  const { activeSection } = useSection();
-
-  useEffect(() => {
-    // Show navbar after a slight delay for a smoother entry
-    const timer = setTimeout(() => {
-      setIsVisible(true);
-    }, 400);
-
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    // Initial check
-    handleScroll();
-    
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      clearTimeout(timer);
-    };
-  }, []);
 
   // Nav items with icons
   const navItems = [
@@ -44,35 +22,83 @@ export default function Navbar() {
     { name: "Contact", href: "#contact", icon: Mail },
   ];
 
-  // If navbar is not yet visible, don't render anything
-  if (!isVisible) return null;
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setIsVisible(true);
+    }, 1500); // Delay appearance to let loading screen finish
+
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      setIsScrolled(scrollY > 50);
+
+      // Determine which section is in view
+      const sections = document.querySelectorAll("section[id]");
+      
+      sections.forEach((section) => {
+        const sectionTop = (section as HTMLElement).offsetTop;
+        const sectionHeight = (section as HTMLElement).offsetHeight;
+        const sectionId = section.getAttribute("id") || "";
+        
+        // Calculate visibility percentage of section in viewport
+        const scrollPosition = window.scrollY;
+        const windowHeight = window.innerHeight;
+        const viewportBottom = scrollPosition + windowHeight;
+        const sectionBottom = sectionTop + sectionHeight;
+        
+        // Calculate percentage of section visible in viewport
+        const visibleHeight = Math.min(viewportBottom, sectionBottom) - Math.max(scrollPosition, sectionTop);
+        const visiblePercentage = visibleHeight > 0 ? visibleHeight / sectionHeight : 0;
+        
+        if (visiblePercentage > 0.3) { // If more than 30% visible
+          setActiveSection(sectionId);
+        }
+      });
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll(); // Call initially to set the active section
+
+    return () => {
+      clearTimeout(timeout);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
+    e.preventDefault();
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+      setActiveSection(sectionId);
+      setIsMobileMenuOpen(false);
+    }
+  };
 
   return (
-    <>
-      {/* Desktop Navigation */}
-      <motion.header 
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
-        className="fixed top-0 left-0 right-0 z-[100] px-4 py-3 md:block hidden"
-      >
-        <nav
-          className={`mx-auto max-w-fit transition-all duration-500 ${
-            isScrolled
-              ? "bg-background/60 backdrop-blur-xl shadow-lg border border-border/50 rounded-full"
-              : "bg-transparent rounded-full"
-          }`}
-        >
-          <div className="flex items-center space-x-1">
+    <motion.header
+      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+        isScrolled ? "bg-background/80 backdrop-blur-lg shadow-sm" : "bg-transparent"
+      }`}
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ 
+        y: isVisible ? 0 : -100, 
+        opacity: isVisible ? 1 : 0 
+      }}
+      transition={{ duration: 0.5 }}
+    >
+      <div className="container mx-auto px-4 sm:px-6 h-16 flex items-center justify-center">
+        <div className="flex items-center">
+          <div className="hidden md:flex items-center space-x-1">
             {navItems.map((item) => (
               <a
                 key={item.name}
                 href={item.href}
-                className={`group px-4 py-2 rounded-full transition-all duration-300 flex items-center justify-center space-x-2 relative ${
+                className={`nav-link group px-4 py-2 rounded-full transition-all duration-300 flex items-center justify-center space-x-2 relative ${
                   activeSection === item.href.substring(1)
                     ? "text-primary bg-primary/10"
                     : "text-foreground/60 hover:text-primary hover:bg-primary/5"
                 }`}
+                onClick={(e) => handleNavClick(e, item.href.substring(1))}
               >
                 <item.icon className="w-4 h-4" />
                 <span>{item.name}</span>
@@ -82,7 +108,7 @@ export default function Navbar() {
                       initial={{ opacity: 0, scale: 0.5 }}
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.5 }}
-                      className="absolute bottom-0.5 inset-x-0 flex justify-center items-center"
+                      className="nav-dot absolute bottom-0.5 inset-x-0 flex justify-center items-center"
                     >
                       <div className="w-1.5 h-1.5 rounded-full bg-primary" />
                     </motion.div>
@@ -90,49 +116,66 @@ export default function Navbar() {
                 </AnimatePresence>
               </a>
             ))}
-            <ThemeToggle />
+            <div className="ml-2">
+              <ThemeToggle />
+            </div>
           </div>
-        </nav>
-      </motion.header>
 
-      {/* Mobile Navigation */}
-      <motion.nav 
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
-        className="md:hidden fixed bottom-6 left-4 right-4 z-[100] pointer-events-auto"
-      >
-        <div className="mx-auto max-w-fit bg-background/80 backdrop-blur-xl shadow-lg border border-border/50 rounded-full px-2 py-2">
-          <div className="flex items-center justify-center space-x-1">
-            {navItems.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className={`relative p-3 rounded-full transition-all duration-300 group flex items-center justify-center ${
-                  activeSection === item.href.substring(1)
-                    ? "text-primary bg-primary/10"
-                    : "text-foreground/60 hover:text-primary hover:bg-primary/5"
-                }`}
-              >
-                <item.icon className="w-5 h-5" />
-                <AnimatePresence>
-                  {activeSection === item.href.substring(1) && (
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.5 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.5 }}
-                      className="absolute -bottom-1 inset-x-0 flex justify-center items-center"
-                    >
-                      <div className="w-1 h-1 rounded-full bg-primary" />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </a>
-            ))}
+          <div className="md:hidden flex items-center">
             <ThemeToggle />
+            <button
+              className="ml-2 p-2 rounded-full text-muted-foreground hover:text-primary hover:bg-primary/5 transition"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
           </div>
         </div>
-      </motion.nav>
-    </>
+      </div>
+
+      {/* Mobile menu */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            className="md:hidden fixed inset-0 top-16 bg-background/95 backdrop-blur-sm z-30"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+          >
+            <div className="container mx-auto px-4 py-8 flex flex-col items-center justify-center h-full">
+              <div className="grid grid-cols-3 gap-4 w-full max-w-xs mx-auto">
+                {navItems.map((item) => (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    className={`relative p-3 rounded-full transition-all duration-300 group flex items-center justify-center ${
+                      activeSection === item.href.substring(1)
+                        ? "text-primary bg-primary/10"
+                        : "text-foreground/60 hover:text-primary hover:bg-primary/5"
+                    }`}
+                    onClick={(e) => handleNavClick(e, item.href.substring(1))}
+                  >
+                    <item.icon className="w-5 h-5" />
+                    <AnimatePresence>
+                      {activeSection === item.href.substring(1) && (
+                        <motion.div
+                          initial={{ opacity: 0, scale: 0.5 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0.5 }}
+                          className="nav-dot absolute -bottom-1 inset-x-0 flex justify-center items-center"
+                        >
+                          <div className="w-1 h-1 rounded-full bg-primary" />
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.header>
   );
 } 

@@ -1,12 +1,18 @@
-import { Metadata } from 'next'
+import type { Metadata } from "next";
 import './globals.css'
 import { ThemeProvider } from '@/contexts/ThemeContext'
 import { unstable_noStore as noStore } from 'next/cache'
 import { Toaster } from 'sonner'
+import { Inter } from 'next/font/google'
+import Navbar from "@/components/Navbar";
+import { SiteTimer } from "@/components/SiteTimer";
+import ScrollProgressTracker from "@/components/ScrollProgressTracker";
+
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'My Portfolio',
-  description: 'A personal portfolio website showcasing my projects and skills',
+  title: "Muhammad Ibrahim | Full Stack Developer",
+  description: "Portfolio website showcasing my work as a Full Stack Developer",
 }
 
 export default function RootLayout({
@@ -18,11 +24,14 @@ export default function RootLayout({
   
   return (
     <html lang="en" suppressHydrationWarning>
-      <body>
+      <body className={inter.className}>
         <ThemeProvider>
+          <Navbar />
+          <SiteTimer />
+          <ScrollProgressTracker />
           {children}
         </ThemeProvider>
-        <Toaster />
+        <Toaster position="bottom-right" />
       </body>
     </html>
   )
