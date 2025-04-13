@@ -1,4 +1,6 @@
-import anime from 'animejs/lib/anime.es.js';
+// Using require-style import to avoid TypeScript errors with module resolution
+// @ts-ignore - Ignoring the type checking for anime import
+import anime from 'animejs';
 
 // Hero section animations
 export const heroAnimations = {

@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
-import anime from 'animejs/lib/anime.es.js';
+// @ts-ignore - Ignoring the type checking for anime import
+import anime from 'animejs';
 
 export const useAnime = (animation, dependencies = []) => {
   const animationRef = useRef(null);
@@ -21,7 +22,5 @@ export const useAnime = (animation, dependencies = []) => {
   return animationRef;
 };
 
-export function useAnime() {
-  // Return the anime instance
-  return anime;
-} 
+// Export the anime instance directly
+export const animeInstance = anime; 

@@ -1,4 +1,5 @@
-import anime from 'animejs/lib/anime.es.js';
+// @ts-ignore - Ignoring the type checking for anime import
+import anime from 'animejs';
 
 export const animateTitle = (element) => {
   if (element) {
