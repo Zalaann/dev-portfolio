@@ -172,10 +172,9 @@ export default function InteractiveShowcase() {
 
 // Skills Constellation Component
 function SkillsConstellation() {
-  const [selectedSkill, setSelectedSkill] = useState<Skill | null>(null);
+  const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
-  const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
 
   // Update container dimensions on resize
   useEffect(() => {
@@ -208,14 +207,9 @@ function SkillsConstellation() {
     'Mobile Dev': ['React', 'AWS']
   };
 
+  // Empty function for skill click - maintaining function but removing functionality
   const handleSkillClick = (skill: Skill) => {
-    setSelectedSkill(prev => prev?.name === skill.name ? null : skill);
-  };
-
-  const handleOutsideClick = (e: React.MouseEvent) => {
-    if (e.target === containerRef.current) {
-      setSelectedSkill(null);
-    }
+    // No functionality - clicking does nothing now
   };
 
   // Get position for a skill
@@ -272,79 +266,13 @@ function SkillsConstellation() {
     };
   };
 
-  // Check if two skills should be connected
-  const shouldConnect = (name1: string, name2: string): boolean => {
-    if (!hoveredSkill) return false;
-    if (hoveredSkill !== name1 && hoveredSkill !== name2) return false;
-    
-    return relationships[name1]?.includes(name2) || relationships[name2]?.includes(name1);
-  };
-
   return (
     <div className="flex flex-col items-center">
       <div 
         className="relative h-[550px] w-full mt-2 overflow-visible"
         ref={containerRef}
-        onClick={handleOutsideClick}
         style={{ maxWidth: '100%' }}
       >
-        {/* Connection lines */}
-        <svg 
-          className="absolute inset-0 w-full h-full pointer-events-none z-0" 
-          style={{ overflow: 'visible' }}
-        >
-          {skills.map((skill1) => (
-            skills.map((skill2) => {
-              if (skill1.name === skill2.name) return null;
-              
-              const shouldShow = shouldConnect(skill1.name, skill2.name);
-              if (!shouldShow) return null;
-              
-              const pos1 = getAbsolutePosition(getPosition(skill1.name));
-              const pos2 = getAbsolutePosition(getPosition(skill2.name));
-              
-              return (
-                <motion.line
-                  key={`${skill1.name}-${skill2.name}`}
-                  x1={pos1.x}
-                  y1={pos1.y}
-                  x2={pos2.x}
-                  y2={pos2.y}
-                  stroke={`url(#gradient-${skill1.name}-${skill2.name})`}
-                  strokeWidth="2"
-                  strokeOpacity="0.6"
-                  strokeDasharray="5,5"
-                  initial={{ pathLength: 0 }}
-                  animate={{ pathLength: 1 }}
-                  transition={{ duration: 0.6, ease: "easeInOut" }}
-                />
-              );
-            })
-          ))}
-          
-          {/* Gradient definitions for lines */}
-          <defs>
-            {skills.map((skill1) => (
-              skills.map((skill2) => {
-                if (skill1.name === skill2.name) return null;
-                return (
-                  <linearGradient
-                    key={`gradient-${skill1.name}-${skill2.name}`}
-                    id={`gradient-${skill1.name}-${skill2.name}`}
-                    x1="0%"
-                    y1="0%"
-                    x2="100%"
-                    y2="0%"
-                  >
-                    <stop offset="0%" stopColor={skill1.color} />
-                    <stop offset="100%" stopColor={skill2.color} />
-                  </linearGradient>
-                );
-              })
-            ))}
-          </defs>
-        </svg>
-        
         {/* Skill Nodes */}
         {skills.map((skill) => {
           const position = getPosition(skill.name);
@@ -361,7 +289,7 @@ function SkillsConstellation() {
                 backdropFilter: "blur(4px)",
                 left: '50%',
                 top: '50%',
-                zIndex: selectedSkill?.name === skill.name ? 10 : 1,
+                zIndex: 1,
                 boxShadow: isActive ? `0 0 20px ${skill.color}40` : 'none',
               }}
               initial={{ x: position.x, y: position.y, scale: 0 }}
@@ -409,62 +337,6 @@ function SkillsConstellation() {
           );
         })}
       </div>
-
-      {/* Skill Detail Popup */}
-      <AnimatePresence>
-        {selectedSkill && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="w-full max-w-2xl mt-6 mb-4"
-          >
-            <div className="backdrop-blur-md bg-background/30 border border-white/10 rounded-xl p-5 shadow-xl">
-              <div className="flex items-start gap-4">
-                <div 
-                  className="p-3 rounded-full" 
-                  style={{ backgroundColor: `${selectedSkill.color}20` }}
-                >
-                  <selectedSkill.icon className="w-8 h-8" style={{ color: selectedSkill.color }} />
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-xl font-bold flex items-center gap-2">
-                    {selectedSkill.name}
-                  </h3>
-                  <p className="text-muted-foreground mt-1">{selectedSkill.description}</p>
-                  
-                  {/* Related skills */}
-                  {relationships[selectedSkill.name] && (
-                    <div className="mt-4">
-                      <p className="text-sm text-muted-foreground mb-2">Related Technologies:</p>
-                      <div className="flex flex-wrap gap-2">
-                        {relationships[selectedSkill.name].map(relatedName => {
-                          const relatedSkill = skills.find(s => s.name === relatedName);
-                          if (!relatedSkill) return null;
-                          
-                          return (
-                            <span
-                              key={relatedName}
-                              className="px-2 py-1 text-xs rounded-full flex items-center gap-1"
-                              style={{ 
-                                backgroundColor: `${relatedSkill.color}20`,
-                                color: relatedSkill.color 
-                              }}
-                            >
-                              <relatedSkill.icon className="w-3 h-3" />
-                              {relatedName}
-                            </span>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   );
 } 
