@@ -145,7 +145,7 @@ export default function Navbar() {
       <div className="fixed bottom-4 left-0 right-0 z-50 md:hidden flex flex-col items-center">
         {/* Session Timer (behind) */}
         <motion.div
-          className="absolute -top-8 bg-background/60 backdrop-blur-md rounded-full border border-border/10 px-3 py-0.5 shadow-sm"
+          className="absolute -top-6 bg-background/60 backdrop-blur-md rounded-full border border-border/10 px-3 py-0.5 shadow-sm"
           initial={{ y: 20, opacity: 0 }}
           animate={{ 
             y: isVisible ? 0 : 20, 

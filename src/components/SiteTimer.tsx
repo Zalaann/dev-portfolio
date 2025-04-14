@@ -50,7 +50,7 @@ export function SiteTimer() {
 
   return (
     <motion.div 
-      className="fixed top-20 left-0 right-0 z-40 py-2 overflow-hidden hidden md:flex justify-center"
+      className="fixed top-16 left-0 right-0 z-40 py-2 overflow-hidden hidden md:flex justify-center"
       style={{ 
         y: translateY,
       }}
