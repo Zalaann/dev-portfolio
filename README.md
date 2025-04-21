@@ -22,14 +22,14 @@ A modern, responsive portfolio website built with Next.js 14, TypeScript, and Ta
 ### Hero Section with Interactive Elements
 <img src="./public/images/screenshots/herosection.png" alt="Hero Section" width="800">
 
+### Mobile View
+<img src="./public/images/screenshots/mobile.jpeg" alt="Mobile View" width="400">
+
 ### About Me
 <img src="./public/images/screenshots/aboutme.png" alt="About Me Section" width="800">
 
 ### Contact
 <img src="./public/images/screenshots/contactme.png" alt="Contact Section" width="800">
-
-### Mobile View
-<img src="./public/images/screenshots/mobile.jpeg" alt="Mobile View" width="400">
 
 ## Installation
 
