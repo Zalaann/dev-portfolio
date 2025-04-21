@@ -17,6 +17,20 @@ A modern, responsive portfolio website built with Next.js 14, TypeScript, and Ta
 - 🎨 Custom 3D animations
 - 🔍 Fully TypeScript
 
+## Screenshots
+
+### Hero Section with Interactive Elements
+![Hero Section Screenshot](/public/images/screenshots/Screenshot%202025-04-21%20at%206.47.55%20PM.png)
+
+### Skills Constellation
+![Skills Showcase](/public/images/screenshots/Screenshot%202025-04-21%20at%206.48.17%20PM.png)
+
+### Project Showcase
+![Project Showcase](/public/images/screenshots/Screenshot%202025-04-21%20at%206.48.33%20PM.png)
+
+### Mobile View
+![Mobile View](/public/images/screenshots/IMG_23A4001AF784-1.jpeg)
+
 ## Installation
 
 1. Clone the repository:
