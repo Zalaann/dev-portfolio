@@ -20,16 +20,16 @@ A modern, responsive portfolio website built with Next.js 14, TypeScript, and Ta
 ## Screenshots
 
 ### Hero Section with Interactive Elements
-![Hero Section Screenshot](/public/images/screenshots/Screenshot%202025-04-21%20at%206.47.55%20PM.png)
+![Hero Section Screenshot](./public/images/screenshots/Screenshot%202025-04-21%20at%206.47.55%20PM.png)
 
 ### Skills Constellation
-![Skills Showcase](/public/images/screenshots/Screenshot%202025-04-21%20at%206.48.17%20PM.png)
+![Skills Showcase](./public/images/screenshots/Screenshot%202025-04-21%20at%206.48.17%20PM.png)
 
 ### Project Showcase
-![Project Showcase](/public/images/screenshots/Screenshot%202025-04-21%20at%206.48.33%20PM.png)
+![Project Showcase](./public/images/screenshots/Screenshot%202025-04-21%20at%206.48.33%20PM.png)
 
 ### Mobile View
-![Mobile View](/public/images/screenshots/IMG_23A4001AF784-1.jpeg)
+![Mobile View](./public/images/screenshots/IMG_23A4001AF784-1.jpeg)
 
 ## Installation
 
