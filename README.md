@@ -25,6 +25,9 @@ A modern, responsive portfolio website built with Next.js 14, TypeScript, and Ta
 ### Mobile View
 <img src="./public/images/screenshots/mobile.jpeg" alt="Mobile View" width="400">
 
+### My Tech Stack
+<img src="./public/images/screenshots/mytechstack.png" alt="My Tech Stack" width="800">
+
 ### About Me
 <img src="./public/images/screenshots/aboutme.png" alt="About Me Section" width="800">
 
