@@ -54,3 +54,24 @@ npm run dev
 ## Performance Optimization
 
 See [PERFORMANCE-OPTIMIZATION.md](PERFORMANCE-OPTIMIZATION.md) for details on performance improvements.
+
+## Attribution
+
+If you use this portfolio as inspiration or template, please consider:
+- ⭐ Starring the repository
+- 🔗 Providing attribution by linking back to the original project
+- 🙏 Giving credit to the original creator
+
+Created by [Muhammad Ibrahim Tariq](https://github.com/Zalaann)
+
+## Repository Tags
+
+If you're forking this project, consider adding these topics to your repository for better discoverability:
+- portfolio
+- personal-website 
+- developer-portfolio
+- nextjs
+- typescript
+- tailwindcss
+- framer-motion
+- open-source

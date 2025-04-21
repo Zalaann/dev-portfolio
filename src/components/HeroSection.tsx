@@ -38,9 +38,9 @@ export default function HeroSection() {
       rotate: 0,
       transition: {
         type: "spring",
-        stiffness: 100,
-        damping: 15,
-        duration: 1
+        stiffness: 120,
+        damping: 12,
+        duration: 0.6
       }
     }
   };
@@ -50,8 +50,8 @@ export default function HeroSection() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3
+        staggerChildren: 0.1,
+        delayChildren: 0.1
       }
     }
   };
@@ -63,8 +63,8 @@ export default function HeroSection() {
       opacity: 1,
       transition: {
         type: "spring",
-        stiffness: 100,
-        damping: 10
+        stiffness: 120,
+        damping: 8
       }
     }
   };
@@ -74,7 +74,7 @@ export default function HeroSection() {
       await backgroundControls.start({
         opacity: 1,
         scale: 1,
-        transition: { duration: 1, ease: "easeOut" }
+        transition: { duration: 0.5, ease: "easeOut" }
       });
 
       await titleControls.start({
@@ -82,8 +82,8 @@ export default function HeroSection() {
         opacity: 1,
         transition: {
           type: "spring",
-          stiffness: 100,
-          damping: 20
+          stiffness: 120,
+          damping: 15
         }
       });
 
@@ -92,8 +92,8 @@ export default function HeroSection() {
         opacity: 1,
         transition: {
           type: "spring",
-          stiffness: 100,
-          damping: 20
+          stiffness: 120,
+          damping: 15
         }
       });
 
@@ -104,9 +104,9 @@ export default function HeroSection() {
         opacity: 1,
         transition: {
           type: "spring",
-          stiffness: 100,
-          damping: 20,
-          staggerChildren: 0.1
+          stiffness: 120,
+          damping: 15,
+          staggerChildren: 0.05
         }
       });
 
@@ -125,31 +125,33 @@ export default function HeroSection() {
       animate="visible"
       variants={containerAnimation}
     >
+      {/* Particle background positioned at the base layer */}
       <ParticleBackground 
         density={70}
         interactive={true}
       />
-
+      
+      {/* Gradient overlays that blend with the particles */}
       <motion.div
-        className="absolute inset-0 overflow-hidden pointer-events-none opacity-10"
+        className="absolute inset-0 overflow-hidden pointer-events-none opacity-40 mix-blend-soft-light"
         initial={{ opacity: 0, scale: 0.8 }}
         animate={backgroundControls}
       >
         <motion.div
-          className="absolute w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-primary/5 rounded-full blur-3xl -top-20 -right-20"
+          className="absolute w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] bg-primary/20 rounded-full blur-[150px] -top-20 -right-20"
           animate={{
             x: [0, 30, 0],
             y: [0, -30, 0],
             scale: [1, 1.1, 1],
           }}
           transition={{
-            duration: 8,
+            duration: 6,
             repeat: Infinity,
             ease: "easeInOut"
           }}
         />
         <motion.div
-          className="absolute w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-secondary/5 rounded-full blur-3xl -bottom-20 -left-20"
+          className="absolute w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] bg-secondary/20 rounded-full blur-[150px] -bottom-20 -left-20"
           animate={{
             x: [0, -30, 0],
             y: [0, 30, 0],
