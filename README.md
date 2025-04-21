@@ -20,16 +20,16 @@ A modern, responsive portfolio website built with Next.js 14, TypeScript, and Ta
 ## Screenshots
 
 ### Hero Section with Interactive Elements
-<img src="https://github.com/Zalaann/My-Portfolio/raw/main/public/images/screenshots/Screenshot%202025-04-21%20at%206.47.55%20PM.png" alt="Hero Section" width="800">
+<img src="./public/images/screenshots/herosection.png" alt="Hero Section" width="800">
 
-### Skills Constellation
-<img src="https://github.com/Zalaann/My-Portfolio/raw/main/public/images/screenshots/Screenshot%202025-04-21%20at%206.48.17%20PM.png" alt="Skills Constellation" width="800">
+### About Me
+<img src="./public/images/screenshots/aboutme.png" alt="About Me Section" width="800">
 
-### Project Showcase
-<img src="https://github.com/Zalaann/My-Portfolio/raw/main/public/images/screenshots/Screenshot%202025-04-21%20at%206.48.33%20PM.png" alt="Project Showcase" width="800">
+### Contact
+<img src="./public/images/screenshots/contactme.png" alt="Contact Section" width="800">
 
 ### Mobile View
-<img src="https://github.com/Zalaann/My-Portfolio/raw/main/public/images/screenshots/IMG_23A4001AF784-1.jpeg" alt="Mobile View" width="400">
+<img src="./public/images/screenshots/mobile.jpeg" alt="Mobile View" width="400">
 
 ## Installation
 
