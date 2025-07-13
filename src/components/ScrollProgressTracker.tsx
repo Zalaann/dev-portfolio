@@ -73,10 +73,11 @@ export default function ScrollProgressTracker({ hideOnTop = true }: ScrollProgre
       initial={{ opacity: 0 }}
       animate={{ opacity: isVisible ? 1 : 0 }}
       transition={{ duration: 0.3 }}
+      style={{ willChange: 'transform, opacity' }}
     >
       <motion.div 
         className="h-full bg-gradient-to-r from-primary/50 via-primary to-secondary"
-        style={{ scaleX, transformOrigin: "0%" }}
+        style={{ scaleX, transformOrigin: "0%", willChange: 'transform, opacity' }}
       />
       
       {/* Particles that follow scroll progress */}
@@ -88,6 +89,7 @@ export default function ScrollProgressTracker({ hideOnTop = true }: ScrollProgre
             left: particlePositions[i],
             opacity: Math.random() * 0.7 + 0.3,
             y: Math.random() * -10,
+            willChange: 'transform, opacity'
           }}
           animate={{
             y: [Math.random() * -5, Math.random() * -15, Math.random() * -5],
@@ -107,6 +109,7 @@ export default function ScrollProgressTracker({ hideOnTop = true }: ScrollProgre
         style={{ 
           left: useTransform(scrollYProgress, [0, 1], ["0%", "calc(100% - 48px)"]),
           y: -2,
+          willChange: 'transform, opacity'
         }}
       />
 

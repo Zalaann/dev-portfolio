@@ -77,6 +77,7 @@ export default function ContactSection() {
                 transition={{ duration: 0.5 }}
                 viewport={{ once: true }}
                 className="inline-block"
+                style={{ willChange: 'transform, opacity' }}
               >
                 <span className="px-4 py-1.5 rounded-full bg-primary/20 backdrop-blur-sm text-primary text-sm font-medium">
                   Contact
@@ -88,6 +89,7 @@ export default function ContactSection() {
                 transition={{ duration: 0.5, delay: 0.2 }}
                 viewport={{ once: true }}
                 className="text-4xl font-bold tracking-tight"
+                style={{ willChange: 'transform, opacity' }}
               >
                 Get in{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
@@ -104,6 +106,7 @@ export default function ContactSection() {
                 transition={{ duration: 0.5 }}
                 viewport={{ once: true }}
                 className="space-y-8 bg-background/40 backdrop-blur-sm p-8 rounded-xl border border-white/20 shadow-lg"
+                style={{ willChange: 'transform, opacity' }}
               >
                 <h3 className="text-2xl font-bold">Let&apos;s Connect</h3>
                 <p className="text-muted-foreground">
@@ -118,6 +121,7 @@ export default function ContactSection() {
                     viewport={{ once: true }}
                     href="mailto:ibrahimtariq8193@gmail.com"
                     className="flex items-center space-x-4 group"
+                    style={{ willChange: 'transform, opacity' }}
                   >
                     <div className="relative">
                       <div className="absolute inset-0 bg-primary/20 rounded-full blur-md transform transition-all duration-300 group-hover:blur-lg"></div>
@@ -140,6 +144,7 @@ export default function ContactSection() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center space-x-4 group"
+                    style={{ willChange: 'transform, opacity' }}
                   >
                     <div className="relative">
                       <div className="absolute inset-0 bg-primary/20 rounded-full blur-md transform transition-all duration-300 group-hover:blur-lg"></div>
@@ -162,6 +167,7 @@ export default function ContactSection() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center space-x-4 group"
+                    style={{ willChange: 'transform, opacity' }}
                   >
                     <div className="relative">
                       <div className="absolute inset-0 bg-primary/20 rounded-full blur-md transform transition-all duration-300 group-hover:blur-lg"></div>
@@ -184,6 +190,7 @@ export default function ContactSection() {
                 transition={{ duration: 0.5 }}
                 viewport={{ once: true }}
                 className="relative"
+                style={{ willChange: 'transform, opacity' }}
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/30 to-secondary/30 rounded-2xl opacity-10 blur-lg"></div>
                 <div className="bg-background/40 backdrop-blur-sm rounded-xl p-8 border border-white/20 shadow-lg relative">
@@ -195,12 +202,14 @@ export default function ContactSection() {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         className="absolute inset-0 z-10 backdrop-blur-md bg-background/60 rounded-xl flex items-center justify-center"
+                        style={{ willChange: 'transform, opacity' }}
                       >
                         <motion.div
                           initial={{ scale: 0.8, opacity: 0 }}
                           animate={{ scale: 1, opacity: 1 }}
                           exit={{ scale: 0.8, opacity: 0 }}
                           className="text-center p-4"
+                          style={{ willChange: 'transform, opacity' }}
                         >
                           {formStatus === "success" ? (
                             <>

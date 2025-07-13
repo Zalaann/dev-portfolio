@@ -107,6 +107,7 @@ export default function ProjectsSection() {
             transition={{ duration: 0.5, delay: 0.2 }}
             viewport={{ once: true }}
             className="group relative"
+            style={{ willChange: 'transform, opacity' }}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-secondary to-primary rounded-2xl opacity-10 blur-lg"></div>
             <div className="relative bg-background/40 backdrop-blur-sm rounded-xl overflow-hidden border border-white/10 transition-colors duration-300">

@@ -2,10 +2,14 @@
 
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import dynamic from 'next/dynamic';
 
 interface LoadingScreenProps {
   progress: number;
 }
+
+// Import the ParticleBackground component with no SSR to avoid hydration issues
+const ParticleBackground = dynamic(() => import('./ParticleBackground'), { ssr: false });
 
 export default function LoadingScreen({ progress }: LoadingScreenProps) {
   // Track if we're running on a device that might struggle with animations
@@ -76,8 +80,10 @@ export default function LoadingScreen({ progress }: LoadingScreenProps) {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
       onAnimationComplete={() => document.body.style.overflow = 'auto'}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black will-change-auto"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-white will-change-auto"
     >
+      {/* Particle background positioned at the base layer */}
+      <ParticleBackground density={60} interactive={false} />
       <div className="relative transform-gpu">
         {/* Logo/Text Animation */}
         <motion.div
@@ -114,127 +120,6 @@ export default function LoadingScreen({ progress }: LoadingScreenProps) {
         >
           {Math.round(progress)}%
         </motion.div>
-
-        {/* Circular Animation - orbital rings */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-          <motion.div
-            variants={circleVariants}
-            initial="hidden"
-            animate="visible"
-            className="w-32 h-32 rounded-full border-2 border-primary/20 will-change-transform"
-          />
-          <motion.div
-            variants={innerCircleVariants}
-            initial="hidden"
-            animate="visible"
-            className="absolute top-1/2 left-1/2 w-24 h-24 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-secondary/20 will-change-transform"
-          />
-        </div>
-
-        {isLowPowerDevice ? (
-          // Simple animation for low-power devices
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-            className="absolute top-1/2 left-1/2 w-40 h-40 -translate-x-1/2 -translate-y-1/2 will-change-transform"
-          >
-            <motion.div 
-              animate={{
-                rotate: 360,
-                x: [0, 5, -5, 0],
-                y: [0, -5, 5, 0],
-              }}
-              transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-              className="absolute top-0 left-1/2 -translate-x-1/2"
-            >
-              <motion.div
-                variants={electronPulse}
-                initial="initial"
-                animate="animate"
-                className="w-2 h-2 rounded-full bg-primary"
-              />
-            </motion.div>
-            <motion.div 
-              animate={{
-                rotate: 360,
-                x: [0, -5, 5, 0],
-                y: [0, 5, -5, 0],
-              }}
-              transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
-              className="absolute bottom-0 left-1/2 -translate-x-1/2"
-            >
-              <motion.div
-                variants={electronPulse}
-                initial="initial"
-                animate="animate"
-                className="w-2 h-2 rounded-full bg-secondary"
-              />
-            </motion.div>
-          </motion.div>
-        ) : (
-          // Full atom-like animation for powerful devices
-          <>
-            {/* Electron Orbit 1 - horizontal with quantum motion */}
-            <motion.div
-              animate={{ rotateY: 360 }}
-              transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-              style={{ transformStyle: "preserve-3d" }}
-              className="absolute top-1/2 left-1/2 w-36 h-36 -translate-x-1/2 -translate-y-1/2 will-change-transform"
-            >
-              <motion.div
-                className="absolute left-0 top-1/2 -translate-y-1/2"
-                animate={generateOrbitalPath()}
-              >
-                <motion.div
-                  variants={electronPulse}
-                  initial="initial"
-                  animate="animate"
-                  className="w-3 h-3 rounded-full bg-primary shadow-[0_0_10px_2px_rgba(var(--primary),0.5)]"
-                />
-              </motion.div>
-            </motion.div>
-
-            {/* Electron Orbit 2 - vertical with quantum motion */}
-            <motion.div
-              animate={{ rotateX: 360 }}
-              transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-              style={{ transformStyle: "preserve-3d" }}
-              className="absolute top-1/2 left-1/2 w-36 h-36 -translate-x-1/2 -translate-y-1/2 will-change-transform"
-            >
-              <motion.div
-                className="absolute top-0 left-1/2 -translate-x-1/2"
-                animate={generateOrbitalPath()}
-              >
-                <motion.div
-                  variants={electronPulse}
-                  initial="initial"
-                  animate="animate"
-                  className="w-3 h-3 rounded-full bg-secondary shadow-[0_0_10px_2px_rgba(var(--secondary),0.5)]"
-                />
-              </motion.div>
-            </motion.div>
-
-            {/* Electron Orbit 3 - diagonal with quantum motion */}
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
-              className="absolute top-1/2 left-1/2 w-40 h-40 -translate-x-1/2 -translate-y-1/2 will-change-transform"
-              style={{ transform: "rotateZ(45deg)" }}
-            >
-              <motion.div
-                className="absolute bottom-0 left-1/2 -translate-x-1/2"
-                animate={generateOrbitalPath()}
-              >
-                <motion.div
-                  variants={electronPulse}
-                  initial="initial"
-                  animate="animate"
-                  className="w-2 h-2 rounded-full bg-primary/90 shadow-[0_0_8px_2px_rgba(var(--primary),0.4)]"
-                />
-              </motion.div>
-            </motion.div>
-          </>
-        )}
       </div>
     </motion.div>
   );

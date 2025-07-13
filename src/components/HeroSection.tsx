@@ -124,6 +124,7 @@ export default function HeroSection() {
       initial="hidden"
       animate="visible"
       variants={containerAnimation}
+      style={{ willChange: "transform, opacity" }}
     >
       {/* Particle background positioned at the base layer */}
       <ParticleBackground 
@@ -136,9 +137,10 @@ export default function HeroSection() {
         className="absolute inset-0 overflow-hidden pointer-events-none opacity-40 mix-blend-soft-light"
         initial={{ opacity: 0, scale: 0.8 }}
         animate={backgroundControls}
+        style={{ willChange: "transform, opacity" }}
       >
         <motion.div
-          className="absolute w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] bg-primary/20 rounded-full blur-[150px] -top-20 -right-20"
+          className="absolute w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] rounded-full blur-[250px] -top-20 -right-20 opacity-10 mix-blend-multiply bg-radial-primary"
           animate={{
             x: [0, 30, 0],
             y: [0, -30, 0],
@@ -149,6 +151,7 @@ export default function HeroSection() {
             repeat: Infinity,
             ease: "easeInOut"
           }}
+          style={{ willChange: "transform, opacity" }}
         />
         <motion.div
           className="absolute w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] bg-secondary/20 rounded-full blur-[150px] -bottom-20 -left-20"
@@ -163,11 +166,12 @@ export default function HeroSection() {
             ease: "easeInOut",
             delay: 1
           }}
+          style={{ willChange: "transform, opacity" }}
         />
       </motion.div>
 
       <motion.div
-        style={{ y, opacity, scale }}
+        style={{ y, opacity, scale, willChange: "transform, opacity" }}
         className="relative z-10 text-center w-full max-w-4xl mx-auto space-y-3 sm:space-y-8 mt-4 sm:mt-8"
       >
         <motion.div
@@ -175,6 +179,7 @@ export default function HeroSection() {
           initial={{ scale: 0, opacity: 0 }}
           animate={profileControls}
           className="mx-auto mb-2 sm:mb-4 mt-8 sm:mt-12"
+          style={{ willChange: "transform, opacity" }}
         >
           <ProfileCard />
         </motion.div>

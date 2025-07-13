@@ -8,14 +8,7 @@ import { MatrixText } from './MatrixText';
 export function SiteTimer() {
   const [timeSpent, setTimeSpent] = useState(0);
   const [scrollPercent, setScrollPercent] = useState(0);
-  const [particles, setParticles] = useState<Array<{x: number, size: number, speed: number, delay: number}>>(
-    Array(20).fill(0).map(() => ({
-      x: Math.random() * 100,
-      size: Math.random() * 2 + 1,
-      speed: Math.random() * 15 + 5,
-      delay: Math.random() * 5
-    }))
-  );
+  const [particles, setParticles] = useState<Array<{x: number, size: number, speed: number, delay: number}>>([]);
   
   // Scroll triggered animations
   const { scrollY } = useScroll();
@@ -41,6 +34,17 @@ export function SiteTimer() {
     };
   }, []);
 
+  useEffect(() => {
+    setParticles(
+      Array(20).fill(0).map(() => ({
+        x: Math.random() * 100,
+        size: Math.random() * 2 + 1,
+        speed: Math.random() * 15 + 5,
+        delay: Math.random() * 5
+      }))
+    );
+  }, []);
+
   const formatTime = (seconds: number) => {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
@@ -50,13 +54,13 @@ export function SiteTimer() {
 
   return (
     <motion.div 
-      className="fixed top-16 left-0 right-0 z-40 py-2 overflow-hidden hidden md:flex justify-center"
+      className="fixed top-28 left-0 right-0 z-40 py-2 overflow-hidden hidden md:flex justify-center"
       style={{ 
         y: translateY,
       }}
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ delay: 1, duration: 0.5 }}
+      transition={{ delay: 0, duration: 0.5 }}
     >
       <motion.div
         className="bg-background/60 backdrop-blur-md shadow-md rounded-full px-4 py-1.5 border border-border/20"

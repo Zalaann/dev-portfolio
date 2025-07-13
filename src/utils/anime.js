@@ -1,3 +1,5 @@
+// DEPRECATED: Use framer-motion based animation objects/utilities instead.
+
 // @ts-ignore - Ignoring the type checking for anime import
 import anime from 'animejs';
 

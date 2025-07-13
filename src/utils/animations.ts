@@ -1,156 +1,74 @@
-// Using require-style import to avoid TypeScript errors with module resolution
-// @ts-ignore - Ignoring the type checking for anime import
-import anime from 'animejs';
-
 // Hero section animations
 export const heroAnimations = {
-  title: (targets: string) => {
-    return anime({
-      targets,
-      translateY: [-50, 0],
-      opacity: [0, 1],
-      duration: 1000,
-      easing: 'easeOutExpo',
-      delay: 200
-    });
+  title: {
+    initial: { y: -50, opacity: 0 },
+    animate: { y: 0, opacity: 1, transition: { duration: 1, ease: 'easeOut', delay: 0.2 } }
   },
-  subtitle: (targets: string) => {
-    return anime({
-      targets,
-      translateY: [50, 0],
-      opacity: [0, 1],
-      duration: 1000,
-      easing: 'easeOutExpo',
-      delay: 400
-    });
+  subtitle: {
+    initial: { y: 50, opacity: 0 },
+    animate: { y: 0, opacity: 1, transition: { duration: 1, ease: 'easeOut', delay: 0.4 } }
   },
-  profileImage: (targets: string) => {
-    return anime({
-      targets,
-      scale: [0.8, 1],
-      opacity: [0, 1],
-      duration: 1000,
-      easing: 'easeOutElastic(1, .8)',
-      delay: 600
-    });
+  profileImage: {
+    initial: { scale: 0.8, opacity: 0 },
+    animate: { scale: 1, opacity: 1, transition: { duration: 1, ease: 'easeOut', delay: 0.6 } }
   }
 };
 
 // Skills constellation animations
 export const skillsAnimations = {
-  constellation: (targets: string) => {
-    return anime({
-      targets,
-      scale: [0, 1],
-      opacity: [0, 1],
-      duration: 800,
-      easing: 'easeOutElastic(1, .8)',
-      delay: anime.stagger(100)
-    });
+  constellation: {
+    initial: { scale: 0, opacity: 0 },
+    animate: { scale: 1, opacity: 1, transition: { duration: 0.8, ease: 'easeOut', delay: 0 } }
   },
-  connections: (targets: string) => {
-    return anime({
-      targets,
-      strokeDashoffset: [anime.setDashoffset, 0],
-      duration: 1500,
-      easing: 'easeInOutSine',
-      delay: anime.stagger(100)
-    });
+  connections: {
+    initial: { strokeDashoffset: 100 },
+    animate: { strokeDashoffset: 0, transition: { duration: 1.5, ease: 'easeInOut' } }
   }
 };
 
 // Project card animations
 export const projectAnimations = {
-  card: (targets: string) => {
-    return anime({
-      targets,
-      translateY: [50, 0],
-      opacity: [0, 1],
-      duration: 800,
-      easing: 'easeOutExpo',
-      delay: anime.stagger(100)
-    });
+  card: {
+    initial: { y: 50, opacity: 0 },
+    animate: { y: 0, opacity: 1, transition: { duration: 0.8, ease: 'easeOut' } }
   },
-  techStack: (targets: string) => {
-    return anime({
-      targets,
-      scale: [0, 1],
-      opacity: [0, 1],
-      duration: 500,
-      easing: 'easeOutElastic(1, .8)',
-      delay: anime.stagger(50)
-    });
+  techStack: {
+    initial: { scale: 0, opacity: 0 },
+    animate: { scale: 1, opacity: 1, transition: { duration: 0.5, ease: 'easeOut' } }
   }
 };
 
 // Scroll-triggered animations
 export const scrollAnimations = {
-  fadeIn: (targets: string) => {
-    return anime({
-      targets,
-      translateY: [50, 0],
-      opacity: [0, 1],
-      duration: 1000,
-      easing: 'easeOutExpo',
-      autoplay: false
-    });
+  fadeIn: {
+    initial: { y: 50, opacity: 0 },
+    animate: { y: 0, opacity: 1, transition: { duration: 1, ease: 'easeOut' } }
   },
-  slideIn: (targets: string) => {
-    return anime({
-      targets,
-      translateX: [-100, 0],
-      opacity: [0, 1],
-      duration: 1000,
-      easing: 'easeOutExpo',
-      autoplay: false
-    });
+  slideIn: {
+    initial: { x: -100, opacity: 0 },
+    animate: { x: 0, opacity: 1, transition: { duration: 1, ease: 'easeOut' } }
   }
 };
 
 // Contact form animations
 export const contactAnimations = {
-  form: (targets: string) => {
-    return anime({
-      targets,
-      scale: [0.95, 1],
-      opacity: [0, 1],
-      duration: 800,
-      easing: 'easeOutExpo'
-    });
+  form: {
+    initial: { scale: 0.95, opacity: 0 },
+    animate: { scale: 1, opacity: 1, transition: { duration: 0.8, ease: 'easeOut' } }
   },
-  success: (targets: string) => {
-    return anime({
-      targets,
-      scale: [0.8, 1],
-      opacity: [0, 1],
-      duration: 600,
-      easing: 'easeOutElastic(1, .8)'
-    });
+  success: {
+    initial: { scale: 0.8, opacity: 0 },
+    animate: { scale: 1, opacity: 1, transition: { duration: 0.6, ease: 'easeOut' } }
   }
 };
 
-// Export the functions that use anime.js
-export function fadeIn(element: HTMLElement, delay: number = 0, duration: number = 800) {
-  anime({
-    targets: element,
-    opacity: [0, 1],
-    translateY: [20, 0],
-    duration,
-    delay,
-    easing: 'easeOutExpo'
-  });
-}
+// Utility fadeIn/fadeOut for framer-motion
+export const fadeIn = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0, transition: { duration: 0.8, ease: 'easeOut' } }
+};
 
-export function fadeOut(element: HTMLElement, delay: number = 0, duration: number = 800) {
-  anime({
-    targets: element,
-    opacity: [1, 0],
-    translateY: [0, -20],
-    duration,
-    delay,
-    easing: 'easeOutExpo'
-  });
-}
-
-// Also export anime directly
-export default anime; 
+export const fadeOut = {
+  initial: { opacity: 1, y: 0 },
+  animate: { opacity: 0, y: -20, transition: { duration: 0.8, ease: 'easeOut' } }
+}; 

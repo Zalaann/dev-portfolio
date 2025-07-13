@@ -126,14 +126,14 @@ export default function InteractiveShowcase() {
       {/* Background Elements with parallax */}
       <motion.div 
         className="absolute inset-0 overflow-hidden pointer-events-none z-0"
-        style={{ opacity }}
+        style={{ opacity, willChange: 'transform, opacity' }}
       >
         <motion.div 
-          style={{ y }} 
+          style={{ y, willChange: 'transform, opacity' }} 
           className="absolute w-[800px] h-[800px] rounded-full bg-gradient-to-br from-primary/1 to-secondary/1 blur-3xl -top-1/4 -right-1/4 dark:from-primary/2 dark:to-secondary/2"
         />
         <motion.div 
-          style={{ y: useTransform(scrollYProgress, [0, 1], ["-30px", "30px"]) }} 
+          style={{ y: useTransform(scrollYProgress, [0, 1], ["-30px", "30px"]), willChange: 'transform, opacity' }} 
           className="absolute w-[600px] h-[600px] rounded-full bg-gradient-to-tr from-secondary/1 to-primary/1 blur-3xl -bottom-1/4 -left-1/4 dark:from-secondary/2 dark:to-primary/2"
         />
       </motion.div>
@@ -291,6 +291,7 @@ function SkillsConstellation() {
                 top: '50%',
                 zIndex: 1,
                 boxShadow: isActive ? `0 0 20px ${skill.color}40` : 'none',
+                willChange: 'transform, opacity'
               }}
               initial={{ x: position.x, y: position.y, scale: 0 }}
               animate={{ 
@@ -320,7 +321,7 @@ function SkillsConstellation() {
               {isActive && (
                 <motion.div
                   className="absolute inset-0 rounded-lg"
-                  style={{ backgroundColor: skill.color }}
+                  style={{ backgroundColor: skill.color, willChange: 'transform, opacity' }}
                   initial={{ opacity: 0 }}
                   animate={{ 
                     opacity: [0, 0.2, 0],

@@ -27,6 +27,7 @@ export default function AboutSection() {
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
           className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center"
+          style={{ willChange: 'transform, opacity' }}
         >
           <div className="space-y-8">
             <div className="space-y-4">
@@ -36,6 +37,7 @@ export default function AboutSection() {
                 transition={{ duration: 0.5, delay: 0.2 }}
                 viewport={{ once: true }}
                 className="inline-block"
+                style={{ willChange: 'transform, opacity' }}
               >
                 <span className="px-4 py-1.5 rounded-full bg-primary/20 text-primary text-sm font-medium backdrop-blur-sm">
                   About Me
@@ -47,6 +49,7 @@ export default function AboutSection() {
                 transition={{ duration: 0.5, delay: 0.3 }}
                 viewport={{ once: true }}
                 className="text-4xl font-bold tracking-tight"
+                style={{ willChange: 'transform, opacity' }}
               >
                 Passionate about creating{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary animate-gradient-x">
@@ -113,6 +116,7 @@ export default function AboutSection() {
                         transition={{ duration: 0.3, delay: 0.5 + index * 0.1 }}
                         viewport={{ once: true }}
                         className="flex items-center space-x-2"
+                        style={{ willChange: 'transform, opacity' }}
                       >
                         <span className="h-1.5 w-1.5 rounded-full bg-primary"></span>
                         <span className="text-muted-foreground">{lang}</span>
@@ -142,6 +146,7 @@ export default function AboutSection() {
                         transition={{ duration: 0.3, delay: 0.5 + index * 0.1 }}
                         viewport={{ once: true }}
                         className="flex items-center space-x-2"
+                        style={{ willChange: 'transform, opacity' }}
                       >
                         <skill.icon className="w-4 h-4" style={{ color: skill.color }} />
                         <span className="text-muted-foreground">{skill.name}</span>

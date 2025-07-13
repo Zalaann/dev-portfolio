@@ -44,8 +44,8 @@ const setLocalStorageItem = (key: string, value: string): void => {
 
 // Theme provider component
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  // Initialize theme state from localStorage if available, otherwise default to dark
-  const [theme, setThemeState] = useState<ThemeType>("dark");
+  // Initialize theme state from localStorage if available, otherwise default to light
+  const [theme, setThemeState] = useState<ThemeType>("light");
   const [isAnimating, setIsAnimating] = useState(false);
   const [ripplePosition, setRipplePosition] = useState<{ x: number, y: number } | null>(null);
   const [isMounted, setIsMounted] = useState(false);
@@ -71,10 +71,10 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       // Use saved preference
       setThemeState(savedTheme);
     } else {
-      // Always set to dark by default
-      setThemeState('dark');
-      // Save the dark theme preference
-      setLocalStorageItem("portfolio-theme", "dark");
+      // Use system preference, default to light
+      const systemTheme = detectSystemTheme();
+      setThemeState(systemTheme);
+      setLocalStorageItem("portfolio-theme", systemTheme);
     }
   }, []);
 
@@ -98,8 +98,9 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     const handleChange = (e: MediaQueryListEvent) => {
       // Only update if user hasn't manually set a preference
       if (!getLocalStorageItem("portfolio-theme")) {
-        // Always default to dark mode
-        setThemeState('dark');
+        // Use system preference
+        const systemTheme = detectSystemTheme();
+        setThemeState(systemTheme);
       }
     };
     

@@ -12,6 +12,7 @@ type ParticleBackgroundProps = {
   id?: string;
   density?: number;
   interactive?: boolean;
+  staticParticles?: boolean;
 };
 
 export default function ParticleBackground({
@@ -19,6 +20,7 @@ export default function ParticleBackground({
   id = "tsparticles",
   density = 80,
   interactive = true,
+  staticParticles = false,
 }: ParticleBackgroundProps) {
   const { theme } = useTheme();
   
@@ -89,10 +91,10 @@ export default function ParticleBackground({
             },
             move: {
               direction: "none",
-              enable: true,
+              enable: !staticParticles,
               outMode: "bounce",
               random: false,
-              speed: 2,
+              speed: staticParticles ? 0 : 2,
               straight: false,
             },
             number: {
@@ -106,7 +108,7 @@ export default function ParticleBackground({
               value: 0.5,
               random: true,
               anim: {
-                enable: true,
+                enable: !staticParticles,
                 speed: 1,
                 opacity_min: 0.1,
                 sync: false,
@@ -119,7 +121,7 @@ export default function ParticleBackground({
               value: 3,
               random: true,
               anim: {
-                enable: true,
+                enable: !staticParticles,
                 speed: 2,
                 size_min: 0.5,
                 sync: false,
