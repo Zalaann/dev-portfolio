@@ -112,6 +112,10 @@
   background-size: 200% 100%;
 }
 
+.portal-glow {
+  box-shadow: 0 0 40px 10px #818cf8, 0 0 80px 30px #6366f1;
+}
+
 /* Smooth Scrolling */
 html {
   scroll-behavior: smooth;
