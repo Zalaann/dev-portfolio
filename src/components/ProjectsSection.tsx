@@ -301,205 +301,119 @@ export default function ProjectsSection() {
             {/* Backdrop */}
             <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
             
-            {/* Desktop Modal */}
-            {!isMobile && (
-              <motion.div
-                initial={{ scale: 0.95, opacity: 0, y: 10 }}
-                animate={{ scale: 1, opacity: 1, y: 0 }}
-                exit={{ scale: 0.95, opacity: 0, y: 10 }}
-                transition={{ type: "spring", damping: 25, stiffness: 300 }}
-                className="relative w-full max-w-6xl bg-background/90 backdrop-blur-xl rounded-2xl border border-white/10 shadow-2xl overflow-hidden"
-                onClick={(e) => e.stopPropagation()}
+            {/* Unified Modal for Both Desktop and Mobile */}
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0, y: 10 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.95, opacity: 0, y: 10 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className={`relative ${isMobile ? 'w-full h-full' : 'w-full max-w-6xl'} bg-background/90 backdrop-blur-xl rounded-2xl border border-white/10 shadow-2xl overflow-hidden`}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Close Button */}
+              <button
+                onClick={closeProjectModal}
+                className="absolute top-4 right-4 z-30 p-2 rounded-full bg-black/20 hover:bg-black/40 text-white transition-all duration-200 backdrop-blur-sm"
+                aria-label="Close modal"
               >
-                {/* Close Button */}
-                <button
-                  onClick={closeProjectModal}
-                  className="absolute top-4 right-4 z-30 p-2 rounded-full bg-black/20 hover:bg-black/40 text-white transition-all duration-200 backdrop-blur-sm"
-                  aria-label="Close modal"
-                >
-                  <X className="w-4 h-4" />
-                </button>
+                <X className="w-4 h-4" />
+              </button>
 
-                <div className="flex flex-col lg:flex-row h-full">
-                  {/* Left Side - Project Details */}
-                  <div className="lg:w-1/2 p-6 lg:p-8 flex flex-col justify-between">
-                    {/* Header */}
-                    <div className="mb-6">
-                      <h2 className="text-2xl font-bold mb-3">{selectedProject.title}</h2>
-                      <p className="text-muted-foreground text-sm leading-relaxed mb-4">
-                        {selectedProject.description}
-                      </p>
-                    </div>
-
-                    {/* Project Details */}
-                    <div className="space-y-6 flex-1">
-                      {/* Technologies */}
-                      <div>
-                        <h3 className="text-sm font-semibold text-muted-foreground mb-3 uppercase tracking-wide">
-                          Technologies
-                        </h3>
-                        <div className="flex flex-wrap gap-2">
-                          {selectedProject.technologies.map((tech) => (
-                            <span
-                              key={tech.name}
-                              className="px-3 py-1.5 text-xs rounded-full bg-primary/10 text-primary flex items-center gap-1.5"
-                            >
-                              <tech.icon className="w-3 h-3" style={{ color: tech.color }} />
-                              {tech.name}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Long Description */}
-                      <div>
-                        <h3 className="text-sm font-semibold text-muted-foreground mb-3 uppercase tracking-wide">
-                          About
-                        </h3>
-                        <p className="text-sm text-muted-foreground leading-relaxed">
-                          {selectedProject.longDescription}
-                        </p>
-                      </div>
-                    </div>
+              <div className={`flex ${isMobile ? 'flex-col' : 'flex-col lg:flex-row'} h-full`}>
+                {/* Left Side - Project Details */}
+                <div className={`${isMobile ? 'flex-1 p-4' : 'lg:w-1/2 p-6 lg:p-8'} flex flex-col justify-between`}>
+                  {/* Header */}
+                  <div className="mb-6">
+                    <h2 className={`${isMobile ? 'text-lg' : 'text-2xl'} font-bold mb-3`}>{selectedProject.title}</h2>
+                    <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+                      {selectedProject.description}
+                    </p>
                   </div>
 
-                  {/* Right Side - Image Gallery */}
-                  <div className="lg:w-1/2 relative">
-                    <div className="h-full relative overflow-hidden">
-                      <Image
-                        src={selectedProject.images[modalImageIndex]}
-                        alt={`${selectedProject.title} screenshot ${modalImageIndex + 1}`}
-                        fill
-                        className="object-contain"
-                        sizes="(max-width: 768px) 100vw, 50vw"
-                      />
-                      
-                      {/* Navigation Arrows */}
-                      {selectedProject.images.length > 1 && (
-                        <>
-                          <button
-                            onClick={prevModalImage}
-                            className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white p-3 rounded-full transition-all duration-200 backdrop-blur-sm"
-                            aria-label="Previous image"
+                  {/* Project Details */}
+                  <div className="space-y-6 flex-1">
+                    {/* Technologies */}
+                    <div>
+                      <h3 className="text-sm font-semibold text-muted-foreground mb-3 uppercase tracking-wide">
+                        Technologies
+                      </h3>
+                      <div className="flex flex-wrap gap-2">
+                        {selectedProject.technologies.map((tech) => (
+                          <span
+                            key={tech.name}
+                            className="px-3 py-1.5 text-xs rounded-full bg-primary/10 text-primary flex items-center gap-1.5"
                           >
-                            <ChevronLeft className="w-5 h-5" />
-                          </button>
-                          <button
-                            onClick={nextModalImage}
-                            className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white p-3 rounded-full transition-all duration-200 backdrop-blur-sm"
-                            aria-label="Next image"
-                          >
-                            <ChevronRight className="w-5 h-5" />
-                          </button>
-                        </>
-                      )}
-                      
-                      {/* Image Counter */}
-                      {selectedProject.images.length > 1 && (
-                        <div className="absolute top-4 left-4 bg-black/50 text-white px-3 py-1 rounded-full text-sm backdrop-blur-sm">
-                          {modalImageIndex + 1} / {selectedProject.images.length}
-                        </div>
-                      )}
-                    </div>
-                    
-                    {/* Image Indicators */}
-                    {selectedProject.images.length > 1 && (
-                      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-                        {selectedProject.images.map((_, index) => (
-                          <button
-                            key={index}
-                            onClick={() => setModalImageIndex(index)}
-                            className={`w-3 h-3 rounded-full transition-all duration-200 ${
-                              index === modalImageIndex 
-                                ? 'bg-white' 
-                                : 'bg-white/50 hover:bg-white/75'
-                            }`}
-                            aria-label={`Go to image ${index + 1}`}
-                          />
+                            <tech.icon className="w-3 h-3" style={{ color: tech.color }} />
+                            {tech.name}
+                          </span>
                         ))}
                       </div>
-                    )}
-                  </div>
-                </div>
-              </motion.div>
-            )}
+                    </div>
 
-            {/* Mobile Modal */}
-            {isMobile && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 20 }}
-                transition={{ type: "spring", damping: 25, stiffness: 300 }}
-                className="relative w-full h-full bg-background"
-                onClick={(e) => e.stopPropagation()}
-              >
-                {/* Mobile Header */}
-                <div className="absolute top-0 left-0 right-0 z-30 bg-background/90 backdrop-blur-sm border-b border-white/10 p-4">
-                  <div className="flex items-center justify-between">
-                    <h2 className="text-lg font-bold">{selectedProject.title}</h2>
-                    <button
-                      onClick={closeProjectModal}
-                      className="p-2 rounded-full bg-black/20 hover:bg-black/40 text-white transition-all duration-200"
-                      aria-label="Close modal"
-                    >
-                      <X className="w-5 h-5" />
-                    </button>
+                    {/* Long Description */}
+                    <div>
+                      <h3 className="text-sm font-semibold text-muted-foreground mb-3 uppercase tracking-wide">
+                        About
+                      </h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        {selectedProject.longDescription}
+                      </p>
+                    </div>
                   </div>
                 </div>
 
-                {/* Mobile Image Gallery */}
-                <div className="h-full pt-16">
+                {/* Right Side - Image Gallery */}
+                <div className={`${isMobile ? 'h-1/2' : 'lg:w-1/2'} relative`}>
                   <div 
                     className="h-full relative overflow-hidden"
-                    onTouchStart={handleTouchStart}
-                    onTouchMove={handleTouchMove}
-                    onTouchEnd={handleTouchEnd}
+                    onTouchStart={isMobile ? handleTouchStart : undefined}
+                    onTouchMove={isMobile ? handleTouchMove : undefined}
+                    onTouchEnd={isMobile ? handleTouchEnd : undefined}
                   >
                     <Image
                       src={selectedProject.images[modalImageIndex]}
                       alt={`${selectedProject.title} screenshot ${modalImageIndex + 1}`}
                       fill
                       className="object-contain"
-                      sizes="100vw"
+                      sizes={isMobile ? "100vw" : "(max-width: 768px) 100vw, 50vw"}
                     />
                     
-                    {/* Mobile Navigation Arrows */}
+                    {/* Navigation Arrows */}
                     {selectedProject.images.length > 1 && (
                       <>
                         <button
                           onClick={prevModalImage}
-                          className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all duration-200"
+                          className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white p-3 rounded-full transition-all duration-200 backdrop-blur-sm"
                           aria-label="Previous image"
                         >
-                          <ChevronLeft className="w-6 h-6" />
+                          <ChevronLeft className="w-5 h-5" />
                         </button>
                         <button
                           onClick={nextModalImage}
-                          className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all duration-200"
+                          className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white p-3 rounded-full transition-all duration-200 backdrop-blur-sm"
                           aria-label="Next image"
                         >
-                          <ChevronRight className="w-6 h-6" />
+                          <ChevronRight className="w-5 h-5" />
                         </button>
                       </>
                     )}
                     
-                    {/* Mobile Image Counter */}
+                    {/* Image Counter */}
                     {selectedProject.images.length > 1 && (
-                      <div className="absolute top-4 left-1/2 transform -translate-x-1/2 bg-black/70 text-white px-4 py-2 rounded-full text-sm backdrop-blur-sm">
+                      <div className="absolute top-4 left-4 bg-black/50 text-white px-3 py-1 rounded-full text-sm backdrop-blur-sm">
                         {modalImageIndex + 1} / {selectedProject.images.length}
                       </div>
                     )}
                   </div>
                   
-                  {/* Mobile Image Indicators */}
+                  {/* Image Indicators */}
                   {selectedProject.images.length > 1 && (
-                    <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3">
+                    <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
                       {selectedProject.images.map((_, index) => (
                         <button
                           key={index}
                           onClick={() => setModalImageIndex(index)}
-                          className={`w-4 h-4 rounded-full transition-all duration-200 ${
+                          className={`w-3 h-3 rounded-full transition-all duration-200 ${
                             index === modalImageIndex 
                               ? 'bg-white' 
                               : 'bg-white/50 hover:bg-white/75'
@@ -510,34 +424,8 @@ export default function ProjectsSection() {
                     </div>
                   )}
                 </div>
-
-                {/* Mobile Project Info (Swipe up to reveal) */}
-                <div className="absolute bottom-0 left-0 right-0 bg-background/95 backdrop-blur-xl border-t border-white/10 p-4">
-                  <div className="space-y-3">
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {selectedProject.description}
-                    </p>
-                    
-                    <div>
-                      <h3 className="text-xs font-semibold text-muted-foreground mb-2 uppercase tracking-wide">
-                        Technologies
-                      </h3>
-                      <div className="flex flex-wrap gap-2">
-                        {selectedProject.technologies.map((tech) => (
-                          <span
-                            key={tech.name}
-                            className="px-2 py-1 text-xs rounded-full bg-primary/10 text-primary flex items-center gap-1"
-                          >
-                            <tech.icon className="w-3 h-3" style={{ color: tech.color }} />
-                            {tech.name}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            )}
+              </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
