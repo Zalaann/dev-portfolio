@@ -1,11 +1,33 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Github, ExternalLink } from "lucide-react";
+import { Github, ExternalLink, ChevronLeft, ChevronRight } from "lucide-react";
 import { SiReact, SiTypescript, SiSupabase, SiExpo, SiTailwindcss } from "react-icons/si";
 import { TbBrandReactNative } from "react-icons/tb";
+import Image from "next/image";
+import { useState } from "react";
 
 export default function ProjectsSection() {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  
+  const recelloImages = [
+    "/projects/1.jpeg",
+    "/projects/2.png", 
+    "/projects/3.png",
+    "/projects/4.png",
+    "/projects/5.png",
+    "/projects/6.png",
+    "/projects/7.png"
+  ];
+
+  const nextImage = () => {
+    setCurrentImageIndex((prev) => (prev + 1) % recelloImages.length);
+  };
+
+  const prevImage = () => {
+    setCurrentImageIndex((prev) => (prev - 1 + recelloImages.length) % recelloImages.length);
+  };
+
   return (
     <section id="projects" className="relative py-12 sm:py-24 md:py-32 bg-background/30 backdrop-blur-sm overflow-hidden">
       {/* Simplified Background Elements */}
@@ -42,7 +64,7 @@ export default function ProjectsSection() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-          {/* Recello Project - Simplified */}
+          {/* Recello Project - With Image Carousel */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -53,8 +75,50 @@ export default function ProjectsSection() {
             <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-2xl opacity-10 blur-lg"></div>
             <div className="relative bg-background/40 backdrop-blur-sm rounded-xl overflow-hidden border border-white/10 transition-colors duration-300">
               <div className="aspect-video bg-muted-foreground/5 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div className="w-full h-full bg-muted/20"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
+                
+                {/* Image Carousel */}
+                <div className="relative w-full h-full">
+                  <Image
+                    src={recelloImages[currentImageIndex]}
+                    alt={`Recello project screenshot ${currentImageIndex + 1}`}
+                    fill
+                    className="object-cover transition-opacity duration-300"
+                    priority={currentImageIndex === 0}
+                  />
+                  
+                  {/* Navigation Arrows */}
+                  <button
+                    onClick={prevImage}
+                    className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-200 opacity-0 group-hover:opacity-100 z-20"
+                    aria-label="Previous image"
+                  >
+                    <ChevronLeft className="w-4 h-4" />
+                  </button>
+                  <button
+                    onClick={nextImage}
+                    className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-200 opacity-0 group-hover:opacity-100 z-20"
+                    aria-label="Next image"
+                  >
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
+                  
+                  {/* Image Indicators */}
+                  <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-1 z-20">
+                    {recelloImages.map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setCurrentImageIndex(index)}
+                        className={`w-2 h-2 rounded-full transition-all duration-200 ${
+                          index === currentImageIndex 
+                            ? 'bg-white' 
+                            : 'bg-white/50 hover:bg-white/75'
+                        }`}
+                        aria-label={`Go to image ${index + 1}`}
+                      />
+                    ))}
+                  </div>
+                </div>
               </div>
               <div className="p-4 sm:p-8">
                 <div className="flex items-center justify-between mb-4">
