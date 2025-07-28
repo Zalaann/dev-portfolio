@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import Crosshair from '@/components/Crosshair';
 import Navbar from '@/components/Navbar';
 import { SiteTimer } from '@/components/SiteTimer';
@@ -21,13 +21,41 @@ export default function Home() {
   const [hovered, setHovered] = useState(false);
   const [shot, setShot] = useState(false);
   const [entered, setEntered] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect mobile device
+  useEffect(() => {
+    const checkMobile = () => {
+      const userAgent = navigator.userAgent.toLowerCase();
+      const isMobileDevice = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent);
+      const isSmallScreen = window.innerWidth <= 768;
+      setIsMobile(isMobileDevice || isSmallScreen);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const handleShoot = () => {
+    if (shot) return;
+    
+    // For mobile, allow direct clicking
+    if (isMobile) {
+      setShot(true);
+      const audio = new Audio(SHOOT_SOUND);
+      audio.play();
+      setTimeout(() => {
+        setEntered(true);
+      }, 350);
+      return;
+    }
+    
+    // For desktop, require hover
     if (!hovered || shot) return;
     setShot(true);
     const audio = new Audio(SHOOT_SOUND);
     audio.play();
-    // Firing effect: flash text, then load site
     setTimeout(() => {
       setEntered(true);
     }, 350);
@@ -76,27 +104,27 @@ export default function Home() {
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
-          color: hovered ? '#f472b6' : '#fff',
+          color: isMobile ? '#f472b6' : (hovered ? '#f472b6' : '#fff'),
           fontFamily: 'Inter, sans-serif',
           fontWeight: 700,
-          fontSize: '3.2rem',
+          fontSize: isMobile ? '2.5rem' : '3.2rem',
           letterSpacing: '-0.04em',
           textAlign: 'center',
           zIndex: 10,
           pointerEvents: 'auto',
           userSelect: 'none',
-          cursor: hovered ? 'crosshair' : 'default',
+          cursor: isMobile ? 'pointer' : (hovered ? 'crosshair' : 'default'),
           transition: 'color 0.18s cubic-bezier(.4,1,.7,1)',
-          textShadow: hovered ? '0 2px 16px #f472b6' : '0 2px 16px #000',
+          textShadow: isMobile ? '0 2px 16px #f472b6' : (hovered ? '0 2px 16px #f472b6' : '0 2px 16px #000'),
         }}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
+        onMouseEnter={() => !isMobile && setHovered(true)}
+        onMouseLeave={() => !isMobile && setHovered(false)}
       >
-        {hovered ? 'Shoot!!!' : 'Aim... aand...'}
+        {isMobile ? 'Shoot here by clicking!' : (hovered ? 'Shoot!!!' : 'Aim... aand...')}
         <div
           style={{
             fontWeight: 400,
-            fontSize: '1.1rem',
+            fontSize: isMobile ? '1rem' : '1.1rem',
             marginTop: '1.2rem',
             color: '#a1a1aa',
             letterSpacing: '0',
@@ -104,7 +132,7 @@ export default function Home() {
             transition: 'color 0.18s cubic-bezier(.4,1,.7,1)',
           }}
         >
-          (hover the text)
+          {isMobile ? '(tap to enter)' : '(hover the text)'}
         </div>
       </div>
     </div>
