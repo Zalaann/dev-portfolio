@@ -140,7 +140,7 @@ export default function HeroSection() {
         style={{ willChange: "transform, opacity" }}
       >
         <motion.div
-          className="absolute w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] rounded-full blur-[250px] -top-20 -right-20 opacity-10 mix-blend-multiply bg-radial-primary"
+          className="absolute w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] rounded-full blur-[250px] -top-96 -right-20 opacity-10 mix-blend-multiply bg-radial-primary"
           animate={{
             x: [0, 30, 0],
             y: [0, -30, 0],
@@ -154,7 +154,7 @@ export default function HeroSection() {
           style={{ willChange: "transform, opacity" }}
         />
         <motion.div
-          className="absolute w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] bg-secondary/20 rounded-full blur-[150px] -bottom-20 -left-20"
+          className="absolute w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] bg-secondary/20 rounded-full blur-[150px] -bottom-96 -left-20"
           animate={{
             x: [0, -30, 0],
             y: [0, 30, 0],
