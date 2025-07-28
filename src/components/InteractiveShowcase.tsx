@@ -159,7 +159,7 @@ export default function InteractiveShowcase() {
             className="inline-flex items-center font-mono text-[#00ff00] text-sm"
           >
             <Sparkles className="w-4 h-4 text-[#00ff00] mr-1" />
-            <MatrixText text="Click on a skill to see more details about my experience with it" scrambleSpeed={50} />
+            This is the tech stack I use for most of the projects
           </motion.p>
         </motion.div>
         

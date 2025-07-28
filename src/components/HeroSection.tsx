@@ -172,8 +172,9 @@ export default function HeroSection() {
 
       <motion.div
         style={{ y, opacity, scale, willChange: "transform, opacity" }}
-        className="relative z-10 text-center w-full max-w-4xl mx-auto space-y-3 sm:space-y-8 mt-4 sm:mt-8"
+        className="relative z-10 text-center w-full max-w-4xl mx-auto space-y-3 sm:space-y-8 mt-4 sm:mt-8 flex flex-col justify-center min-h-screen sm:min-h-0 sm:justify-start"
       >
+        <div className="flex flex-col justify-center min-h-screen sm:min-h-0 sm:justify-start -mt-20 sm:mt-0">
         <motion.div
           variants={profileAnimation}
           initial={{ scale: 0, opacity: 0 }}
@@ -312,6 +313,7 @@ export default function HeroSection() {
               </motion.a>
             ))}
           </motion.div>
+        </div>
         </div>
       </motion.div>
 
