@@ -61,7 +61,7 @@ export default function ProjectsSection() {
       title: "Preorder Store Dashboard",
       description: "An admin panel for managing preorders with Supabase backend. Features include order tracking, customer management, and Kanban-style task system.",
       longDescription: "A comprehensive admin dashboard designed for managing preorder operations efficiently. This web application provides store owners with powerful tools to track orders, manage customer relationships, and streamline their business processes. The dashboard features a Kanban-style task management system, real-time order tracking, customer analytics, and automated inventory management. Built with modern web technologies, it offers a responsive design that works seamlessly across all devices.",
-      images: ["/projects/1.jpeg"], // Using existing image for now
+      images: [], // No images for now
       technologies: [
         { name: "React", icon: SiReact, color: "#61DAFB" },
         { name: "Supabase", icon: SiSupabase, color: "#3ECF8E" },
@@ -246,19 +246,28 @@ export default function ProjectsSection() {
                     onTouchEnd={isMobile && project.id === "recello" ? handleTouchEnd : undefined}
                     style={{ touchAction: isMobile && project.id === "recello" ? 'pan-y' : 'auto' }}
                   >
-                    <Image
-                      key={`${project.id}-${currentImageIndex}-${forceUpdate}`}
-                      src={project.id === "recello" ? project.images[currentImageIndex] : project.images[0]}
-                      alt={`${project.title} project screenshot`}
-                      fill
-                      className="object-contain transition-opacity duration-300"
-                      priority={index === 0}
-                      onLoad={() => {
-                        if (project.id === "recello") {
-                          console.log('Image loaded for Recello, currentIndex:', currentImageIndex, 'src:', project.images[currentImageIndex]);
-                        }
-                      }}
-                    />
+                    {project.images.length > 0 ? (
+                      <Image
+                        key={`${project.id}-${currentImageIndex}-${forceUpdate}`}
+                        src={project.id === "recello" ? project.images[currentImageIndex] : project.images[0]}
+                        alt={`${project.title} project screenshot`}
+                        fill
+                        className="object-contain transition-opacity duration-300"
+                        priority={index === 0}
+                        onLoad={() => {
+                          if (project.id === "recello") {
+                            console.log('Image loaded for Recello, currentIndex:', currentImageIndex, 'src:', project.images[currentImageIndex]);
+                          }
+                        }}
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center bg-muted/10 rounded-lg">
+                        <div className="text-center text-muted-foreground">
+                          <div className="text-4xl mb-2">📋</div>
+                          <div className="text-sm">No preview available</div>
+                        </div>
+                      </div>
+                    )}
                     
 
                     
@@ -481,14 +490,23 @@ export default function ProjectsSection() {
                     onTouchEnd={isMobile ? handleTouchEnd : undefined}
                     style={{ touchAction: isMobile ? 'pan-y' : 'auto' }}
                   >
-                    <Image
-                      src={selectedProject.images[modalImageIndex]}
-                      alt={`${selectedProject.title} screenshot ${modalImageIndex + 1}`}
-                      fill
-                      className="object-contain"
-                      sizes={isMobile ? "100vw" : "(max-width: 768px) 100vw, 50vw"}
-                      priority={modalImageIndex === 0}
-                    />
+                    {selectedProject.images.length > 0 ? (
+                      <Image
+                        src={selectedProject.images[modalImageIndex]}
+                        alt={`${selectedProject.title} screenshot ${modalImageIndex + 1}`}
+                        fill
+                        className="object-contain"
+                        sizes={isMobile ? "100vw" : "(max-width: 768px) 100vw, 50vw"}
+                        priority={modalImageIndex === 0}
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center">
+                        <div className="text-center text-muted-foreground">
+                          <div className="text-4xl mb-2">📋</div>
+                          <div className="text-sm">No preview available</div>
+                        </div>
+                      </div>
+                    )}
                     
                     {/* Navigation Arrows */}
                     {selectedProject.images.length > 1 && (
