@@ -4,7 +4,6 @@ import LoadingScreen from '@/components/LoadingScreen';
 import Navbar from '@/components/Navbar';
 import { SiteTimer } from '@/components/SiteTimer';
 import ScrollProgressTracker from '@/components/ScrollProgressTracker';
-import ParticleBackground from '@/components/ParticleBackground';
 import HeroSection from '@/components/HeroSection';
 import AboutSection from '@/components/AboutSection';
 import InteractiveShowcase from '@/components/InteractiveShowcase';
@@ -44,7 +43,6 @@ export default function Home() {
       <SiteTimer />
       <ScrollProgressTracker />
       <main className="flex min-h-screen flex-col items-center justify-between relative">
-        <ParticleBackground density={70} interactive={true} />
         <HeroSection />
         <AboutSection />
         <InteractiveShowcase />

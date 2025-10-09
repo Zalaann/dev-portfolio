@@ -126,7 +126,7 @@ export default function HeroSection() {
     <motion.section
       ref={containerRef}
       id="home"
-      className="relative min-h-[100vh] flex flex-col items-center overflow-hidden px-4 sm:px-6 pt-16 sm:pt-24 pb-16"
+      className="relative min-h-[100vh] flex flex-col items-center overflow-hidden px-4 sm:px-6 pt-2 sm:pt-24 pb-16"
       initial="hidden"
       animate="visible"
       variants={containerAnimation}
@@ -140,14 +140,14 @@ export default function HeroSection() {
 
       <motion.div
         style={{ y, opacity, scale, willChange: "transform, opacity" }}
-        className="relative z-10 text-center w-full max-w-4xl mx-auto space-y-3 sm:space-y-8 mt-4 sm:mt-8 flex flex-col justify-center min-h-screen sm:min-h-0 sm:justify-start"
+        className="relative z-10 text-center w-full max-w-4xl mx-auto space-y-3 sm:space-y-8 mt-0 sm:mt-8 flex flex-col justify-center min-h-screen sm:min-h-0 sm:justify-start"
       >
         <div className="flex flex-col justify-center min-h-screen sm:min-h-0 sm:justify-start -mt-20 sm:mt-0">
         <motion.div
           variants={profileAnimation}
           initial={{ scale: 0, opacity: 0 }}
           animate={profileControls}
-          className="mx-auto mb-8 sm:mb-10 mt-8 sm:mt-12"
+          className="mx-auto mb-6 sm:mb-10 mt-0 sm:mt-12"
           style={{ willChange: "transform, opacity" }}
         >
           <ProfileCard />
