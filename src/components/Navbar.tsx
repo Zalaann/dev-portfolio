@@ -31,6 +31,7 @@ export default function Navbar() {
     { name: "Skills", href: "#skills-showcase", icon: Sparkles },
     { name: "Projects", href: "#projects", icon: Code },
     { name: "Experience", href: "#experience", icon: Briefcase },
+    { name: "Education", href: "#education", icon: GraduationCap },
     { name: "Contact", href: "#contact", icon: Mail },
   ];
 
@@ -214,7 +215,7 @@ export default function Navbar() {
         {/* Compact Navigation */}
         <motion.div
           className="bg-background/80 backdrop-blur-md shadow-lg rounded-full border border-border/20 px-2 py-1.5"
-          style={{ maxWidth: "70%" }}
+          style={{ maxWidth: "80%" }}
           initial={{ y: 100, opacity: 0 }}
           animate={{ 
             y: isVisible ? 0 : 100, 
@@ -238,27 +239,18 @@ export default function Navbar() {
                 <span className="text-[8px] mt-0.5 font-medium">{item.name}</span>
               </a>
             ))}
+            <button
+              onClick={handleDownloadCV}
+              className="flex flex-col items-center justify-center px-1.5 py-0.5 rounded-full transition-all duration-300 text-foreground/60 hover:text-foreground"
+            >
+              <Download className="w-4 h-4" />
+              <span className="text-[8px] mt-0.5 font-medium">CV</span>
+            </button>
             <div className="scale-90">
               <ThemeToggle />
             </div>
           </div>
         </motion.div>
-
-        {/* Separate Download CV Button */}
-        <motion.button
-          onClick={handleDownloadCV}
-          className="absolute -right-4 bg-primary text-white rounded-full p-2 shadow-lg border border-primary/20"
-          initial={{ x: 100, opacity: 0 }}
-          animate={{ 
-            x: isVisible ? 0 : 100, 
-            opacity: isVisible ? 1 : 0 
-          }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-        >
-          <Download className="w-5 h-5" />
-        </motion.button>
       </div>
     </>
   );
