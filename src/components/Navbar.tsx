@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Home, User, Code, Briefcase, GraduationCap, Mail, Sparkles, Clock, Zap } from "lucide-react";
+import { Home, User, Code, Briefcase, GraduationCap, Mail, Sparkles, Clock, Zap, Download } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
 import { MatrixText } from './MatrixText';
 
@@ -91,7 +91,13 @@ export default function Navbar() {
     e.preventDefault();
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - 120; // 120px offset for navbar
+      
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
       setActiveSection(sectionId);
     }
   };
@@ -101,6 +107,15 @@ export default function Navbar() {
     const minutes = Math.floor((seconds % 3600) / 60);
     const remainingSeconds = seconds % 60;
     return `${hours > 0 ? `${hours}:` : ''}${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+  };
+
+  const handleDownloadCV = () => {
+    const link = document.createElement('a');
+    link.href = '/certificates/Muhammad Ibrahim Tariq CV.pdf';
+    link.download = 'Muhammad_Ibrahim_Tariq_CV.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (
@@ -115,30 +130,44 @@ export default function Navbar() {
         }}
         transition={{ duration: 0.5 }}
       >
-        <motion.div 
-          className="bg-background/80 backdrop-blur-md shadow-lg rounded-full px-3 py-2 border border-border/20"
-        >
-          <div className="flex items-center space-x-1">
-            {navItems.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className={`nav-link group px-4 py-2 rounded-full transition-all duration-300 flex items-center justify-center space-x-2 relative ${
-                  activeSection === item.href.substring(1)
-                    ? "text-background bg-foreground"
-                    : "text-foreground/60 hover:text-foreground hover:bg-foreground/5"
-                }`}
-                onClick={(e) => handleNavClick(e, item.href.substring(1))}
-              >
-                <item.icon className="w-4 h-4" />
-                <span>{item.name}</span>
-              </a>
-            ))}
-            <div className="ml-2">
-              <ThemeToggle />
+        <div className="flex items-center space-x-4">
+          {/* Main Navigation */}
+          <motion.div 
+            className="bg-background/80 backdrop-blur-md shadow-lg rounded-full px-2 py-1.5 border border-border/20"
+          >
+            <div className="flex items-center space-x-0.5">
+              {navItems.map((item) => (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className={`nav-link group px-3 py-1.5 rounded-full transition-all duration-300 flex items-center justify-center space-x-1.5 relative text-sm ${
+                    activeSection === item.href.substring(1)
+                      ? "text-background bg-foreground"
+                      : "text-foreground/60 hover:text-foreground hover:bg-foreground/5"
+                  }`}
+                  onClick={(e) => handleNavClick(e, item.href.substring(1))}
+                >
+                  <item.icon className="w-3.5 h-3.5" />
+                  <span>{item.name}</span>
+                </a>
+              ))}
+              <div className="ml-1">
+                <ThemeToggle />
+              </div>
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
+
+          {/* Download CV Button - Separate */}
+          <motion.button
+            onClick={handleDownloadCV}
+            className="nav-link group px-3 py-1.5 rounded-full transition-all duration-300 flex items-center justify-center space-x-1.5 relative text-sm text-foreground/60 hover:text-foreground hover:bg-foreground/5 bg-background/80 backdrop-blur-md shadow-lg border border-border/20"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Download className="w-3.5 h-3.5" />
+            <span>Download CV</span>
+          </motion.button>
+        </div>
       </motion.header>
 
       {/* Mobile Navigation (Bottom) with Session Info behind */}
@@ -209,6 +238,13 @@ export default function Navbar() {
                 <span className="text-[8px] mt-0.5 font-medium">{item.name}</span>
               </a>
             ))}
+            <button
+              onClick={handleDownloadCV}
+              className="flex flex-col items-center justify-center px-1.5 py-0.5 rounded-full transition-all duration-300 text-foreground/60 hover:text-foreground"
+            >
+              <Download className="w-4 h-4" />
+              <span className="text-[8px] mt-0.5 font-medium">CV</span>
+            </button>
             <div className="scale-90">
               <ThemeToggle />
             </div>

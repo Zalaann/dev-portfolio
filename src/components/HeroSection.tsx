@@ -28,7 +28,6 @@ export default function HeroSection() {
   const subtitleControls = useAnimation();
   const profileControls = useAnimation();
   const buttonsControls = useAnimation();
-  const backgroundControls = useAnimation();
 
   const profileAnimation = {
     hidden: { scale: 0, opacity: 0, rotate: -180 },
@@ -38,9 +37,9 @@ export default function HeroSection() {
       rotate: 0,
       transition: {
         type: "spring",
-        stiffness: 120,
-        damping: 12,
-        duration: 0.6
+        stiffness: 200,
+        damping: 15,
+        duration: 0.4
       }
     }
   };
@@ -50,8 +49,8 @@ export default function HeroSection() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.1
+        staggerChildren: 0.05,
+        delayChildren: 0.05
       }
     }
   };
@@ -71,42 +70,49 @@ export default function HeroSection() {
 
   useEffect(() => {
     const sequence = async () => {
-      await backgroundControls.start({
-        opacity: 1,
-        scale: 1,
-        transition: { duration: 0.5, ease: "easeOut" }
-      });
+      // Start title and subtitle together (parallel)
+      await Promise.all([
+        titleControls.start({
+          y: 0,
+          opacity: 1,
+          transition: {
+            type: "spring",
+            stiffness: 150,
+            damping: 20,
+            delay: 0.1
+          }
+        }),
+        subtitleControls.start({
+          y: 0,
+          opacity: 1,
+          transition: {
+            type: "spring",
+            stiffness: 150,
+            damping: 20,
+            delay: 0.2
+          }
+        })
+      ]);
 
-      await titleControls.start({
-        y: 0,
-        opacity: 1,
+      // Start profile immediately after title/subtitle
+      await profileControls.start({
+        ...profileAnimation.visible,
         transition: {
-          type: "spring",
-          stiffness: 120,
-          damping: 15
+          ...profileAnimation.visible.transition,
+          delay: 0.05
         }
       });
 
-      await subtitleControls.start({
-        y: 0,
-        opacity: 1,
-        transition: {
-          type: "spring",
-          stiffness: 120,
-          damping: 15
-        }
-      });
-
-      await profileControls.start(profileAnimation.visible);
-
+      // Start buttons slightly after profile
       await buttonsControls.start({
         y: 0,
         opacity: 1,
         transition: {
           type: "spring",
-          stiffness: 120,
-          damping: 15,
-          staggerChildren: 0.05
+          stiffness: 150,
+          damping: 20,
+          staggerChildren: 0.03,
+          delay: 0.1
         }
       });
 
@@ -114,7 +120,7 @@ export default function HeroSection() {
     };
 
     sequence();
-  }, [titleControls, subtitleControls, profileControls, buttonsControls, backgroundControls]);
+  }, [titleControls, subtitleControls, profileControls, buttonsControls]);
 
   return (
     <motion.section
@@ -131,44 +137,6 @@ export default function HeroSection() {
         density={70}
         interactive={true}
       />
-      
-      {/* Gradient overlays that blend with the particles */}
-      <motion.div
-        className="absolute inset-0 overflow-hidden pointer-events-none opacity-40 mix-blend-soft-light"
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={backgroundControls}
-        style={{ willChange: "transform, opacity" }}
-      >
-        <motion.div
-          className="absolute w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] rounded-full blur-[250px] -top-96 -right-20 opacity-10 mix-blend-multiply bg-radial-primary"
-          animate={{
-            x: [0, 30, 0],
-            y: [0, -30, 0],
-            scale: [1, 1.1, 1],
-          }}
-          transition={{
-            duration: 6,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          style={{ willChange: "transform, opacity" }}
-        />
-        <motion.div
-          className="absolute w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] bg-secondary/20 rounded-full blur-[150px] -bottom-96 -left-20"
-          animate={{
-            x: [0, -30, 0],
-            y: [0, 30, 0],
-            scale: [1, 1.1, 1],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 1
-          }}
-          style={{ willChange: "transform, opacity" }}
-        />
-      </motion.div>
 
       <motion.div
         style={{ y, opacity, scale, willChange: "transform, opacity" }}

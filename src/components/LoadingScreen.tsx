@@ -1,54 +1,54 @@
 "use client";
 
-import { motion, useMotionValue, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
-const AURORA_COLORS = [
-  ["#a5b4fc", "#818cf8", "#6366f1"],
-  ["#f472b6", "#a5b4fc", "#818cf8"],
-  ["#34d399", "#818cf8", "#6366f1"],
-  ["#fbbf24", "#a5b4fc", "#6366f1"],
+const CODE_LINES = [
+  "const portfolio = await buildPortfolio();",
+  "async function loadExperience() {",
+  "  const skills = await fetchSkills();",
+  "  return skills.map(skill => skill.mastery);",
+  "}",
+  "const projects = await loadProjects();",
+  "portfolio.render();"
+];
+
+const TECH_STACK = [
+  { name: "JavaScript", color: "#F7DF1E" },
+  { name: "TypeScript", color: "#3178C6" },
+  { name: "React", color: "#61DAFB" },
+  { name: "Next.js", color: "#000000" },
+  { name: "Python", color: "#3776AB" },
+  { name: "Node.js", color: "#339933" }
 ];
 
 export default function LoadingScreen({ progress }: { progress: number }) {
-  const [colorIdx, setColorIdx] = useState(0);
+  const [currentLine, setCurrentLine] = useState(0);
+  const [typingText, setTypingText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  // Typewriter effect for code
   useEffect(() => {
-    const interval = setInterval(() => {
-      setColorIdx((idx) => (idx + 1) % AURORA_COLORS.length);
-    }, 3500);
-    return () => clearInterval(interval);
-  }, []);
+    const currentCode = CODE_LINES[currentLine];
+    let timeout: NodeJS.Timeout;
 
-  // Morphing ring path (simple organic morph)
-  const morphs = [
-    "M130,40 Q170,60 190,130 Q170,200 130,220 Q90,200 70,130 Q90,60 130,40 Z",
-    "M130,35 Q180,70 200,130 Q180,210 130,225 Q80,210 60,130 Q80,70 130,35 Z",
-    "M130,45 Q175,80 185,130 Q175,195 130,215 Q85,195 75,130 Q85,80 130,45 Z",
-    "M130,40 Q170,60 190,130 Q170,200 130,220 Q90,200 70,130 Q90,60 130,40 Z",
-  ];
-  const [morphIdx, setMorphIdx] = useState(0);
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setMorphIdx((idx) => (idx + 1) % morphs.length);
-    }, 2200);
-    return () => clearInterval(interval);
-  }, []);
+    if (!isDeleting && typingText === currentCode) {
+      timeout = setTimeout(() => setIsDeleting(true), 2000);
+    } else if (isDeleting && typingText === "") {
+      setIsDeleting(false);
+      setCurrentLine((prev) => (prev + 1) % CODE_LINES.length);
+    } else {
+      timeout = setTimeout(() => {
+        setTypingText(
+          isDeleting
+            ? currentCode.substring(0, typingText.length - 1)
+            : currentCode.substring(0, typingText.length + 1)
+        );
+      }, isDeleting ? 50 : 100);
+    }
 
-  // Aurora color stops
-  const [c1, c2, c3] = AURORA_COLORS[colorIdx];
-
-  // Aurora fill intensity based on progress
-  const fillOpacity = 0.3 + 0.5 * (progress / 100);
-  const ringScale = 0.85 + 0.25 * (progress / 100);
-
-  // Drifting light particles
-  const particles = Array.from({ length: 5 }, (_, i) => ({
-    delay: i * 0.7,
-    size: 18 + Math.random() * 16,
-    x: 80 + Math.random() * 100,
-    y: 80 + Math.random() * 100,
-    duration: 5 + Math.random() * 2,
-  }));
+    return () => clearTimeout(timeout);
+  }, [typingText, isDeleting, currentLine]);
 
   return (
     <motion.div
@@ -56,102 +56,147 @@ export default function LoadingScreen({ progress }: { progress: number }) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-background to-primary/40"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900"
       style={{ overflow: "hidden" }}
     >
-      {/* Aurora Morphing Ring */}
-      <motion.svg
-        width="260"
-        height="260"
-        viewBox="0 0 260 260"
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-        style={{ zIndex: 2 }}
-      >
-        <defs>
-          <radialGradient id="aurora-glow" cx="50%" cy="50%" r="60%">
-            <stop offset="0%" stopColor={c1} stopOpacity="0.7" />
-            <stop offset="60%" stopColor={c2} stopOpacity="0.5" />
-            <stop offset="100%" stopColor={c3} stopOpacity="0.2" />
-          </radialGradient>
-        </defs>
-        <motion.path
-          d={morphs[morphIdx]}
-          fill="url(#aurora-glow)"
-          style={{ filter: "blur(2.5px)" }}
-          animate={{
-            d: morphs[(morphIdx + 1) % morphs.length],
-            scale: ringScale,
-            opacity: fillOpacity,
-          }}
-          transition={{
-            duration: 2.2,
-            ease: "easeInOut",
-          }}
-        />
-      </motion.svg>
-      {/* Center Glow */}
+      {/* Animated Grid Background */}
+      <div className="absolute inset-0 opacity-20">
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(59,130,246,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.1)_1px,transparent_1px)] bg-[size:50px_50px] animate-pulse" />
+      </div>
+
+      {/* Terminal Window */}
       <motion.div
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full"
-        style={{
-          width: 110,
-          height: 110,
-          background:
-            "radial-gradient(circle, #a5b4fc 0%, #6366f1 60%, transparent 100%)",
-          filter: `blur(${12 - 8 * (progress / 100)}px)`,
-          opacity: 0.7 + 0.3 * (progress / 100),
-          zIndex: 1,
-        }}
-        animate={{ scale: 0.9 + 0.2 * (progress / 100) }}
-        transition={{ type: "spring", stiffness: 60, damping: 18 }}
-      />
-      {/* Drifting Light Particles */}
-      {particles.map((p, i) => (
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="relative bg-slate-800/90 backdrop-blur-sm rounded-lg shadow-2xl border border-slate-700/50 p-6 min-w-[400px] max-w-[500px]"
+      >
+        {/* Terminal Header */}
+        <div className="flex items-center gap-2 mb-4 pb-3 border-b border-slate-700/50">
+          <div className="flex gap-1.5">
+            <div className="w-3 h-3 rounded-full bg-red-500" />
+            <div className="w-3 h-3 rounded-full bg-yellow-500" />
+            <div className="w-3 h-3 rounded-full bg-green-500" />
+          </div>
+          <div className="flex-1 text-center">
+            <span className="text-xs text-slate-400 font-mono">portfolio-terminal</span>
+          </div>
+        </div>
+
+        {/* Code Display */}
+        <div className="space-y-2 mb-6">
+          <div className="flex items-center gap-2 text-xs text-slate-500 font-mono">
+            <span className="text-blue-400">mibrahimtariq@portfolio</span>
+            <span className="text-slate-600">:</span>
+            <span className="text-green-400">~</span>
+            <span className="text-slate-600">$</span>
+            <motion.span
+              className="text-slate-300 font-mono text-sm"
+              animate={{ opacity: [1, 0, 1] }}
+              transition={{ duration: 1, repeat: Infinity }}
+            >
+              {typingText}
+              <span className="text-blue-400">|</span>
+            </motion.span>
+          </div>
+        </div>
+
+        {/* Tech Stack Animation */}
+        <div className="grid grid-cols-3 gap-3 mb-6">
+          {TECH_STACK.map((tech, index) => (
+            <motion.div
+              key={tech.name}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: index * 0.1, duration: 0.5 }}
+              className="flex items-center gap-2 p-2 rounded bg-slate-700/30 border border-slate-600/30"
+            >
+              <div
+                className="w-2 h-2 rounded-full"
+                style={{ backgroundColor: tech.color }}
+              />
+              <span className="text-xs text-slate-300 font-mono">{tech.name}</span>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Progress Bar */}
+        <div className="space-y-2">
+          <div className="flex justify-between text-xs text-slate-400 font-mono">
+            <span>Initializing Portfolio...</span>
+            <span>{Math.round(progress)}%</span>
+          </div>
+          <div className="w-full bg-slate-700/50 rounded-full h-1.5 overflow-hidden">
+            <motion.div
+              className="h-full bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"
+              initial={{ width: "0%" }}
+              animate={{ width: `${progress}%` }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+            />
+          </div>
+        </div>
+
+        {/* Loading Messages */}
         <motion.div
-          key={i}
-          className="absolute rounded-full pointer-events-none"
-          style={{
-            width: p.size,
-            height: p.size,
-            left: p.x,
-            top: p.y,
-            background:
-              "radial-gradient(circle, #fff 0%, #a5b4fc 60%, transparent 100%)",
-            filter: "blur(6px)",
-            opacity: 0.18 + 0.12 * (progress / 100),
-            zIndex: 3,
-          }}
-          animate={{
-            y: [p.y, p.y - 30, p.y],
-            x: [p.x, p.x + 20 * (i % 2 ? 1 : -1), p.x],
-          }}
-          transition={{
-            duration: p.duration,
-            repeat: Infinity,
-            repeatType: "loop",
-            delay: p.delay,
-            ease: "easeInOut",
-          }}
-        />
-      ))}
-      {/* Loading Text */}
-      <div className="absolute left-1/2 top-2/3 -translate-x-1/2 flex flex-col items-center z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
-          transition={{ duration: 0.7, ease: "easeInOut" }}
-          className="text-lg font-medium text-primary drop-shadow animate-float"
-        >
-          Preparing Experience…
-        </motion.div>
-        <motion.div
-          className="mt-2 text-xs text-muted-foreground tracking-widest"
+          className="mt-4 text-xs text-slate-400 font-mono space-y-1"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.2, duration: 0.7 }}
+          transition={{ delay: 0.5 }}
         >
-          {Math.round(progress)}%
+          <motion.div
+            animate={{ opacity: [0.5, 1, 0.5] }}
+            transition={{ duration: 2, repeat: Infinity, delay: 0 }}
+          >
+            ✓ Loading components...
+          </motion.div>
+          <motion.div
+            animate={{ opacity: [0.5, 1, 0.5] }}
+            transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
+          >
+            ✓ Compiling TypeScript...
+          </motion.div>
+          <motion.div
+            animate={{ opacity: [0.5, 1, 0.5] }}
+            transition={{ duration: 2, repeat: Infinity, delay: 1 }}
+          >
+            ✓ Optimizing performance...
+          </motion.div>
         </motion.div>
+      </motion.div>
+
+      {/* Floating Code Elements */}
+      <div className="absolute inset-0 pointer-events-none">
+        {[
+          { symbol: "{", x: 200, y: 150, delay: 0, duration: 4.5 },
+          { symbol: "}", x: 800, y: 300, delay: 0.5, duration: 5.2 },
+          { symbol: "(", x: 150, y: 500, delay: 1, duration: 4.8 },
+          { symbol: ")", x: 900, y: 200, delay: 1.5, duration: 5.5 },
+          { symbol: "[", x: 300, y: 600, delay: 2, duration: 4.3 },
+          { symbol: "]", x: 750, y: 450, delay: 2.5, duration: 5.8 },
+          { symbol: ";", x: 500, y: 100, delay: 3, duration: 4.7 },
+          { symbol: "=>", x: 600, y: 550, delay: 3.5, duration: 5.1 },
+        ].map((item, i) => (
+          <motion.div
+            key={i}
+            className="absolute text-slate-600/20 font-mono text-xs"
+            initial={{
+              x: item.x,
+              y: item.y,
+              opacity: 0,
+            }}
+            animate={{
+              y: [item.y, item.y - 100],
+              opacity: [0, 0.3, 0],
+            }}
+            transition={{
+              duration: item.duration,
+              repeat: Infinity,
+              delay: item.delay,
+            }}
+          >
+            {item.symbol}
+          </motion.div>
+        ))}
       </div>
     </motion.div>
   );

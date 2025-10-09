@@ -22,6 +22,11 @@ const nextConfig = {
         destination: 'https://www.linkedin.com/in/muhammad-ibrahim-tariq-b9126932b',
         permanent: true,
       },
+      {
+        source: '/nuch',
+        destination: 'https://nuch-ai-article-summarizer.vercel.app/',
+        permanent: true,
+      },
     ];
   },
 };
