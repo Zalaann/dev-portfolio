@@ -17,28 +17,22 @@ export default function EducationSection() {
 
   const certificates: Certificate[] = [
     {
-      title: "EF SET English Certificate",
-      issuer: "EF Standard English Test",
-      date: "January 2024",
-      file: "/certificates/efset.pdf",
-    },
-    {
-      title: "JavaScript Essentials 1",
+      title: "CISCO JavaScript Essentials 2",
       issuer: "Cisco Networking Academy",
-      date: "December 2023",
-      file: "/certificates/js-essentials-1.pdf",
-    },
-    {
-      title: "JavaScript Essentials 2",
-      issuer: "Cisco Networking Academy",
-      date: "December 2023",
+      date: "Apr 2025",
       file: "/certificates/js-essentials-2.pdf",
     },
     {
-      title: "IELTS Academic (7 bands)",
-      issuer: "British Council",
-      date: "July 2022",
-      file: "/certificates/ielts.pdf",
+      title: "CISCO JavaScript Essentials 1",
+      issuer: "Cisco Networking Academy",
+      date: "Mar 2025",
+      file: "/certificates/js-essentials-1.pdf",
+    },
+    {
+      title: "EF SET English Certificate",
+      issuer: "EF Standard English Test",
+      date: "Mar 2024",
+      file: "/certificates/efset.pdf",
     },
   ];
 
@@ -85,117 +79,71 @@ export default function EducationSection() {
               </motion.h2>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-              {/* University Education */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                viewport={{ once: true }}
-                className="relative"
-              >
-                <div className="group relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-2xl opacity-10 blur-lg"></div>
-                  <div className="relative bg-background/40 backdrop-blur-sm rounded-xl p-8 border border-white/20 shadow-lg transition-colors duration-300 h-full">
-                    <div className="mb-4 px-4 py-1 inline-block bg-primary/15 backdrop-blur-sm rounded-full text-primary font-semibold text-base">
-                      January 2024 — January 2025
-                    </div>
-                    <div>
-                      <div className="flex items-center space-x-2 mb-2">
-                        <BookOpen className="w-5 h-5 text-primary" />
-                        <h3 className="text-xl font-bold">Applied Computing BSc (Hons)</h3>
+            <div className="flex justify-center mb-16">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl w-full items-stretch">
+                {/* University of East London */}
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                  viewport={{ once: true }}
+                  className="relative flex"
+                >
+                  <div className="group relative flex flex-col w-full">
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-2xl opacity-10 blur-lg"></div>
+                    <div className="relative bg-background/40 backdrop-blur-sm rounded-xl p-8 border border-white/20 shadow-lg transition-colors duration-300 flex flex-col h-full">
+                      <div className="mb-4 px-4 py-1 inline-block bg-primary/15 backdrop-blur-sm rounded-full text-primary font-semibold text-base w-fit">
+                        Sep 2024 — Sep 2025
                       </div>
-                      <p className="text-muted-foreground mb-4">
-                        University of East London, London
-                      </p>
+                      <div className="flex flex-col flex-1">
+                        <div className="flex items-start space-x-2 mb-2">
+                          <BookOpen className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
+                          <h3 className="text-xl font-bold">Bachelor of Applied Computing</h3>
+                        </div>
+                        <p className="text-muted-foreground mb-3">
+                          University of East London, London, UK
+                        </p>
+                        <p className="text-sm text-primary font-medium mb-2">
+                          Cumulative GPA: 3.9/4.0 • Graduated with Distinction
+                        </p>
+                        <p className="text-xs text-muted-foreground flex-1">
+                          Major in Computer Science; Minors in Mathematics and Psychology
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </motion.div>
+                </motion.div>
 
-              {/* AI Program */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                viewport={{ once: true }}
-                className="relative"
-              >
-                <div className="group relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-secondary to-primary rounded-2xl opacity-10 blur-lg"></div>
-                  <div className="relative bg-background/40 backdrop-blur-sm rounded-xl p-8 border border-white/20 shadow-lg transition-colors duration-300 h-full">
-                    <div className="mb-4 px-4 py-1 inline-block bg-primary/15 backdrop-blur-sm rounded-full text-primary font-semibold text-base">
-                      September 2020 — July 2024
-                    </div>
-                    <div>
-                      <div className="flex items-center space-x-2 mb-2">
-                        <BookOpen className="w-5 h-5 text-primary" />
-                        <h3 className="text-xl font-bold">Artificial Intelligence</h3>
+                {/* FAST National University */}
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                  viewport={{ once: true }}
+                  className="relative flex"
+                >
+                  <div className="group relative flex flex-col w-full">
+                    <div className="absolute inset-0 bg-gradient-to-r from-secondary to-primary rounded-2xl opacity-10 blur-lg"></div>
+                    <div className="relative bg-background/40 backdrop-blur-sm rounded-xl p-8 border border-white/20 shadow-lg transition-colors duration-300 flex flex-col h-full">
+                      <div className="mb-4 px-4 py-1 inline-block bg-primary/15 backdrop-blur-sm rounded-full text-primary font-semibold text-base w-fit">
+                        Aug 2020 — Aug 2024
                       </div>
-                      <p className="text-muted-foreground mb-4">
-                        National University of Computer and Emerging Sciences
-                      </p>
+                      <div className="flex flex-col flex-1">
+                        <div className="flex items-start space-x-2 mb-2">
+                          <BookOpen className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
+                          <h3 className="text-xl font-bold">Bachelor of Computer Sciences</h3>
+                        </div>
+                        <p className="text-muted-foreground mb-3">
+                          FAST National University of Computer and Emerging Sciences, Islamabad, PK
+                        </p>
+                        <p className="text-xs text-muted-foreground flex-1">
+                          Relevant Coursework: Data Analysis, Software Engineering, Operating Systems, Algorithms, Artificial Intelligence, Computer Networks
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </motion.div>
-            </div>
-
-            {/* Additional Education */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-              {/* Computer Sciences */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                viewport={{ once: true }}
-                className="relative"
-              >
-                <div className="group relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-2xl opacity-10 blur-lg"></div>
-                  <div className="relative bg-background/40 backdrop-blur-sm rounded-xl p-8 border border-white/20 shadow-lg transition-colors duration-300 h-full">
-                    <div className="mb-4 px-4 py-1 inline-block bg-primary/15 backdrop-blur-sm rounded-full text-primary font-semibold text-base">
-                      January 2018 — January 2020
-                    </div>
-                    <div>
-                      <div className="flex items-center space-x-2 mb-2">
-                        <BookOpen className="w-5 h-5 text-primary" />
-                        <h3 className="text-xl font-bold">Computer Sciences</h3>
-                      </div>
-                      <p className="text-muted-foreground mb-4">
-                        Steps College
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* Sciences */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                viewport={{ once: true }}
-                className="relative"
-              >
-                <div className="group relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-secondary to-primary rounded-2xl opacity-10 blur-lg"></div>
-                  <div className="relative bg-background/40 backdrop-blur-sm rounded-xl p-8 border border-white/20 shadow-lg transition-colors duration-300 h-full">
-                    <div className="mb-4 px-4 py-1 inline-block bg-primary/15 backdrop-blur-sm rounded-full text-primary font-semibold text-base">
-                      January 2014 — January 2017
-                    </div>
-                    <div>
-                      <div className="flex items-center space-x-2 mb-2">
-                        <BookOpen className="w-5 h-5 text-primary" />
-                        <h3 className="text-xl font-bold">Sciences</h3>
-                      </div>
-                      <p className="text-muted-foreground mb-4">
-                        Cadet College Kallar Kahar, Islamabad
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
+                </motion.div>
+              </div>
             </div>
 
             {/* Certificates Section */}
@@ -212,38 +160,40 @@ export default function EducationSection() {
                 </motion.h3>
               </div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                viewport={{ once: true }}
-                className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
-              >
-                {certificates.map((cert, index) => (
-                  <div
-                    key={index}
-                    onClick={() => setSelectedCertificate(cert)}
-                    className="relative cursor-pointer group"
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-xl opacity-10 blur-md transform transition-all duration-300 group-hover:opacity-20 group-hover:blur-lg"></div>
-                    <div className="relative bg-background/40 backdrop-blur-sm p-6 rounded-xl border border-white/20 shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-                      <div className="flex flex-col h-full">
-                        <div className="flex items-center justify-between mb-2">
-                          <CalendarDays className="w-5 h-5 text-primary" />
-                          <span className="text-xs text-muted-foreground">{cert.date}</span>
-                        </div>
-                        <h3 className="font-bold mb-1 text-lg">{cert.title}</h3>
-                        <p className="text-muted-foreground text-sm mb-4">{cert.issuer}</p>
-                        <div className="mt-auto">
-                          <span className="text-xs uppercase tracking-wider text-primary font-semibold">
-                            Click to view
-                          </span>
+              <div className="flex justify-center">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                  viewport={{ once: true }}
+                  className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl w-full"
+                >
+                  {certificates.map((cert, index) => (
+                    <div
+                      key={index}
+                      onClick={() => setSelectedCertificate(cert)}
+                      className="relative cursor-pointer group"
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-xl opacity-10 blur-md transform transition-all duration-300 group-hover:opacity-20 group-hover:blur-lg"></div>
+                      <div className="relative bg-background/40 backdrop-blur-sm p-6 rounded-xl border border-white/20 shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1 h-full">
+                        <div className="flex flex-col h-full">
+                          <div className="flex items-center justify-between mb-3">
+                            <CalendarDays className="w-5 h-5 text-primary" />
+                            <span className="text-xs text-muted-foreground">{cert.date}</span>
+                          </div>
+                          <h3 className="font-bold mb-2 text-base leading-tight">{cert.title}</h3>
+                          <p className="text-muted-foreground text-sm mb-4 flex-1">{cert.issuer}</p>
+                          <div className="mt-auto">
+                            <span className="text-xs uppercase tracking-wider text-primary font-semibold">
+                              Click to view
+                            </span>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                ))}
-              </motion.div>
+                  ))}
+                </motion.div>
+              </div>
             </div>
           </div>
         </div>

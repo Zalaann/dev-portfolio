@@ -8,12 +8,12 @@ import { AiOutlineProject } from "react-icons/ai";
 
 export default function AboutSection() {
   const contactInfo = [
-    { icon: MapPin, text: "London, United Kingdom", href: null },
+    { icon: MapPin, text: "Manchester, UK", href: null },
     { icon: Mail, text: "mibrahimtariq@icloud.com", href: "mailto:mibrahimtariq@icloud.com" },
   ];
 
   return (
-    <section id="about" className="relative py-12 sm:py-24 md:py-32 bg-transparent overflow-hidden mt-0">
+    <section id="about" className="relative py-8 sm:py-16 md:py-20 bg-transparent overflow-hidden mt-0">
       {/* Background Elements - more subtle */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute w-[500px] h-[500px] bg-primary/2 rounded-full blur-3xl top-20 -right-32"></div>
@@ -26,10 +26,11 @@ export default function AboutSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center"
+          className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-start"
           style={{ willChange: 'transform, opacity' }}
         >
-          <div className="space-y-8">
+          {/* About Me Content - Takes up 2 columns on large screens */}
+          <div className="lg:col-span-2 space-y-8">
             <div className="space-y-4">
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
@@ -95,13 +96,14 @@ export default function AboutSection() {
             </motion.div>
           </div>
 
-          <div className="relative">
+          {/* Languages and Skills - Takes up 1 column on large screens */}
+          <div className="lg:col-span-1 space-y-6">
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.3 }}
               viewport={{ once: true }}
-              className="grid grid-cols-2 gap-6 relative p-6"
+              className="space-y-6"
             >
               {/* Languages Card */}
               <div className="group relative z-10">
@@ -130,29 +132,37 @@ export default function AboutSection() {
               <div className="group relative z-10">
                 <div className="relative p-6 rounded-lg">
                   <h3 className="font-semibold mb-4 text-lg">Skills</h3>
-                  <ul className="space-y-3">
+                  <div className="grid grid-cols-2 gap-x-4 gap-y-3">
                     {[
-                      { name: "Artificial Intelligence", icon: BsRobot, color: "#00B4D8" },
-                      { name: "Python", icon: SiPython, color: "#3776AB" },
-                      { name: "TensorFlow", icon: SiTensorflow, color: "#FF6F00" },
-                      { name: "Scikit-learn", icon: SiScikitlearn, color: "#F7931E" },
                       { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E" },
-                      { name: "Project Management", icon: AiOutlineProject, color: "#0073B1" }
+                      { name: "React Native", icon: SiJavascript, color: "#61DAFB" },
+                      { name: "Next.js", icon: SiJavascript, color: "#000000" },
+                      { name: "Python", icon: SiPython, color: "#3776AB" },
+                      { name: "TypeScript", icon: SiJavascript, color: "#3178C6" },
+                      { name: "AI/ML", icon: BsRobot, color: "#00B4D8" },
+                      { name: "OpenAI Whisper", icon: BsRobot, color: "#412991" },
+                      { name: "DeepSeek", icon: BsRobot, color: "#FF6B35" },
+                      { name: "TensorFlow", icon: SiTensorflow, color: "#FF6F00" },
+                      { name: "PostgreSQL", icon: SiJavascript, color: "#336791" },
+                      { name: "Supabase", icon: SiJavascript, color: "#3ECF8E" },
+                      { name: "Firebase", icon: SiJavascript, color: "#FFCA28" },
+                      { name: "AWS", icon: SiJavascript, color: "#FF9900" },
+                      { name: "Vercel", icon: SiJavascript, color: "#000000" }
                     ].map((skill, index) => (
-                      <motion.li
+                      <motion.div
                         key={skill.name}
                         initial={{ opacity: 0, x: -10 }}
                         whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.3, delay: 0.5 + index * 0.1 }}
+                        transition={{ duration: 0.3, delay: 0.5 + index * 0.05 }}
                         viewport={{ once: true }}
                         className="flex items-center space-x-2"
                         style={{ willChange: 'transform, opacity' }}
                       >
-                        <skill.icon className="w-4 h-4" style={{ color: skill.color }} />
-                        <span className="text-muted-foreground">{skill.name}</span>
-                      </motion.li>
+                        <skill.icon className="w-4 h-4 flex-shrink-0" style={{ color: skill.color }} />
+                        <span className="text-muted-foreground text-sm">{skill.name}</span>
+                      </motion.div>
                     ))}
-                  </ul>
+                  </div>
                 </div>
               </div>
             </motion.div>

@@ -39,7 +39,7 @@ export default function ExperienceSection() {
           <div className="absolute left-4 sm:left-1/2 transform sm:-translate-x-px h-full w-0.5 bg-gradient-to-b from-primary/10 via-secondary/10 to-primary/10"></div>
 
           <div className="space-y-8 sm:space-y-12">
-            {/* Kaye Mackenzie IT Intern - NEW */}
+            {/* Kaye Mackenzie Tech Intern */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -55,16 +55,28 @@ export default function ExperienceSection() {
                   <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-2xl opacity-10 blur-lg"></div>
                   <div className="relative bg-background/40 backdrop-blur-sm rounded-xl p-8 border border-white/20 shadow-lg transition-colors duration-300">
                     <div className="flex items-center justify-between mb-4">
-                      <h3 className="text-xl font-bold">IT Intern, Kaye Mackenzie</h3>
+                      <h3 className="text-xl font-bold">Tech Intern, Kaye Mackenzie</h3>
                       <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                         <Calendar className="w-4 h-4" />
-                        <span>June 2024 - Present</span>
+                        <span>July 2024 – Aug 2024</span>
                       </div>
                     </div>
                     <ul className="space-y-4 text-muted-foreground">
                       <li className="flex items-start space-x-3">
                         <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary flex-shrink-0"></span>
-                        <span>Working as a Full Stack Developer, building and maintaining web applications.</span>
+                        <span>Contributed to full-stack development across both the mobile app (Expo/React Native) and the company website.</span>
+                      </li>
+                      <li className="flex items-start space-x-3">
+                        <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary flex-shrink-0"></span>
+                        <span>Implemented responsive frontend components and optimized API integration for real-time user interactions.</span>
+                      </li>
+                      <li className="flex items-start space-x-3">
+                        <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary flex-shrink-0"></span>
+                        <span>Implemented backend features that improved performance, scalability, and data handling using modern frameworks.</span>
+                      </li>
+                      <li className="flex items-start space-x-3">
+                        <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary flex-shrink-0"></span>
+                        <span>Deployed production-ready updates that enhanced reliability and user satisfaction across web and mobile platforms.</span>
                       </li>
                     </ul>
                   </div>
@@ -72,7 +84,7 @@ export default function ExperienceSection() {
               </div>
             </motion.div>
 
-            {/* Amazon Warehouse Operative - Simplified */}
+            {/* Freelance Writing Guild */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -88,53 +100,34 @@ export default function ExperienceSection() {
                   <div className="absolute inset-0 bg-gradient-to-r from-secondary to-primary rounded-2xl opacity-10 blur-lg"></div>
                   <div className="relative bg-background/40 backdrop-blur-sm rounded-xl p-8 border border-white/20 shadow-lg transition-colors duration-300">
                     <div className="flex items-center justify-between mb-4">
-                      <h3 className="text-xl font-bold">Amazon Warehouse Operative</h3>
+                      <h3 className="text-xl font-bold">Founder, Freelance Writing Guild</h3>
                       <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                         <Calendar className="w-4 h-4" />
-                        <span>November 2023 - December 2023</span>
+                        <span>Jun 2016 – Sep 2016</span>
                       </div>
                     </div>
-                    <p className="text-muted-foreground">
-                      Gained valuable experience in warehouse operations and logistics management at one of the world's largest e-commerce companies.
-                    </p>
+                    <ul className="space-y-4 text-muted-foreground">
+                      <li className="flex items-start space-x-3">
+                        <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary flex-shrink-0"></span>
+                        <span>Built and managed a tech-driven writing startup serving 7+ recurring clients across multiple industries.</span>
+                      </li>
+                      <li className="flex items-start space-x-3">
+                        <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary flex-shrink-0"></span>
+                        <span>Designed and implemented a workflow automation system to manage assignments, track progress, and generate client reports.</span>
+                      </li>
+                      <li className="flex items-start space-x-3">
+                        <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary flex-shrink-0"></span>
+                        <span>Recruited, trained, and managed a distributed team of writers while maintaining client relationships and ensuring consistent quality standards.</span>
+                      </li>
+                    </ul>
                   </div>
                 </div>
               </div>
             </motion.div>
 
-            {/* Tesco Retail Merchandiser - Simplified */}
+            {/* CDRS Community Disaster Response & Volunteering */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
-              className="relative"
-            >
-              <div className="flex items-center justify-center absolute left-4 sm:left-1/2 transform -translate-x-1/2">
-                <div className="w-4 h-4 rounded-full bg-primary"></div>
-              </div>
-              <div className="ml-12 sm:ml-auto sm:w-1/2 sm:pl-8">
-                <div className="group relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-2xl opacity-10 blur-lg"></div>
-                  <div className="relative bg-background/40 backdrop-blur-sm rounded-xl p-8 border border-white/20 shadow-lg transition-colors duration-300">
-                    <div className="flex items-center justify-between mb-4">
-                      <h3 className="text-xl font-bold">Tesco Retail Merchandiser</h3>
-                      <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                        <Calendar className="w-4 h-4" />
-                        <span>October 2023 - December 2023</span>
-                      </div>
-                    </div>
-                    <p className="text-muted-foreground">
-                      Developed expertise in retail merchandising and customer service while working at one of the UK's leading supermarket chains.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* E-Commerce Store Owner - Simplified */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
@@ -148,24 +141,24 @@ export default function ExperienceSection() {
                   <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-2xl opacity-10 blur-lg"></div>
                   <div className="relative bg-background/40 backdrop-blur-sm rounded-xl p-8 border border-white/20 shadow-lg transition-colors duration-300">
                     <div className="flex items-center justify-between mb-4">
-                      <h3 className="text-xl font-bold">E-Commerce Store Owner</h3>
+                      <h3 className="text-xl font-bold">Social Media Manager (Instagram), CDRS Community Disaster Response & Volunteering</h3>
                       <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                         <Calendar className="w-4 h-4" />
-                        <span>February 2021 - Present</span>
+                        <span>Jan 2020 – Sep 2020</span>
                       </div>
                     </div>
                     <ul className="space-y-4 text-muted-foreground">
                       <li className="flex items-start space-x-3">
                         <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary flex-shrink-0"></span>
-                        <span>Founded and scaled a hybrid e-commerce business to 7-figure PKR revenue within 2 years</span>
+                        <span>Managed and maintained social media channels to share disaster response updates and engage with affected communities.</span>
                       </li>
                       <li className="flex items-start space-x-3">
                         <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary flex-shrink-0"></span>
-                        <span>Led end-to-end operations, managing 1,000+ SKUs with 99% on-time delivery</span>
+                        <span>Created and scheduled posts, graphics, and alerts to inform volunteers and the public of ongoing aid activities.</span>
                       </li>
                       <li className="flex items-start space-x-3">
                         <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary flex-shrink-0"></span>
-                        <span>Implemented automation strategies using bots, reducing order processing time by 40%</span>
+                        <span>Coordinated with response teams to accurately communicate urgent needs, resource availability, and volunteer opportunities.</span>
                       </li>
                     </ul>
                   </div>

@@ -42,11 +42,11 @@ export default function ProjectsSection() {
 
   const projects: Project[] = [
     {
-      id: "recello",
-      title: "Recello",
-      description: "A marketplace app similar to OLX, built with React Native and Supabase. Features include multi-image uploads, location selection, and automated brand/model system.",
-      longDescription: "Recello is a comprehensive marketplace application that revolutionizes the buying and selling experience. Built with React Native and powered by Supabase, it offers a seamless platform for users to list items, browse categories, and connect with potential buyers or sellers. The app features advanced image management with multi-upload capabilities, precise location-based searching, and an intelligent brand/model recognition system that automatically categorizes items. With real-time messaging, secure payment integration, and a robust rating system, Recello provides a complete e-commerce solution for local marketplaces.",
-      images: recelloImages,
+      id: "fattys-ecommerce",
+      title: "Fattys - E-commerce Application",
+      description: "Designed and developed a complete cross-platform e-commerce solution for a retail client, built with React Native (Expo) and Supabase backend.",
+      longDescription: "Fattys is a comprehensive e-commerce application that provides a complete shopping experience for retail clients. Built with React Native and Expo for cross-platform compatibility, the app features end-to-end functionality including user authentication, product catalog with advanced filtering, shopping cart management, secure checkout process, and payment integration. The Supabase backend ensures real-time data synchronization, secure user management, and scalable database operations. The app streamlines client operations and enhances customer experience with a modern, intuitive interface.",
+      images: recelloImages, // Reusing existing images for now
       technologies: [
         { name: "React Native", icon: TbBrandReactNative, color: "#61DAFB" },
         { name: "Supabase", icon: SiSupabase, color: "#3ECF8E" },
@@ -57,16 +57,16 @@ export default function ProjectsSection() {
       githubUrl: "#"
     },
     {
-      id: "preorder-dashboard",
-      title: "Preorder Store Dashboard",
-      description: "An admin panel for managing preorders with Supabase backend. Features include order tracking, customer management, and Kanban-style task system.",
-      longDescription: "A comprehensive admin dashboard designed for managing preorder operations efficiently. This web application provides store owners with powerful tools to track orders, manage customer relationships, and streamline their business processes. The dashboard features a Kanban-style task management system, real-time order tracking, customer analytics, and automated inventory management. Built with modern web technologies, it offers a responsive design that works seamlessly across all devices.",
+      id: "nuch-ai-summarizer",
+      title: "Nuch AI Summarizer",
+      description: "Built an AI-driven summarization tool capable of processing both audio and text inputs using Next.js for frontend and backend logic.",
+      longDescription: "Nuch AI Summarizer is an advanced AI-powered tool that revolutionizes content processing through intelligent summarization. The application seamlessly handles both audio and text inputs, utilizing OpenAI Whisper for high-accuracy speech-to-text conversion and DeepSeek models for multi-layered text summarization. Built with Next.js for optimal performance, it features asynchronous task handling, intelligent API rate management, and real-time progress tracking. The tool provides efficient processing of large documents and audio files, making it ideal for professionals who need quick, accurate summaries of lengthy content.",
       images: [], // No images for now
       technologies: [
-        { name: "React", icon: SiReact, color: "#61DAFB" },
-        { name: "Supabase", icon: SiSupabase, color: "#3ECF8E" },
-        { name: "TypeScript", icon: SiTypescript, color: "#3178C6" },
-        { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" }
+        { name: "Next.js", icon: SiTypescript, color: "#000000" },
+        { name: "OpenAI Whisper", icon: SiTypescript, color: "#412991" },
+        { name: "DeepSeek", icon: SiTypescript, color: "#FF6B35" },
+        { name: "TypeScript", icon: SiTypescript, color: "#3178C6" }
       ],
       liveUrl: "#",
       githubUrl: "#"

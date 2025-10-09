@@ -122,7 +122,7 @@ export default function InteractiveShowcase() {
   const y = useTransform(scrollYProgress, [0, 1], ["50px", "-50px"]);
   
   return (
-    <section id="skills-showcase" className="relative py-4 md:py-6 lg:py-8 overflow-hidden" ref={containerRef}>
+    <section id="skills-showcase" className="relative py-2 md:py-4 lg:py-6 overflow-hidden" ref={containerRef}>
       {/* Background Elements with parallax */}
       <motion.div 
         className="absolute inset-0 overflow-hidden pointer-events-none z-0"

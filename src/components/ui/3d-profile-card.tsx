@@ -11,7 +11,7 @@ export default function ProfileCard() {
       <CardBody className="bg-transparent relative [transform-style:preserve-3d] h-auto w-auto">
         <CardItem translateZ="80" className="relative w-28 h-28 sm:w-40 md:w-48 sm:h-40 md:h-48 mx-auto group">
           <motion.div
-            className="absolute inset-0 rounded-2xl bg-gradient-to-r from-primary to-secondary z-0"
+            className="absolute inset-0 rounded-2xl bg-gradient-to-r from-primary/80 to-secondary/80 blur-[1px] z-0"
             animate={{
               rotate: [0, 360],
             }}
@@ -21,7 +21,7 @@ export default function ProfileCard() {
               ease: "linear"
             }}
           />
-          <div className="absolute inset-[3px] rounded-2xl bg-background z-10" />
+          <div className="absolute inset-[2px] rounded-2xl bg-background/95 backdrop-blur-sm z-10" />
           <div className="relative w-full h-full p-2 sm:p-3 z-20">
             <motion.div
               className="w-full h-full rounded-xl overflow-hidden relative"

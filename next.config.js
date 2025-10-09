@@ -13,6 +13,17 @@ const nextConfig = {
       }
     ],
   },
+
+  // Redirects
+  async redirects() {
+    return [
+      {
+        source: '/linkedin',
+        destination: 'https://www.linkedin.com/in/muhammad-ibrahim-tariq-b9126932b',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;

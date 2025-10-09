@@ -179,7 +179,7 @@ export default function HeroSection() {
           variants={profileAnimation}
           initial={{ scale: 0, opacity: 0 }}
           animate={profileControls}
-          className="mx-auto mb-2 sm:mb-4 mt-8 sm:mt-12"
+          className="mx-auto mb-8 sm:mb-10 mt-8 sm:mt-12"
           style={{ willChange: "transform, opacity" }}
         >
           <ProfileCard />
@@ -198,17 +198,6 @@ export default function HeroSection() {
                 variants={itemAnimation}
               >
                 Full Stack Developer
-              </motion.span>
-              <motion.span
-                className="px-3 py-1 rounded-full border border-primary/20 text-xs sm:text-sm text-primary font-medium"
-                whileHover={{
-                  scale: 1.05,
-                  backgroundColor: "rgba(67, 56, 202, 0.1)",
-                }}
-                whileTap={{ scale: 0.95 }}
-                variants={itemAnimation}
-              >
-                E-commerce Expert
               </motion.span>
             </div>
             <motion.h1
@@ -293,7 +282,7 @@ export default function HeroSection() {
             
             {[
               { icon: Github, href: "https://github.com/Zalaann", label: "GitHub" },
-              { icon: Linkedin, href: "https://www.linkedin.com/in/muhammad-ibrahim-tariq-b9126932b", label: "LinkedIn" },
+              { icon: Linkedin, href: "https://www.linkedin.com/in/mibrahimtariq", label: "LinkedIn" },
               { icon: Mail, href: "mailto:mibrahimtariq@icloud.com", label: "Email" }
             ].map((social) => (
               <motion.a
