@@ -214,8 +214,8 @@ export default function Navbar() {
 
         {/* Compact Navigation */}
         <motion.div
-          className="bg-background/80 backdrop-blur-md shadow-lg rounded-full border border-border/20 px-2 py-1.5"
-          style={{ maxWidth: "80%" }}
+          className="bg-background/80 backdrop-blur-md shadow-lg rounded-full border border-border/20 px-1.5 py-1"
+          style={{ maxWidth: "90%" }}
           initial={{ y: 100, opacity: 0 }}
           animate={{ 
             y: isVisible ? 0 : 100, 
@@ -223,12 +223,12 @@ export default function Navbar() {
           }}
           transition={{ duration: 0.5 }}
         >
-          <div className="flex items-center justify-between space-x-1">
+          <div className="flex items-center justify-between space-x-0.5">
             {mobileNavItems.map((item) => (
               <a
                 key={item.name}
                 href={item.href}
-                className={`flex flex-col items-center justify-center px-1.5 py-0.5 rounded-full transition-all duration-300 ${
+                className={`flex flex-col items-center justify-center px-1 py-0.5 rounded-full transition-all duration-300 ${
                   activeSection === item.href.substring(1)
                     ? "text-background bg-foreground"
                     : "text-foreground/60 hover:text-foreground"
@@ -241,13 +241,15 @@ export default function Navbar() {
             ))}
             <button
               onClick={handleDownloadCV}
-              className="flex flex-col items-center justify-center px-1.5 py-0.5 rounded-full transition-all duration-300 text-foreground/60 hover:text-foreground"
+              className="flex flex-col items-center justify-center px-1 py-0.5 rounded-full transition-all duration-300 text-foreground/60 hover:text-foreground hover:bg-foreground/5"
             >
               <Download className="w-4 h-4" />
               <span className="text-[8px] mt-0.5 font-medium">CV</span>
             </button>
-            <div className="scale-90">
-              <ThemeToggle />
+            <div className="flex flex-col items-center justify-center px-1 py-0.5">
+              <div className="scale-90">
+                <ThemeToggle />
+              </div>
             </div>
           </div>
         </motion.div>
