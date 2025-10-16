@@ -553,7 +553,7 @@ export default function ProjectsSection() {
                     className="h-full relative overflow-hidden bg-muted/10"
                     onTouchStart={isMobile ? handleTouchStart : undefined}
                     onTouchMove={isMobile ? handleTouchMove : undefined}
-                    onTouchEnd={isMobile ? handleTouchEnd : undefined}
+                    onTouchEnd={isMobile ? handleTouchEnd(selectedProject.id, selectedProject.images.length) : undefined}
                     style={{ touchAction: isMobile ? 'pan-y' : 'auto' }}
                   >
                     {selectedProject.images.length > 0 ? (
