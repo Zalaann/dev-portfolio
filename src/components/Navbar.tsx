@@ -112,7 +112,7 @@ export default function Navbar() {
 
   const handleDownloadCV = () => {
     const link = document.createElement('a');
-    link.href = '/certificates/Muhammad Ibrahim Tariq CV.pdf';
+    link.href = '/certificates/Muhammad Ibrahim Tariq  CV.pdf';
     link.download = 'Muhammad_Ibrahim_Tariq_CV.pdf';
     document.body.appendChild(link);
     link.click();
