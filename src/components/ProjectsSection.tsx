@@ -19,7 +19,11 @@ interface Project {
 }
 
 export default function ProjectsSection() {
-  const [currentImageIndex, setCurrentImageIndex] = useState(1); // Start with second image for Recello
+  const [currentImageIndices, setCurrentImageIndices] = useState<Record<string, number>>({
+    "fattys-ecommerce": 0,
+    "recello": 0,
+    "nuch-ai-summarizer": 0
+  });
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [modalImageIndex, setModalImageIndex] = useState(0);
   const [touchStart, setTouchStart] = useState<number | null>(null);
@@ -27,17 +31,47 @@ export default function ProjectsSection() {
   const [isMobile, setIsMobile] = useState(false);
   const [showOverlay, setShowOverlay] = useState(true); // Control overlay visibility
   
-  // Force re-render when currentImageIndex changes
+  // Force re-render when image indices change
   const [forceUpdate, setForceUpdate] = useState(0);
   
+  const fattysImages = [
+    "/projects/Fattys-1.PNG",
+    "/projects/Fattys-2.PNG",
+    "/projects/Fattys-3.PNG",
+    "/projects/Fattys-4.PNG",
+    "/projects/Fattys-5.PNG",
+    "/projects/Fattys-6.PNG",
+    "/projects/Fattys-7.PNG",
+    "/projects/Fattys-8.PNG",
+    "/projects/Fattys-9.PNG",
+    "/projects/Fattys-10.PNG",
+    "/projects/Fattys-11.PNG",
+    "/projects/Fattys-12.PNG",
+    "/projects/Fattys-13.PNG",
+    "/projects/Fattys-14.PNG",
+    "/projects/Fattys-15.PNG",
+    "/projects/Fattys-16.PNG"
+  ];
+
   const recelloImages = [
-    "/projects/1.jpeg",
-    "/projects/2.png", 
-    "/projects/3.png",
-    "/projects/4.png",
-    "/projects/5.png",
-    "/projects/6.png",
-    "/projects/7.png"
+    "/projects/recello-1.jpeg",
+    "/projects/recello-2.png", 
+    "/projects/recello-3.png",
+    "/projects/recello-4.png",
+    "/projects/recello-5.png",
+    "/projects/recello-6.png",
+    "/projects/recello-7.png"
+  ];
+
+  const nuchImages = [
+    "/projects/Nuch-1.png",
+    "/projects/Nuch-2.png",
+    "/projects/Nuch-3.png",
+    "/projects/Nuch-4.png",
+    "/projects/Nuch-5.png",
+    "/projects/Nuch-6.png",
+    "/projects/Nuch-7.png",
+    "/projects/Nuch-8.png"
   ];
 
   const projects: Project[] = [
@@ -46,30 +80,44 @@ export default function ProjectsSection() {
       title: "Fattys - E-commerce Application",
       description: "Designed and developed a complete cross-platform e-commerce solution for a retail client, built with React Native (Expo) and Supabase backend.",
       longDescription: "Fattys is a comprehensive e-commerce application that provides a complete shopping experience for retail clients. Built with React Native and Expo for cross-platform compatibility, the app features end-to-end functionality including user authentication, product catalog with advanced filtering, shopping cart management, secure checkout process, and payment integration. The Supabase backend ensures real-time data synchronization, secure user management, and scalable database operations. The app streamlines client operations and enhances customer experience with a modern, intuitive interface.",
-      images: recelloImages, // Reusing existing images for now
+      images: fattysImages,
       technologies: [
         { name: "React Native", icon: TbBrandReactNative, color: "#61DAFB" },
         { name: "Supabase", icon: SiSupabase, color: "#3ECF8E" },
         { name: "TypeScript", icon: SiTypescript, color: "#3178C6" },
         { name: "Expo", icon: SiExpo, color: "#000020" }
       ],
-      liveUrl: "#",
-      githubUrl: "#"
+      liveUrl: "",
+      githubUrl: ""
+    },
+    {
+      id: "recello",
+      title: "Recello - Mobile Marketplace",
+      description: "Full stack developer (front/backend) - Developed a React Native mobile marketplace for used phones! Tackled UI/UX challenges, integrated complex navigation and authentication flows.",
+      longDescription: "Recello is a comprehensive mobile marketplace platform for buying and selling used phones. As a full-stack developer, I designed an optimal database architecture to boost speed performance, added real-time communication between sellers and buyers, and implemented OAuth authentication. The UI was designed from scratch with a focus on user experience, featuring clean code and folder structure for readability. Both frontend and backend were optimized for maximum performance and scalability.",
+      images: recelloImages,
+      technologies: [
+        { name: "React Native", icon: TbBrandReactNative, color: "#61DAFB" },
+        { name: "TypeScript", icon: SiTypescript, color: "#3178C6" },
+        { name: "Expo", icon: SiExpo, color: "#000020" }
+      ],
+      liveUrl: "",
+      githubUrl: ""
     },
     {
       id: "nuch-ai-summarizer",
       title: "Nuch AI Summarizer",
       description: "Built an AI-driven summarization tool capable of processing both audio and text inputs using Next.js for frontend and backend logic.",
       longDescription: "Nuch AI Summarizer is an advanced AI-powered tool that revolutionizes content processing through intelligent summarization. The application seamlessly handles both audio and text inputs, utilizing OpenAI Whisper for high-accuracy speech-to-text conversion and DeepSeek models for multi-layered text summarization. Built with Next.js for optimal performance, it features asynchronous task handling, intelligent API rate management, and real-time progress tracking. The tool provides efficient processing of large documents and audio files, making it ideal for professionals who need quick, accurate summaries of lengthy content.",
-      images: [], // No images for now
+      images: nuchImages,
       technologies: [
         { name: "Next.js", icon: SiTypescript, color: "#000000" },
         { name: "OpenAI Whisper", icon: SiTypescript, color: "#412991" },
         { name: "DeepSeek", icon: SiTypescript, color: "#FF6B35" },
         { name: "TypeScript", icon: SiTypescript, color: "#3178C6" }
       ],
-      liveUrl: "#",
-      githubUrl: "#"
+      liveUrl: "https://nuch-ai-article-summarizer.vercel.app/auth/sign-up/",
+      githubUrl: ""
     }
   ];
 
@@ -86,26 +134,33 @@ export default function ProjectsSection() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Debug currentImageIndex changes
+  // Debug image indices changes
   useEffect(() => {
-    console.log('currentImageIndex changed to:', currentImageIndex);
-  }, [currentImageIndex]);
+    console.log('currentImageIndices changed to:', currentImageIndices);
+  }, [currentImageIndices]);
 
   // Debug forceUpdate changes
   useEffect(() => {
     console.log('forceUpdate changed to:', forceUpdate);
   }, [forceUpdate]);
 
-  const nextImage = () => {
-    console.log('Next image clicked, current:', currentImageIndex);
-    setCurrentImageIndex((prev) => (prev + 1) % recelloImages.length);
+
+  const nextImage = (projectId: string, imageCount: number) => {
+    console.log('Next image clicked for:', projectId, 'current:', currentImageIndices[projectId]);
+    setCurrentImageIndices((prev) => ({
+      ...prev,
+      [projectId]: (prev[projectId] + 1) % imageCount
+    }));
     setForceUpdate(prev => prev + 1); // Force re-render
     setShowOverlay(false); // Hide overlay when navigating
   };
 
-  const prevImage = () => {
-    console.log('Prev image clicked, current:', currentImageIndex);
-    setCurrentImageIndex((prev) => (prev - 1 + recelloImages.length) % recelloImages.length);
+  const prevImage = (projectId: string, imageCount: number) => {
+    console.log('Prev image clicked for:', projectId, 'current:', currentImageIndices[projectId]);
+    setCurrentImageIndices((prev) => ({
+      ...prev,
+      [projectId]: (prev[projectId] - 1 + imageCount) % imageCount
+    }));
     setForceUpdate(prev => prev + 1); // Force re-render
     setShowOverlay(false); // Hide overlay when navigating
   };
@@ -146,7 +201,7 @@ export default function ProjectsSection() {
     setTouchEnd(e.targetTouches[0].clientX);
   };
 
-  const handleTouchEnd = (e: React.TouchEvent) => {
+  const handleTouchEnd = (projectId: string, imageCount: number) => (e: React.TouchEvent) => {
     e.preventDefault();
     if (!touchStart || !touchEnd) return;
     
@@ -161,7 +216,7 @@ export default function ProjectsSection() {
         nextModalImage();
       } else {
         console.log('Swiping left - calling nextImage');
-        nextImage();
+        nextImage(projectId, imageCount);
       }
     }
     if (isRightSwipe) {
@@ -169,7 +224,7 @@ export default function ProjectsSection() {
         prevModalImage();
       } else {
         console.log('Swiping right - calling prevImage');
-        prevImage();
+        prevImage(projectId, imageCount);
       }
     }
 
@@ -241,23 +296,21 @@ export default function ProjectsSection() {
                   {/* Image Carousel */}
                   <div 
                     className="relative w-full h-full"
-                    onTouchStart={isMobile && project.id === "recello" ? handleTouchStart : undefined}
-                    onTouchMove={isMobile && project.id === "recello" ? handleTouchMove : undefined}
-                    onTouchEnd={isMobile && project.id === "recello" ? handleTouchEnd : undefined}
-                    style={{ touchAction: isMobile && project.id === "recello" ? 'pan-y' : 'auto' }}
+                    onTouchStart={isMobile && project.images.length > 1 ? handleTouchStart : undefined}
+                    onTouchMove={isMobile && project.images.length > 1 ? handleTouchMove : undefined}
+                    onTouchEnd={isMobile && project.images.length > 1 ? handleTouchEnd(project.id, project.images.length) : undefined}
+                    style={{ touchAction: isMobile && project.images.length > 1 ? 'pan-y' : 'auto' }}
                   >
                     {project.images.length > 0 ? (
                       <Image
-                        key={`${project.id}-${currentImageIndex}-${forceUpdate}`}
-                        src={project.id === "recello" ? project.images[currentImageIndex] : project.images[0]}
+                        key={`${project.id}-${currentImageIndices[project.id] || 0}-${forceUpdate}`}
+                        src={project.images[currentImageIndices[project.id] || 0]}
                         alt={`${project.title} project screenshot`}
                         fill
                         className="object-contain transition-opacity duration-300"
                         priority={index === 0}
                         onLoad={() => {
-                          if (project.id === "recello") {
-                            console.log('Image loaded for Recello, currentIndex:', currentImageIndex, 'src:', project.images[currentImageIndex]);
-                          }
+                          console.log(`Image loaded for ${project.id}, currentIndex:`, currentImageIndices[project.id] || 0, 'src:', project.images[currentImageIndices[project.id] || 0]);
                         }}
                       />
                     ) : (
@@ -281,26 +334,26 @@ export default function ProjectsSection() {
                     )}
                     
                     {/* Image counter - Only on Desktop when overlay is hidden */}
-                    {!isMobile && project.id === "recello" && !showOverlay && (
+                    {!isMobile && project.images.length > 1 && !showOverlay && (
                       <div className="absolute top-2 right-2 bg-black/40 text-white px-2 py-1 rounded text-xs z-20">
-                        {currentImageIndex + 1}/{recelloImages.length}
+                        {(currentImageIndices[project.id] || 0) + 1}/{project.images.length}
                       </div>
                     )}
                     
                     {/* Navigation Arrows */}
-                    {project.id === "recello" && (
+                    {project.images.length > 1 && (
                       <>
                         <button
                           onClick={() => {
                             console.log('Prev button clicked!');
-                            prevImage();
+                            prevImage(project.id, project.images.length);
                           }}
                           onTouchStart={() => {
                             console.log('Prev button touch start!');
                           }}
                           onTouchEnd={() => {
                             console.log('Prev button touch end!');
-                            prevImage();
+                            prevImage(project.id, project.images.length);
                           }}
                           className={`absolute left-2 top-1/2 transform -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white p-2 rounded-full transition-all duration-200 z-50 ${
                             isMobile ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
@@ -316,14 +369,14 @@ export default function ProjectsSection() {
                         <button
                           onClick={() => {
                             console.log('Next button clicked!');
-                            nextImage();
+                            nextImage(project.id, project.images.length);
                           }}
                           onTouchStart={() => {
                             console.log('Next button touch start!');
                           }}
                           onTouchEnd={() => {
                             console.log('Next button touch end!');
-                            nextImage();
+                            nextImage(project.id, project.images.length);
                           }}
                           className={`absolute right-2 top-1/2 transform -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white p-2 rounded-full transition-all duration-200 z-50 ${
                             isMobile ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
@@ -340,17 +393,20 @@ export default function ProjectsSection() {
                     )}
                     
                     {/* Image Indicators */}
-                    {project.id === "recello" && (
+                    {project.images.length > 1 && (
                       <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-1 z-20">
                         {project.images.map((_, imgIndex) => (
                           <button
                             key={imgIndex}
                             onClick={(e) => {
                               e.stopPropagation();
-                              setCurrentImageIndex(imgIndex);
+                              setCurrentImageIndices(prev => ({
+                                ...prev,
+                                [project.id]: imgIndex
+                              }));
                             }}
                             className={`w-2 h-2 rounded-full transition-all duration-200 ${
-                              imgIndex === currentImageIndex 
+                              imgIndex === (currentImageIndices[project.id] || 0)
                                 ? 'bg-white' 
                                 : 'bg-white/50 hover:bg-white/75'
                             }`}
@@ -365,22 +421,30 @@ export default function ProjectsSection() {
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="text-2xl font-bold">{project.title}</h3>
                     <div className="flex items-center space-x-2">
-                      <a
-                        href={project.liveUrl}
-                        onClick={(e) => e.stopPropagation()}
-                        className="p-2 rounded-full hover:bg-primary/10 transition-colors duration-300"
-                        title="View Project"
-                      >
-                        <ExternalLink className="w-5 h-5" />
-                      </a>
-                      <a
-                        href={project.githubUrl}
-                        onClick={(e) => e.stopPropagation()}
-                        className="p-2 rounded-full hover:bg-primary/10 transition-colors duration-300"
-                        title="View Code"
-                      >
-                        <Github className="w-5 h-5" />
-                      </a>
+                      {project.liveUrl && (
+                        <a
+                          href={project.liveUrl}
+                          onClick={(e) => e.stopPropagation()}
+                          className="p-2 rounded-full hover:bg-primary/10 transition-colors duration-300"
+                          title="View Project"
+                          target={project.id === "nuch-ai-summarizer" ? "_blank" : undefined}
+                          rel={project.id === "nuch-ai-summarizer" ? "noopener noreferrer" : undefined}
+                        >
+                          <ExternalLink className="w-5 h-5" />
+                        </a>
+                      )}
+                      {project.githubUrl && (
+                        <a
+                          href={project.githubUrl}
+                          onClick={(e) => e.stopPropagation()}
+                          className="p-2 rounded-full hover:bg-primary/10 transition-colors duration-300"
+                          title="View Code"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <Github className="w-5 h-5" />
+                        </a>
+                      )}
                     </div>
                   </div>
                   <p className="text-muted-foreground mb-6">
