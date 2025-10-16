@@ -31,7 +31,12 @@ export default function ContactSection() {
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
+        let errorData;
+        try {
+          errorData = await response.json();
+        } catch {
+          errorData = { error: `Server error (${response.status})` };
+        }
         throw new Error(errorData.error || 'Failed to send message');
       }
 
@@ -86,7 +91,7 @@ export default function ContactSection() {
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
+                transition={{ duration: 0.5, delay: 0 }}
                 viewport={{ once: true }}
                 className="text-4xl font-bold tracking-tight"
                 style={{ willChange: 'transform, opacity' }}
@@ -117,7 +122,7 @@ export default function ContactSection() {
                   <motion.a
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: 0.2 }}
+                    transition={{ duration: 0.3, delay: 0 }}
                     viewport={{ once: true }}
                     href="mailto:ibrahimtariq8193@gmail.com"
                     className="flex items-center space-x-4 group"
@@ -138,7 +143,7 @@ export default function ContactSection() {
                   <motion.a
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: 0.3 }}
+                    transition={{ duration: 0.3, delay: 0 }}
                     viewport={{ once: true }}
                     href="https://github.com/mibrahimtariq"
                     target="_blank"
@@ -161,7 +166,7 @@ export default function ContactSection() {
                   <motion.a
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: 0.4 }}
+                    transition={{ duration: 0.3, delay: 0 }}
                     viewport={{ once: true }}
                     href="https://linkedin.com/in/muhammadibrahimtariq"
                     target="_blank"

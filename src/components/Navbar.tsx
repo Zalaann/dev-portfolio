@@ -38,7 +38,7 @@ export default function Navbar() {
   useEffect(() => {
     const timeout = setTimeout(() => {
       setIsVisible(true);
-    }, 1500); // Delay appearance to let loading screen finish
+    }, 0); // Appear immediately after loading screen
 
     const timer = setInterval(() => {
       setTimeSpent(prev => prev + 1);

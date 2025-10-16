@@ -1,16 +1,20 @@
 import { Resend } from 'resend';
 import { NextResponse } from 'next/server';
 
-// Initialize Resend with your API key
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export async function POST(request: Request) {
+  console.log('Contact API called');
+  console.log('RESEND_API_KEY exists:', !!process.env.RESEND_API_KEY);
+  
   if (!process.env.RESEND_API_KEY) {
+    console.error('RESEND_API_KEY is not configured');
     return NextResponse.json(
-      { error: 'Resend API key is not configured' },
+      { error: 'Email service is not configured. Please contact me directly.' },
       { status: 500 }
     );
   }
+
+  // Initialize Resend with your API key
+  const resend = new Resend(process.env.RESEND_API_KEY);
 
   try {
     const body = await request.json();

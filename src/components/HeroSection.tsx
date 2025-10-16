@@ -99,7 +99,7 @@ export default function HeroSection() {
         ...profileAnimation.visible,
         transition: {
           ...profileAnimation.visible.transition,
-          delay: 0.05
+          delay: 0
         }
       });
 

@@ -33,7 +33,7 @@ export default function LoadingScreen({ progress }: { progress: number }) {
     let timeout: NodeJS.Timeout;
 
     if (!isDeleting && typingText === currentCode) {
-      timeout = setTimeout(() => setIsDeleting(true), 2000);
+      timeout = setTimeout(() => setIsDeleting(true), 1000);
     } else if (isDeleting && typingText === "") {
       setIsDeleting(false);
       setCurrentLine((prev) => (prev + 1) % CODE_LINES.length);
@@ -44,7 +44,7 @@ export default function LoadingScreen({ progress }: { progress: number }) {
             ? currentCode.substring(0, typingText.length - 1)
             : currentCode.substring(0, typingText.length + 1)
         );
-      }, isDeleting ? 50 : 100);
+      }, isDeleting ? 30 : 60);
     }
 
     return () => clearTimeout(timeout);
