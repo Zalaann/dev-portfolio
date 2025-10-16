@@ -55,7 +55,7 @@ export default function ExperienceSection() {
                   <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-2xl opacity-10 blur-lg"></div>
                   <div className="relative bg-background/40 backdrop-blur-sm rounded-xl p-8 border border-white/20 shadow-lg transition-colors duration-300">
                     <div className="flex items-center justify-between mb-4">
-                      <h3 className="text-xl font-bold">Tech Intern, Kaye Mackenzie</h3>
+                      <h3 className="text-xl font-bold">Software Developer Intern, Kaye Mackenzie</h3>
                       <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                         <Calendar className="w-4 h-4" />
                         <span>July 2024 – Aug 2024</span>

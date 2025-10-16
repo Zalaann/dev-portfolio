@@ -23,10 +23,10 @@ export default function Home() {
       setProgress((prev) => {
         if (prev >= 100) {
           clearInterval(interval);
-          setTimeout(() => setIsLoaded(true), 1700);
+          setIsLoaded(true);
           return 100;
         }
-        return prev + Math.random() * 12;
+        return Math.min(prev + Math.random() * 12, 100);
       });
     }, 150);
 
