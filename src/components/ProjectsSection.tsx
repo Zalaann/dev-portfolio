@@ -201,35 +201,37 @@ export default function ProjectsSection() {
     setTouchEnd(e.targetTouches[0].clientX);
   };
 
-  const handleTouchEnd = (projectId: string, imageCount: number) => (e: React.TouchEvent) => {
-    e.preventDefault();
-    if (!touchStart || !touchEnd) return;
-    
-    const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > 50;
-    const isRightSwipe = distance < -50;
+  const handleTouchEnd = (projectId: string, imageCount: number) => {
+    return (e: React.TouchEvent) => {
+      e.preventDefault();
+      if (!touchStart || !touchEnd) return;
+      
+      const distance = touchStart - touchEnd;
+      const isLeftSwipe = distance > 50;
+      const isRightSwipe = distance < -50;
 
-    console.log('Touch end - distance:', distance, 'isLeftSwipe:', isLeftSwipe, 'isRightSwipe:', isRightSwipe);
+      console.log('Touch end - distance:', distance, 'isLeftSwipe:', isLeftSwipe, 'isRightSwipe:', isRightSwipe);
 
-    if (isLeftSwipe) {
-      if (selectedProject) {
-        nextModalImage();
-      } else {
-        console.log('Swiping left - calling nextImage');
-        nextImage(projectId, imageCount);
+      if (isLeftSwipe) {
+        if (selectedProject) {
+          nextModalImage();
+        } else {
+          console.log('Swiping left - calling nextImage');
+          nextImage(projectId, imageCount);
+        }
       }
-    }
-    if (isRightSwipe) {
-      if (selectedProject) {
-        prevModalImage();
-      } else {
-        console.log('Swiping right - calling prevImage');
-        prevImage(projectId, imageCount);
+      if (isRightSwipe) {
+        if (selectedProject) {
+          prevModalImage();
+        } else {
+          console.log('Swiping right - calling prevImage');
+          prevImage(projectId, imageCount);
+        }
       }
-    }
 
-    setTouchStart(null);
-    setTouchEnd(null);
+      setTouchStart(null);
+      setTouchEnd(null);
+    };
   };
 
   return (
