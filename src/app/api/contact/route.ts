@@ -2,25 +2,29 @@ import { Resend } from 'resend';
 import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
-  console.log('Contact API called');
-  console.log('RESEND_API_KEY exists:', !!process.env.RESEND_API_KEY);
-  
-  if (!process.env.RESEND_API_KEY) {
-    console.error('RESEND_API_KEY is not configured');
-    return NextResponse.json(
-      { error: 'Email service is not configured. Please contact me directly.' },
-      { status: 500 }
-    );
-  }
-
-  // Initialize Resend with your API key
-  const resend = new Resend(process.env.RESEND_API_KEY);
-
   try {
-    const body = await request.json();
-    const { name, email, subject, message } = body;
+    const apiKey = process.env.RESEND_API_KEY;
+    if (!apiKey) {
+      return NextResponse.json(
+        { error: 'Email service is not configured.' },
+        { status: 500 }
+      );
+    }
 
-    // Validate the request body
+    const resend = new Resend(apiKey);
+
+    let body: unknown;
+    try {
+      body = await request.json();
+    } catch {
+      return NextResponse.json(
+        { error: 'Invalid JSON body' },
+        { status: 400 }
+      );
+    }
+
+    const { name, email, subject, message } = (body as Record<string, string | undefined>);
+
     if (!name || !email || !subject || !message) {
       return NextResponse.json(
         { error: 'Missing required fields' },
@@ -28,9 +32,8 @@ export async function POST(request: Request) {
       );
     }
 
-    // Send email using Resend
     const data = await resend.emails.send({
-      from: `Portfolio Contact <onboarding@resend.dev>`,
+      from: 'Portfolio Contact <onboarding@resend.dev>',
       to: ['mibrahimtariq@icloud.com'],
       subject: `Portfolio Contact: ${subject}`,
       html: `
@@ -46,10 +49,9 @@ export async function POST(request: Request) {
 
     return NextResponse.json(data);
   } catch (error) {
-    console.error('Error sending email:', error);
     return NextResponse.json(
       { error: 'Error sending email' },
       { status: 500 }
     );
   }
-} 
+}

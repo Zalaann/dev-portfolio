@@ -6,17 +6,10 @@ import { SiReact, SiTypescript, SiSupabase, SiExpo, SiTailwindcss } from "react-
 import { TbBrandReactNative } from "react-icons/tb";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import type { Project } from "@/types/project";
+import { projects as PROJECTS_DATA } from "@/data/projects";
 
-interface Project {
-  id: string;
-  title: string;
-  description: string;
-  longDescription: string;
-  images: string[];
-  technologies: Array<{ name: string; icon: React.ElementType; color: string }>;
-  liveUrl?: string;
-  githubUrl?: string;
-}
+// Project type is imported from src/types/project
 
 export default function ProjectsSection() {
   const [currentImageIndices, setCurrentImageIndices] = useState<Record<string, number>>({
@@ -34,98 +27,12 @@ export default function ProjectsSection() {
   // Force re-render when image indices change
   const [forceUpdate, setForceUpdate] = useState(0);
   
-  const fattysImages = [
-    "/projects/Fattys-1.PNG",
-    "/projects/Fattys-2.PNG",
-    "/projects/Fattys-3.PNG",
-    "/projects/Fattys-4.PNG",
-    "/projects/Fattys-5.PNG",
-    "/projects/Fattys-6.PNG",
-    "/projects/Fattys-7.PNG",
-    "/projects/Fattys-8.PNG",
-    "/projects/Fattys-9.PNG",
-    "/projects/Fattys-10.PNG",
-    "/projects/Fattys-11.PNG",
-    "/projects/Fattys-12.PNG",
-    "/projects/Fattys-13.PNG",
-    "/projects/Fattys-14.PNG",
-    "/projects/Fattys-15.PNG",
-    "/projects/Fattys-16.PNG"
-  ];
-
-  const recelloImages = [
-    "/projects/recello-1.jpeg",
-    "/projects/recello-2.png", 
-    "/projects/recello-3.png",
-    "/projects/recello-4.png",
-    "/projects/recello-5.png",
-    "/projects/recello-6.png",
-    "/projects/recello-7.png"
-  ];
-
-  const nuchImages = [
-    "/projects/Nuch-1.png",
-    "/projects/Nuch-2.png",
-    "/projects/Nuch-3.png",
-    "/projects/Nuch-4.png",
-    "/projects/Nuch-5.png",
-    "/projects/Nuch-6.png",
-    "/projects/Nuch-7.png",
-    "/projects/Nuch-8.png"
-  ];
-
-  const projects: Project[] = [
-    {
-      id: "fattys-ecommerce",
-      title: "Fattys - E-commerce Application",
-      description: "Designed and developed a complete cross-platform e-commerce solution for a retail client, built with React Native (Expo) and Supabase backend.",
-      longDescription: "Fattys is a comprehensive e-commerce application that provides a complete shopping experience for retail clients. Built with React Native and Expo for cross-platform compatibility, the app features end-to-end functionality including user authentication, product catalog with advanced filtering, shopping cart management, secure checkout process, and payment integration. The Supabase backend ensures real-time data synchronization, secure user management, and scalable database operations. The app streamlines client operations and enhances customer experience with a modern, intuitive interface.",
-      images: fattysImages,
-      technologies: [
-        { name: "React Native", icon: TbBrandReactNative, color: "#61DAFB" },
-        { name: "Supabase", icon: SiSupabase, color: "#3ECF8E" },
-        { name: "TypeScript", icon: SiTypescript, color: "#3178C6" },
-        { name: "Expo", icon: SiExpo, color: "#000020" }
-      ],
-      liveUrl: "",
-      githubUrl: ""
-    },
-    {
-      id: "recello",
-      title: "Recello - Mobile Marketplace",
-      description: "Full stack developer (front/backend) - Developed a React Native mobile marketplace for used phones! Tackled UI/UX challenges, integrated complex navigation and authentication flows.",
-      longDescription: "Recello is a comprehensive mobile marketplace platform for buying and selling used phones. As a full-stack developer, I designed an optimal database architecture to boost speed performance, added real-time communication between sellers and buyers, and implemented OAuth authentication. The UI was designed from scratch with a focus on user experience, featuring clean code and folder structure for readability. Both frontend and backend were optimized for maximum performance and scalability.",
-      images: recelloImages,
-      technologies: [
-        { name: "React Native", icon: TbBrandReactNative, color: "#61DAFB" },
-        { name: "TypeScript", icon: SiTypescript, color: "#3178C6" },
-        { name: "Expo", icon: SiExpo, color: "#000020" }
-      ],
-      liveUrl: "",
-      githubUrl: ""
-    },
-    {
-      id: "nuch-ai-summarizer",
-      title: "Nuch AI Summarizer",
-      description: "Built an AI-driven summarization tool capable of processing both audio and text inputs using Next.js for frontend and backend logic.",
-      longDescription: "Nuch AI Summarizer is an advanced AI-powered tool that revolutionizes content processing through intelligent summarization. The application seamlessly handles both audio and text inputs, utilizing OpenAI Whisper for high-accuracy speech-to-text conversion and DeepSeek models for multi-layered text summarization. Built with Next.js for optimal performance, it features asynchronous task handling, intelligent API rate management, and real-time progress tracking. The tool provides efficient processing of large documents and audio files, making it ideal for professionals who need quick, accurate summaries of lengthy content.",
-      images: nuchImages,
-      technologies: [
-        { name: "Next.js", icon: SiTypescript, color: "#000000" },
-        { name: "OpenAI Whisper", icon: SiTypescript, color: "#412991" },
-        { name: "DeepSeek", icon: SiTypescript, color: "#FF6B35" },
-        { name: "TypeScript", icon: SiTypescript, color: "#3178C6" }
-      ],
-      liveUrl: "https://nuch-ai-article-summarizer.vercel.app/auth/sign-up/",
-      githubUrl: ""
-    }
-  ];
+  const projects: Project[] = PROJECTS_DATA;
 
   // Detect mobile device
   useEffect(() => {
     const checkMobile = () => {
       const isSmallScreen = window.innerWidth <= 768;
-      console.log('Mobile detection - window width:', window.innerWidth, 'isMobile:', isSmallScreen);
       setIsMobile(isSmallScreen);
     };
 
@@ -134,19 +41,10 @@ export default function ProjectsSection() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Debug image indices changes
-  useEffect(() => {
-    console.log('currentImageIndices changed to:', currentImageIndices);
-  }, [currentImageIndices]);
-
-  // Debug forceUpdate changes
-  useEffect(() => {
-    console.log('forceUpdate changed to:', forceUpdate);
-  }, [forceUpdate]);
+  // Remove debug logs in production
 
 
   const nextImage = (projectId: string, imageCount: number) => {
-    console.log('Next image clicked for:', projectId, 'current:', currentImageIndices[projectId]);
     setCurrentImageIndices((prev) => ({
       ...prev,
       [projectId]: (prev[projectId] + 1) % imageCount
@@ -156,7 +54,6 @@ export default function ProjectsSection() {
   };
 
   const prevImage = (projectId: string, imageCount: number) => {
-    console.log('Prev image clicked for:', projectId, 'current:', currentImageIndices[projectId]);
     setCurrentImageIndices((prev) => ({
       ...prev,
       [projectId]: (prev[projectId] - 1 + imageCount) % imageCount
@@ -192,31 +89,25 @@ export default function ProjectsSection() {
 
   // Touch swipe handlers
   const handleTouchStart = (e: React.TouchEvent) => {
-    e.preventDefault();
     setTouchStart(e.targetTouches[0].clientX);
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
-    e.preventDefault();
     setTouchEnd(e.targetTouches[0].clientX);
   };
 
   const handleTouchEnd = (projectId: string, imageCount: number) => {
-    return (e: React.TouchEvent) => {
-      e.preventDefault();
+    return (_e: React.TouchEvent) => {
       if (!touchStart || !touchEnd) return;
       
       const distance = touchStart - touchEnd;
       const isLeftSwipe = distance > 50;
       const isRightSwipe = distance < -50;
 
-      console.log('Touch end - distance:', distance, 'isLeftSwipe:', isLeftSwipe, 'isRightSwipe:', isRightSwipe);
-
       if (isLeftSwipe) {
         if (selectedProject) {
           nextModalImage();
         } else {
-          console.log('Swiping left - calling nextImage');
           nextImage(projectId, imageCount);
         }
       }
@@ -224,7 +115,6 @@ export default function ProjectsSection() {
         if (selectedProject) {
           prevModalImage();
         } else {
-          console.log('Swiping right - calling prevImage');
           prevImage(projectId, imageCount);
         }
       }
@@ -311,9 +201,7 @@ export default function ProjectsSection() {
                         fill
                         className="object-contain transition-opacity duration-300"
                         priority={index === 0}
-                        onLoad={() => {
-                          console.log(`Image loaded for ${project.id}, currentIndex:`, currentImageIndices[project.id] || 0, 'src:', project.images[currentImageIndices[project.id] || 0]);
-                        }}
+                        sizes={isMobile ? "100vw" : "(max-width: 1024px) 100vw, 50vw"}
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center bg-muted/10 rounded-lg">

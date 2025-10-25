@@ -124,7 +124,7 @@ export default function ContactSection() {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3, delay: 0 }}
                     viewport={{ once: true }}
-                    href="mailto:ibrahimtariq8193@gmail.com"
+                    href="mailto:mibrahimtariq@icloud.com"
                     className="flex items-center space-x-4 group"
                     style={{ willChange: 'transform, opacity' }}
                   >
