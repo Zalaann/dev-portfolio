@@ -49,7 +49,7 @@ const Index = (): React.ReactElement => {
             }}
           >
             <h1 style={{ margin: 0, fontSize: 28, lineHeight: 1.2 }}>
-              Updating the theme — we’ll be back soon
+              Updating the theme we’ll be back soon
             </h1>
             <p style={{ margin: "12px 0 20px", opacity: 0.9 }}>
               We’re refreshing the portfolio experience. In the meantime you can
@@ -63,6 +63,22 @@ const Index = (): React.ReactElement => {
                 alignItems: "center",
               }}
             >
+              <button
+                type="button"
+                onClick={() => setShowMaintenance(false)}
+                style={{
+                  padding: "12px 18px",
+                  borderRadius: 8,
+                  background: "#ffffff",
+                  color: "#111",
+                  border: "none",
+                  fontWeight: 600,
+                  cursor: "pointer",
+                  width: "min(360px, 92%)",
+                }}
+              >
+                Enter Desktop OS (still underway)
+              </button>
               <a
                 href="/Users/Public/Desktop/Muhammad%20Ibrahim%20Tariq%20%20CV%20.pdf"
                 download
@@ -75,26 +91,11 @@ const Index = (): React.ReactElement => {
                   textDecoration: "none",
                   fontWeight: 600,
                   width: "min(360px, 92%)",
+                  textAlign: "center",
                 }}
               >
                 Download CV (PDF)
               </a>
-              <button
-                type="button"
-                onClick={() => setShowMaintenance(false)}
-                style={{
-                  padding: "12px 18px",
-                  borderRadius: 8,
-                  background: "transparent",
-                  color: "#fff",
-                  border: "1px solid rgba(255,255,255,0.35)",
-                  fontWeight: 600,
-                  cursor: "pointer",
-                  width: "min(360px, 92%)",
-                }}
-              >
-                Enter Desktop OS (still underway)
-              </button>
             </div>
           </div>
         </div>
