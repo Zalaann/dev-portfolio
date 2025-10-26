@@ -644,12 +644,7 @@ const FileEntry: FC<FileEntryProps> = ({
               view={view}
             />
           ) : (
-            <figcaption>
-              {!showColumn &&
-              (!isOnlyFocusedEntry || name.length === truncatedName.length)
-                ? truncatedName
-                : name}
-            </figcaption>
+            <figcaption>{name}</figcaption>
           )}
           {listView && openInFileExplorer && <Down flip={showInFileManager} />}
         </StyledFigure>

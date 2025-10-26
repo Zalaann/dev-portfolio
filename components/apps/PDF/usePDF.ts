@@ -72,14 +72,25 @@ const usePDF = (
         );
 
         argument(id, "scale", initialScale);
-
         viewport = page.getViewport({ scale: initialScale });
       }
 
-      canvas.height = viewport.height;
-      canvas.width = viewport.width;
+      // Render at device pixel ratio for crisp output on HiDPI/retina
+      const devicePixelRatio = Math.max(1, window.devicePixelRatio || 1);
+      const cssViewport = viewport;
+      const scaledViewport = page.getViewport({
+        scale: (viewport.scale || 1) * devicePixelRatio,
+      });
 
-      await page.render({ canvas, canvasContext, viewport }).promise;
+      // Backing store size (higher resolution)
+      canvas.width = Math.floor(scaledViewport.width);
+      canvas.height = Math.floor(scaledViewport.height);
+      // CSS size (logical size)
+      canvas.style.width = `${Math.floor(cssViewport.width)}px`;
+      canvas.style.height = `${Math.floor(cssViewport.height)}px`;
+
+      await page.render({ canvas, canvasContext, viewport: scaledViewport })
+        .promise;
 
       return canvas;
     },
