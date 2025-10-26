@@ -81,11 +81,10 @@ type VideoElementWithSeek = HTMLVideoElement & {
   seekToNextFrame: () => Promise<void>;
 };
 
-export const isExistingFile = ({
-  birthtimeMs,
-  ctimeMs,
-}: BfsStatsLite = {}): boolean =>
-  Boolean(birthtimeMs && birthtimeMs === ctimeMs);
+export const isExistingFile = (stats?: unknown): boolean => {
+  const { birthtimeMs, ctimeMs } = (stats as BfsStatsLite) || {};
+  return Boolean(birthtimeMs && birthtimeMs === ctimeMs);
+};
 
 export const getModifiedTime = (path: string, stats: FileStat): number => {
   const mtimeMs = (stats as unknown as { mtimeMs?: number })?.mtimeMs ?? 0;
@@ -909,10 +908,10 @@ export const getTextWrapData = (
 
 export const getDateModified = (
   path: string,
-  fullStats: Stats,
+  fullStats: unknown,
   format: Intl.DateTimeFormatOptions
 ): string => {
-  const modifiedTime = getModifiedTime(path, fullStats);
+  const modifiedTime = getModifiedTime(path, fullStats as unknown as FileStat);
   const date = getTZOffsetISOString(modifiedTime).slice(0, 10);
   const time = new Intl.DateTimeFormat(DEFAULT_LOCALE, format).format(
     modifiedTime

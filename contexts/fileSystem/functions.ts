@@ -1,8 +1,20 @@
 import { join } from "path";
-import type HTTPRequest from "browserfs/dist/node/backend/HTTPRequest";
-import type IndexedDBFileSystem from "browserfs/dist/node/backend/IndexedDB";
-import type OverlayFS from "browserfs/dist/node/backend/OverlayFS";
-import type InMemoryFileSystem from "browserfs/dist/node/backend/InMemory";
+// Use minimal local types to avoid tight coupling to BrowserFS internals across versions
+type OverlayFS = {
+  getOverlayedFileSystems?: () => {
+    readable?: { empty?: () => void };
+    writable?: {
+      getName?: () => string;
+      empty?: (cb: (err?: unknown) => void) => void;
+    };
+  };
+};
+type HTTPRequest = { empty?: () => void };
+type IndexedDBFileSystem = {
+  getName?: () => string;
+  empty?: (cb: (err?: unknown) => void) => void;
+};
+type InMemoryFileSystem = { getName?: () => string };
 import { type FileSystemObserver } from "contexts/fileSystem/useFileSystemContextState";
 import { FS_HANDLES } from "utils/constants";
 import { type RootFileSystem } from "contexts/fileSystem/useAsyncFs";
@@ -102,19 +114,44 @@ export const resetStorage = (rootFs?: RootFileSystem): Promise<void> =>
     window.sessionStorage.clear();
 
     const clearFs = (): void => {
-      const overlayFs = rootFs?._getFs("/")?.fs as OverlayFS;
-      const overlayedFileSystems = overlayFs?.getOverlayedFileSystems();
+      const overlayFs =
+        (rootFs?._getFs("/")?.fs as OverlayFS) || ({} as OverlayFS);
+      const overlayedFileSystems = overlayFs?.getOverlayedFileSystems?.();
       const readable = overlayedFileSystems?.readable as HTTPRequest;
       const writable = overlayedFileSystems?.writable as
         | IndexedDBFileSystem
         | InMemoryFileSystem;
 
-      readable?.empty();
+      readable?.empty?.();
 
-      if (writable?.getName() === "InMemory" || !writable?.empty) {
+      const writableName =
+        typeof writable?.getName === "function"
+          ? writable.getName()
+          : undefined;
+      const canEmpty = Boolean(
+        (
+          writable as unknown as {
+            empty?: (cb: (err?: unknown) => void) => void;
+          }
+        )?.empty &&
+          typeof (
+            writable as unknown as {
+              empty?: (cb: (err?: unknown) => void) => void;
+            }
+          ).empty === "function"
+      );
+
+      if (writableName === "InMemory" || !canEmpty) {
         resolve();
       } else {
-        writable.empty((apiError) => (apiError ? reject(apiError) : resolve()));
+        const writableEmpty = (
+          writable as unknown as {
+            empty?: (cb: (err?: unknown) => void) => void;
+          }
+        ).empty;
+        writableEmpty?.((apiError) =>
+          apiError ? reject(apiError) : resolve()
+        );
       }
     };
 
