@@ -44,6 +44,7 @@ public/Users/Public/**
 
 !public/Users/**/desktop.ini
 !public/Users/Public/Desktop
+!public/Users/Public/Desktop/**
 !public/Users/Public/Desktop/My PC.url
 !public/Users/Public/Desktop/Public.url
 !public/Users/Public/Desktop/Nuch Summarizer.md

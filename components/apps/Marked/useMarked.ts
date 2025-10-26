@@ -41,28 +41,36 @@ const useMarked = ({
   );
   const loadFile = useCallback(async () => {
     const markdownFile = await readFile(url);
+    const markdownText = markdownFile.toString();
     const container = getContainer();
 
     if (container instanceof HTMLElement) {
       container.classList.remove("drop");
-      container.innerHTML = window.DOMPurify.sanitize(
-        window.marked.parse(markdownFile.toString(), {
-          headerIds: false,
-          mangle: false,
-        })
-      );
-      container
-        .querySelectorAll("a")
-        .forEach((link) =>
-          link.addEventListener("click", (event) =>
-            openLink(
-              event,
-              link.href || "",
-              link.pathname,
-              link.textContent || ""
-            )
-          )
+
+      if (window.marked && window.DOMPurify) {
+        container.innerHTML = window.DOMPurify.sanitize(
+          window.marked.parse(markdownText, {
+            headerIds: false,
+            mangle: false,
+          })
         );
+        container
+          .querySelectorAll("a")
+          .forEach((link) =>
+            link.addEventListener("click", (event) =>
+              openLink(
+                event,
+                link.href || "",
+                link.pathname,
+                link.textContent || ""
+              )
+            )
+          );
+      } else {
+        // Fallback: show raw markdown if libs failed to load (e.g., mobile cache)
+        container.textContent = markdownText;
+      }
+
       container.scrollTop = 0;
     }
 
