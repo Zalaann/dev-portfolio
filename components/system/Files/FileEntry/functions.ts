@@ -1,7 +1,12 @@
 import { basename, dirname, join } from "path";
 import ini from "ini";
 import { type FSModule } from "browserfs/dist/node/core/FS";
-import type Stats from "browserfs/dist/node/core/node_fs_stats";
+// Avoid strict coupling to BrowserFS internal Stats type across versions
+type BfsStatsLite = {
+  birthtimeMs?: number;
+  ctimeMs?: number;
+  mtimeMs?: number;
+};
 import { monacoExtensions } from "components/apps/MonacoEditor/extensions";
 import extensions from "components/system/Files/FileEntry/extensions";
 import { type FileInfo } from "components/system/Files/FileEntry/useFileInfo";
@@ -76,9 +81,11 @@ type VideoElementWithSeek = HTMLVideoElement & {
   seekToNextFrame: () => Promise<void>;
 };
 
-export const isExistingFile = (
-  { birthtimeMs, ctimeMs }: Stats = {} as Stats
-): boolean => Boolean(birthtimeMs && birthtimeMs === ctimeMs);
+export const isExistingFile = ({
+  birthtimeMs,
+  ctimeMs,
+}: BfsStatsLite = {}): boolean =>
+  Boolean(birthtimeMs && birthtimeMs === ctimeMs);
 
 export const getModifiedTime = (path: string, stats: FileStat): number => {
   const { mtimeMs } = stats;
