@@ -88,7 +88,7 @@ export const isExistingFile = ({
   Boolean(birthtimeMs && birthtimeMs === ctimeMs);
 
 export const getModifiedTime = (path: string, stats: FileStat): number => {
-  const { mtimeMs } = stats;
+  const mtimeMs = (stats as unknown as { mtimeMs?: number })?.mtimeMs ?? 0;
 
   if (isExistingFile(stats)) {
     const storedMtime = get9pModifiedTime(path);
