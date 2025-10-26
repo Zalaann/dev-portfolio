@@ -80,9 +80,8 @@ const useMarked = ({
   useEffect(() => {
     if (loading) {
       loadFiles(libs).then(() => {
-        if (window.marked) {
-          setLoading(false);
-        }
+        // Always end loading so UI is visible; loadFile will fallback to raw text if libs missing
+        setLoading(false);
       });
     }
   }, [libs, loading, setLoading]);
