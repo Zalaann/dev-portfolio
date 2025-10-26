@@ -49,10 +49,12 @@ const Index = (): React.ReactElement => {
             }}
           >
             <h1 style={{ margin: 0, fontSize: 28, lineHeight: 1.2 }}>
-              Updating the theme we’ll be back soon
+              Updating the theme
+              <br />
+              I’ll be back soon
             </h1>
             <p style={{ margin: "12px 0 20px", opacity: 0.9 }}>
-              We’re refreshing the portfolio experience. In the meantime you can
+              I’m refreshing the portfolio experience. In the meantime, you can
               still access a few items below.
             </p>
             <div
