@@ -5,6 +5,7 @@ import useTitle from "components/system/Window/useTitle";
 import { useFileSystem } from "contexts/fileSystem";
 import { useProcesses } from "contexts/process";
 import { useLinkHandler } from "hooks/useLinkHandler";
+import { loadMarkedLibs } from "components/apps/Marked/libs";
 
 export type MarkedOptions = {
   headerIds: boolean;
@@ -36,16 +37,7 @@ const useMarked = ({
       container.classList.remove("drop");
 
       try {
-        const [{ marked }, DOMPurifyModule] = await Promise.all([
-          import("marked"),
-          import("dompurify"),
-        ]);
-        const DOMPurify = (
-          DOMPurifyModule as unknown as {
-            default: { sanitize: (html: string) => string };
-          }
-        ).default;
-
+        const { marked, DOMPurify } = await loadMarkedLibs();
         container.innerHTML = DOMPurify.sanitize(
           marked.parse(markdownText, {
             headerIds: false,
@@ -77,6 +69,8 @@ const useMarked = ({
 
   useEffect(() => {
     if (loading) setLoading(false);
+    // Preload libs for faster first render
+    void loadMarkedLibs();
   }, [loading, setLoading]);
 
   useEffect(() => {
