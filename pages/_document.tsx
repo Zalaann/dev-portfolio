@@ -42,7 +42,13 @@ class Document extends NextDocument {
   public override render(): React.JSX.Element {
     return (
       <Html lang={DEFAULT_LOCALE}>
-        <Head />
+        <Head>
+          <script
+            defer
+            src="https://cloud.umami.is/script.js"
+            data-website-id="6acd68d5-c0d5-4ce5-9cc0-f81ac49230aa"
+          />
+        </Head>
         <body>
           <Main />
           <NextScript />
