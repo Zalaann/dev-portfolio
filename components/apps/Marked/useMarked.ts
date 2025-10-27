@@ -4,24 +4,12 @@ import { type ContainerHookProps } from "components/system/Apps/AppContainer";
 import useTitle from "components/system/Window/useTitle";
 import { useFileSystem } from "contexts/fileSystem";
 import { useProcesses } from "contexts/process";
-import { loadFiles } from "utils/functions";
 import { useLinkHandler } from "hooks/useLinkHandler";
 
 export type MarkedOptions = {
   headerIds: boolean;
   mangle: boolean;
 };
-
-declare global {
-  interface Window {
-    DOMPurify: {
-      sanitize: (text: string) => string;
-    };
-    marked: {
-      parse: (markdownString: string, options: MarkedOptions) => string;
-    };
-  }
-}
 
 const useMarked = ({
   containerRef,
@@ -47,12 +35,22 @@ const useMarked = ({
     if (container instanceof HTMLElement) {
       container.classList.remove("drop");
 
-      if (window.marked && window.DOMPurify) {
-        container.innerHTML = window.DOMPurify.sanitize(
-          window.marked.parse(markdownText, {
+      try {
+        const [{ marked }, DOMPurifyModule] = await Promise.all([
+          import("marked"),
+          import("dompurify"),
+        ]);
+        const DOMPurify = (
+          DOMPurifyModule as unknown as {
+            default: { sanitize: (html: string) => string };
+          }
+        ).default;
+
+        container.innerHTML = DOMPurify.sanitize(
+          marked.parse(markdownText, {
             headerIds: false,
             mangle: false,
-          })
+          }) as unknown as string
         );
         container
           .querySelectorAll("a")
@@ -66,8 +64,8 @@ const useMarked = ({
               )
             )
           );
-      } else {
-        // Fallback: show raw markdown if libs failed to load (e.g., mobile cache)
+      } catch {
+        // Fallback: show raw markdown if dynamic imports fail
         container.textContent = markdownText;
       }
 
@@ -78,13 +76,8 @@ const useMarked = ({
   }, [getContainer, openLink, prependFileToTitle, readFile, url]);
 
   useEffect(() => {
-    if (loading) {
-      loadFiles(libs).then(() => {
-        // Always end loading so UI is visible; loadFile will fallback to raw text if libs missing
-        setLoading(false);
-      });
-    }
-  }, [libs, loading, setLoading]);
+    if (loading) setLoading(false);
+  }, [loading, setLoading]);
 
   useEffect(() => {
     if (!loading) {
