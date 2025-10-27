@@ -5,7 +5,7 @@ import useTitle from "components/system/Window/useTitle";
 import { useFileSystem } from "contexts/fileSystem";
 import { useProcesses } from "contexts/process";
 import { useLinkHandler } from "hooks/useLinkHandler";
-import { loadMarkedLibs } from "components/apps/Marked/libs";
+import { loadFiles } from "utils/functions";
 
 export type MarkedOptions = {
   headerIds: boolean;
@@ -36,13 +36,12 @@ const useMarked = ({
     if (container instanceof HTMLElement) {
       container.classList.remove("drop");
 
-      try {
-        const { marked, DOMPurify } = await loadMarkedLibs();
-        container.innerHTML = DOMPurify.sanitize(
-          marked.parse(markdownText, {
+      if (window.marked && window.DOMPurify) {
+        container.innerHTML = window.DOMPurify.sanitize(
+          window.marked.parse(markdownText, {
             headerIds: false,
             mangle: false,
-          }) as unknown as string
+          })
         );
         container
           .querySelectorAll("a")
@@ -56,8 +55,8 @@ const useMarked = ({
               )
             )
           );
-      } catch {
-        // Fallback: show raw markdown if dynamic imports fail
+      } else {
+        // Fallback: show raw markdown if libs are not yet available
         container.textContent = markdownText;
       }
 
@@ -68,10 +67,10 @@ const useMarked = ({
   }, [getContainer, openLink, prependFileToTitle, readFile, url]);
 
   useEffect(() => {
-    if (loading) setLoading(false);
-    // Preload libs for faster first render
-    void loadMarkedLibs();
-  }, [loading, setLoading]);
+    if (loading) {
+      loadFiles(libs).then(() => setLoading(false));
+    }
+  }, [libs, loading, setLoading]);
 
   useEffect(() => {
     if (!loading) {
