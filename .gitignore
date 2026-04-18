@@ -1,69 +1,41 @@
-.next
-.swc
-certificates
-out
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# OS / macOS
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
 .DS_Store
+*.pem
 
-# Editor
-.vscode/
-.idea/
-
-# Env and secrets
-.env
-.env.*
-!.env.example
-
-# Logs & cache
+# debug
 npm-debug.log*
-pnpm-debug.log*
+yarn-debug.log*
 yarn-error.log*
-.eslintcache
-*.log
-*.pid
+.pnpm-debug.log*
 
-# Coverage / artifacts
-coverage/
-.nyc_output/
-.turbo/
+# env files (can opt-in for committing if needed)
+.env*
 
+# vercel
+.vercel
 
-node_modules
-
-test-results
-playwright-report
-playwright/.cache
-
-public/private
-public/robots.txt
-public/rss.xml
-public/sitemap.xml
-public/.index/*
-public/Users/Public/**
-
-!public/Users/**/desktop.ini
-!public/Users/Public/Desktop
-!public/Users/Public/Desktop/**
-!public/Users/Public/Desktop/My PC.url
-!public/Users/Public/Desktop/Public.url
-!public/Users/Public/Desktop/Nuch Summarizer.md
-!public/Users/Public/Desktop/certificates
-!public/Users/Public/Desktop/certificates/**
-!public/Users/Public/Desktop/Muhammad Ibrahim Tariq  CV .pdf
-!public/Users/Public/Documents
-!public/Users/Public/Music
-!public/Users/Public/Pictures
-!public/Users/Public/Pictures/prompts.json
-!public/Users/Public/Pictures/slideshow.json
-!public/Users/Public/Start Menu
-!public/Users/Public/Start Menu/*.url
-!public/Users/Public/Start Menu/Emulators
-!public/Users/Public/Start Menu/Emulators/*.url
-!public/Users/Public/Start Menu/Games
-!public/Users/Public/Start Menu/Games/Chrome Dino.url
-!public/Users/Public/Start Menu/Games/ClassiCube.url
-!public/Users/Public/Start Menu/Games/DX-Ball.url
-!public/Users/Public/Start Menu/Games/Quake III Arena.url
-!public/Users/Public/Start Menu/Games/Space Cadet.url
-!public/Users/Public/Videos
+# typescript
+*.tsbuildinfo
+next-env.d.ts
