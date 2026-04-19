@@ -43,7 +43,7 @@ export type Project = {
 export const projects: Project[] = [
   {
     name: "Recello",
-    blurb: "Mobile marketplace for buying and selling smartphones.",
+    blurb: "A used-phone marketplace built for Pakistan — list a device, browse by brand, and chat sellers in real time.",
     stack: ["React Native", "Expo", "TypeScript", "Supabase", "NativeWind"],
     accent: "from-lime-400/20 to-emerald-500/10",
     bullets: [
@@ -55,7 +55,7 @@ export const projects: Project[] = [
   },
   {
     name: "FATTYS",
-    blurb: "Mobile-first e-commerce app with variant-aware carts.",
+    blurb: "Mobile skincare commerce with variant-aware carts, live inventory, and seamless guest-or-signed-in checkout.",
     stack: ["React Native", "Expo", "Supabase", "PostgreSQL"],
     accent: "from-cyan-400/20 to-blue-500/10",
     bullets: [
@@ -67,7 +67,7 @@ export const projects: Project[] = [
   },
   {
     name: "Nuch Summarizer",
-    blurb: "AI text and audio summaries with flexible pipelines.",
+    blurb: "Paste an article or upload audio — get a tunable summary in seconds, powered by GPT and Whisper.",
     stack: ["Next.js", "TypeScript", "Supabase", "OpenAI", "Framer Motion"],
     accent: "from-violet-400/20 to-fuchsia-500/10",
     bullets: [

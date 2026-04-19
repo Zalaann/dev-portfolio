@@ -39,3 +39,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+
+# raw screenshot source folders (resized copies live in public/projects/)
+/Recello/
+
+# loose screenshots dropped in repo root (review-only)
+/Screenshot*.png
+/Screenshot*.jpg

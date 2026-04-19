@@ -17,17 +17,24 @@ const ROOT = process.cwd();
 
 const FILES = [
   "src/app/page.tsx",
-  "src/app/templates/brutalist/page.tsx",
-  "src/remotion/brutalist/BrutalistHero.tsx",
   "src/remotion/brutalist/MetricTicker.tsx",
   "src/remotion/brutalist/ProjectReel.tsx",
   "src/remotion/brutalist/ScrollTicker.tsx",
   "src/components/templates/brutalist/ProjectReelPlayer.tsx",
   "src/components/templates/brutalist/GitHubGrid.tsx",
+  "src/components/templates/brutalist/HeroMagnetic.tsx",
+  // TimeMachineModal intentionally omitted — uses zinc/red Tailwind utilities
+  // that the swap script doesn't touch, so it stays visually consistent in
+  // both yellow and red modes.
 ];
 
-const TEMPLATES_FILE = "src/content/templates.ts";
-const DETECT_FILE = "src/remotion/brutalist/BrutalistHero.tsx";
+// Files that live entirely inside dark/protected sections: accent (yellow↔red)
+// flips, but black is never touched.
+const FULLY_PROTECTED_FILES = [
+  "src/components/templates/brutalist/ProjectScreenshotDrawer.tsx",
+];
+
+const DETECT_FILE = "src/components/templates/brutalist/HeroMagnetic.tsx";
 
 const TMP = "___SWAP_TMP___";
 const PROTECTED_RE =
@@ -99,24 +106,7 @@ function processContent(content) {
   return result;
 }
 
-// 1. Surgical edit on templates.ts brutalist palette only
-{
-  const fp = path.join(ROOT, TEMPLATES_FILE);
-  const content = fs.readFileSync(fp, "utf8");
-  const yellowPalette = '["#ffffff", "#000000", "#ffde00"]';
-  const redPalette = '["#ffffff", "#ff0000", "#000000"]';
-  const updated = isRed
-    ? content.replace(redPalette, yellowPalette)
-    : content.replace(yellowPalette, redPalette);
-  if (updated !== content) {
-    fs.writeFileSync(fp, updated);
-    console.log(`  ✓ ${TEMPLATES_FILE}`);
-  } else {
-    console.log(`  - ${TEMPLATES_FILE} (no palette match)`);
-  }
-}
-
-// 2. Process the rest
+// 1. Process files with mixed regions
 let changed = 0;
 for (const rel of FILES) {
   const fp = path.join(ROOT, rel);
@@ -129,6 +119,24 @@ for (const rel of FILES) {
   if (swapped !== content) {
     fs.writeFileSync(fp, swapped);
     console.log(`  ✓ ${rel}`);
+    changed++;
+  } else {
+    console.log(`  - ${rel} (no change)`);
+  }
+}
+
+// 2. Process fully-protected files (only accent flips, black untouched)
+for (const rel of FULLY_PROTECTED_FILES) {
+  const fp = path.join(ROOT, rel);
+  if (!fs.existsSync(fp)) {
+    console.log(`  ✗ ${rel} (missing)`);
+    continue;
+  }
+  const content = fs.readFileSync(fp, "utf8");
+  const swapped = swapProtected(content);
+  if (swapped !== content) {
+    fs.writeFileSync(fp, swapped);
+    console.log(`  ✓ ${rel} (protected)`);
     changed++;
   } else {
     console.log(`  - ${rel} (no change)`);
