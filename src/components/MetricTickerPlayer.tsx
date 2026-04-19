@@ -7,7 +7,7 @@ import {
   METRIC_HEIGHT,
   METRIC_WIDTH,
   MetricTicker,
-} from "@/remotion/brutalist/MetricTicker";
+} from "@/remotion/MetricTicker";
 
 type Props = {
   targetValue: number;

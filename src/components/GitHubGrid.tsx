@@ -1,3 +1,5 @@
+import { AnimatedCount } from "./AnimatedCount";
+
 const USERNAME = "zalaann";
 
 type Day = { date: string; count: number; level: 0 | 1 | 2 | 3 | 4 };
@@ -137,7 +139,7 @@ export async function GitHubGrid() {
 
       {/* Stat row */}
       <div className="mb-6 grid grid-cols-3 gap-0 border-[3px] border-[#ff0000]">
-        <Stat label="Total · 12 months" value={totalLastYear.toLocaleString()} accent />
+        <Stat label="Total · 12 months" valueNode={<AnimatedCount to={totalLastYear} />} accent />
         <Stat label="Longest streak" value={`${longest} days`} />
         <Stat label="Current streak" value={`${current} days`} last />
       </div>
@@ -240,11 +242,13 @@ export async function GitHubGrid() {
 function Stat({
   label,
   value,
+  valueNode,
   accent,
   last,
 }: {
   label: string;
-  value: string;
+  value?: string;
+  valueNode?: React.ReactNode;
   accent?: boolean;
   last?: boolean;
 }) {
@@ -256,7 +260,9 @@ function Stat({
       <div className="font-[family-name:var(--font-jetbrains-mono)] text-[10px] font-semibold uppercase tracking-[0.3em]">
         {label}
       </div>
-      <div className="mt-2 text-4xl font-bold tracking-tight">{value}</div>
+      <div className="mt-2 text-4xl font-bold tracking-tight">
+        {valueNode ?? value}
+      </div>
     </div>
   );
 }

@@ -17,12 +17,11 @@ const ROOT = process.cwd();
 
 const FILES = [
   "src/app/page.tsx",
-  "src/remotion/brutalist/MetricTicker.tsx",
-  "src/remotion/brutalist/ProjectReel.tsx",
-  "src/remotion/brutalist/ScrollTicker.tsx",
-  "src/components/templates/brutalist/ProjectReelPlayer.tsx",
-  "src/components/templates/brutalist/GitHubGrid.tsx",
-  "src/components/templates/brutalist/HeroMagnetic.tsx",
+  "src/remotion/MetricTicker.tsx",
+  "src/remotion/ProjectReel.tsx",
+  "src/components/ProjectReelPlayer.tsx",
+  "src/components/GitHubGrid.tsx",
+  "src/components/HeroMagnetic.tsx",
   // TimeMachineModal intentionally omitted — uses zinc/red Tailwind utilities
   // that the swap script doesn't touch, so it stays visually consistent in
   // both yellow and red modes.
@@ -31,10 +30,10 @@ const FILES = [
 // Files that live entirely inside dark/protected sections: accent (yellow↔red)
 // flips, but black is never touched.
 const FULLY_PROTECTED_FILES = [
-  "src/components/templates/brutalist/ProjectScreenshotDrawer.tsx",
+  "src/components/ProjectScreenshotDrawer.tsx",
 ];
 
-const DETECT_FILE = "src/components/templates/brutalist/HeroMagnetic.tsx";
+const DETECT_FILE = "src/components/HeroMagnetic.tsx";
 
 const TMP = "___SWAP_TMP___";
 const PROTECTED_RE =

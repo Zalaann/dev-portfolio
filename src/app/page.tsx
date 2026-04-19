@@ -1,15 +1,15 @@
-import { HeroMagnetic } from "@/components/templates/brutalist/HeroMagnetic";
-import { MetricTickerPlayer } from "@/components/templates/brutalist/MetricTickerPlayer";
-import { ProjectReelPlayer } from "@/components/templates/brutalist/ProjectReelPlayer";
-import { ScrollTickerPlayer } from "@/components/templates/brutalist/ScrollTickerPlayer";
-import { TimeMachineModal } from "@/components/templates/brutalist/TimeMachineModal";
+import { HeroMagnetic } from "@/components/HeroMagnetic";
+import { MetricTickerPlayer } from "@/components/MetricTickerPlayer";
+import { ProjectReelPlayer } from "@/components/ProjectReelPlayer";
+import { TimeMachineModal } from "@/components/TimeMachineModal";
+import { ScrollReveal } from "@/components/ScrollReveal";
 import {
   ProjectScreenshotDrawer,
   RECELLO_SCREENSHOTS,
   FATTYS_SCREENSHOTS,
   NUCH_SCREENSHOTS,
-} from "@/components/templates/brutalist/ProjectScreenshotDrawer";
-import { GitHubGrid } from "@/components/templates/brutalist/GitHubGrid";
+} from "@/components/ProjectScreenshotDrawer";
+import { GitHubGrid } from "@/components/GitHubGrid";
 import {
   profile,
   experience,
@@ -28,9 +28,7 @@ const ACCENT = "#000000";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-white pt-[72px] font-[family-name:var(--font-space-grotesk)] text-[#ff0000]">
-      <ScrollTickerPlayer />
-
+    <div className="min-h-screen bg-white font-[family-name:var(--font-space-grotesk)] text-[#ff0000]">
       {/* Hero — magnetic letters */}
       <section className="mx-auto max-w-[1400px] p-6 pt-10">
         <HeroMagnetic location={profile.location} role="Software Engineer" />
@@ -65,6 +63,7 @@ export default function Home() {
       </section>
 
       {/* Experience */}
+      <ScrollReveal>
       <section className="bg-[#fafafa]">
         <div className="mx-auto max-w-[1400px] px-6 py-20">
           <div className="mb-12 flex items-end justify-between border-b-[3px] border-[#ff0000] pb-4">
@@ -124,7 +123,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+      </ScrollReveal>
 
+      <ScrollReveal>
       {/* @swap-protected */}
       {/* Projects — dark contrast section: bg stays black in both modes; accent flips yellow ↔ red */}
       <section className="bg-black text-white">
@@ -211,8 +212,10 @@ export default function Home() {
         </div>
       </section>
       {/* @swap-end */}
+      </ScrollReveal>
 
       {/* Stack */}
+      <ScrollReveal>
       <section className="border-t-[3px] border-[#ff0000] bg-white">
         <div className="mx-auto max-w-[1400px] px-6 py-20">
           <div className="mb-12 flex items-end justify-between border-b-[3px] border-[#ff0000] pb-4">
@@ -269,11 +272,15 @@ export default function Home() {
           </div>
         </div>
       </section>
+      </ScrollReveal>
 
       {/* Activity */}
-      <GitHubGrid />
+      <ScrollReveal>
+        <GitHubGrid />
+      </ScrollReveal>
 
       {/* Footer / Contact */}
+      <ScrollReveal>
       <footer className="border-t-[3px] border-[#ff0000] bg-[#000000]">
         <div className="mx-auto max-w-[1400px] px-6 py-16">
           <div className="text-[11px] font-semibold uppercase tracking-[0.3em]">
@@ -296,6 +303,7 @@ export default function Home() {
           </div>
         </div>
       </footer>
+      </ScrollReveal>
     </div>
   );
 }

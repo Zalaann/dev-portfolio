@@ -44,3 +44,40 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.14);
 }
+
+/* brutalist marquee — translates 50% so two stitched copies loop seamlessly */
+@keyframes brutMarquee {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+
+/* subtle ambient grid drift used behind the hero / dark sections */
+@keyframes brutGridDrift {
+  from { background-position: 0 0; }
+  to   { background-position: 120px 120px; }
+}
+
+/* heartbeat pulse for the TRACKING/AVAILABLE indicator dot */
+@keyframes brutHeartbeat {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%      { transform: scale(1.6); opacity: 0.4; }
+}
+
+/* horizontal sweep — thin bar travels left → right and back */
+@keyframes brutSweep {
+  0%, 100% { transform: translateX(-30%) scaleX(0.6); opacity: 0.3; }
+  50%      { transform: translateX(50%) scaleX(1.2); opacity: 0.7; }
+}
+
+/* accent bar fill that slides inside its track */
+@keyframes brutBarSlide {
+  0%, 100% { left: 0; width: 30%; }
+  50%      { left: 70%; width: 30%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [style*="animation: brutMarquee"],
+  [style*="animation: brutGridDrift"] {
+    animation: none !important;
+  }
+}

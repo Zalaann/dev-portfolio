@@ -8,7 +8,7 @@ import {
   ProjectReel,
   getReelDuration,
   type ReelProject,
-} from "@/remotion/brutalist/ProjectReel";
+} from "@/remotion/ProjectReel";
 
 export function ProjectReelPlayer({ projects }: { projects: readonly ReelProject[] }) {
   return (
