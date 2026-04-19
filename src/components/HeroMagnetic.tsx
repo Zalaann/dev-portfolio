@@ -78,7 +78,7 @@ export function HeroMagnetic({
   let runningIdx = 0;
 
   return (
-    <section className="relative border-[3px] border-[#ff0000] bg-white text-[#ff0000]">
+    <section className="relative overflow-hidden border-[3px] border-[#ff0000] bg-white text-[#ff0000]">
       {/* Faint grid — slowly drifts */}
       <div
         className="pointer-events-none absolute inset-0 opacity-30"
