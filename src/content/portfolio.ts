@@ -73,15 +73,16 @@ export const projects: Project[] = [
   },
   {
     name: "FATTYS",
-    blurb: "Mobile boutique commerce with realtime courier tracking, atomic order pipelines, and cross-device cart sync.",
-    stack: ["React Native", "Expo SDK 54", "TypeScript", "Supabase", "Zustand", "React Query", "EAS Build"],
+    blurb: "Cross-platform beauty marketplace with an AI skincare consultation built on AWS Bedrock. Selfies stream into Claude Sonnet 4.6 through a Supabase Edge Function, which writes back personalized routines and catalogue-grounded product picks over Server-Sent Events. Private beta 2026.",
+    stack: ["React Native", "Expo SDK 54", "TypeScript", "Supabase", "AWS Bedrock", "Claude Sonnet 4.6", "React Query", "Zustand", "WidgetKit"],
     accent: "from-cyan-400/20 to-blue-500/10",
     bullets: [
-      "Atomic create_order_transaction Postgres RPC validates per-variant inventory, applies discount codes, inserts order + line items + status-history in a single transaction. Idempotency keys de-dupe retries.",
-      "Realtime courier-tracking timeline without polling: a PostEx webhook triggers a service-role insert into tracking_events, fires a Supabase Realtime push filtered by shipment_id, and merges on-device. Terminal events auto-flip order status.",
-      "Cross-device cart sync between the RN app and a Next.js companion via a shared cart_items table with hydrate-on-sign-in union-merge, debounced 400ms push from a Zustand store, and Realtime subscription for cross-device pull.",
-      "Resolved a Zustand persist race where AsyncStorage rehydration silently overwrote server-merged state. Gated all sync effects on persist.onFinishHydration.",
-      "Diagnosed a TestFlight production crash from EXPO_PUBLIC_* env vars not propagating to EAS cloud builds without explicit eas.json mirroring; locked the env-var contract.",
+      "AI consultation pipeline: a Supabase Edge Function (Deno + aws4fetch) fronts the Bedrock Converse API and relays Claude Sonnet 4.6 token-by-token over SSE to the app, with prompt caching (1h on system + tools, 5 min on history, max 4 cachePoints) holding per-consult cost under $0.05 and turning $200 of credits into a 5,700-consult runway.",
+      "Zero-storage selfie flow: explicit consent that selfies are sent inline for inference and never persisted server-side. Diagnosed an ap-south-1 Bedrock constraint where Claude 4.6 is only available through the global inference profile (global.anthropic.claude-sonnet-4-6); surfaced the cross-region transit in the consent string rather than hiding it.",
+      "Atomic checkout RPC: a single create_order_transaction Postgres function resolves prices and discount codes server-side, locks variants, and writes the order + items + status history in one transaction. Idempotency keys (Crypto.randomUUID()) protect against double-charges from network retries.",
+      "Realtime order + shipment tracking: Supabase channels stream shipments and tracking_events to the app with optimistic UI and snapshot rollback via React Query, so customers see status changes the moment an admin moves them, no pull-to-refresh required.",
+      "Hardened session storage: Supabase Auth JWTs are chunked into expo-secure-store to clear the 2 KB iOS SecureStore ceiling, on top of a PKCE-flow magic-link path and a handle_new_user Postgres trigger that seeds public.users from signup metadata in the same transaction.",
+      "Guest-to-user cart merge: cart hydrates from AsyncStorage and Postgres in parallel, then on sign-in the merge_guest_cart_to_user RPC reconciles a guest session_id cart into the authenticated user_id cart server-side and stays live across devices via Supabase Realtime.",
     ],
   },
   {
@@ -115,9 +116,9 @@ export type SkillGroup = { label: string; items: string[] };
 export const skillGroups: SkillGroup[] = [
   { label: "Languages", items: ["TypeScript", "JavaScript", "Python", "Swift", "SQL", "C++"] },
   { label: "Frontend", items: ["React", "Next.js", "React Native", "Vite", "Tailwind CSS", "NativeWind", "ShadCN UI", "Redux", "Framer Motion"] },
-  { label: "Backend", items: ["Node.js", "Express", "Supabase", "Stripe", "100ms", "WebSockets", "REST APIs"] },
+  { label: "Backend", items: ["Node.js", "Deno", "Express", "Supabase", "Stripe", "100ms", "Server-Sent Events", "WebSockets", "REST APIs"] },
   { label: "Data", items: ["PostgreSQL", "Row-Level Security", "Realtime", "SQLite", "MySQL", "MongoDB", "Firebase", "Indexing"] },
-  { label: "AI / ML", items: ["scikit-learn", "Pandas", "NumPy", "OpenAI ChatGPT API", "OpenAI Whisper", "Model Evaluation", "Inference Pipelines"] },
+  { label: "AI / ML", items: ["AWS Bedrock", "Anthropic Claude", "OpenAI ChatGPT API", "OpenAI Whisper", "Prompt Caching", "scikit-learn", "Pandas", "NumPy", "Model Evaluation", "Inference Pipelines"] },
   { label: "DevOps", items: ["Git", "Docker", "Linux", "Cloudflare Workers", "Cloudflare Pages", "Vercel", "Azure", "CI/CD", "PostHog", "Sentry", "Nginx", "Postman"] },
 ];
 

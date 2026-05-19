@@ -34,3 +34,19 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+
+I solo-built the full stack: a Postgres schema with row-level security across four roles (student,     
+      teacher, parent, admin), backend services on Supabase Edge Functions and Cloudflare Workers, a     
+  React                                                                                                  
+     +                                                                                                   
+                                                                                                         
+      Vite + Tailwind frontend, Stripe-driven payments, 100ms live video and transcription, and          
+  Cloudflare                                                                                             
+      Pages hosting with CI from day one. Pre-launch security audit complete; targeting public launch    
+  June                                                                                                   
+      2026. we have put this in the intellectrax and bio should we keep it in bio? what do you say as it 
+                                                                                                         
+    is not a project but a strtup so what do you say research on bio and other thigns and how they are   
+                                                                                                         
+    displaeyed and if the stack is exposed or what 
