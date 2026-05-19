@@ -19,9 +19,9 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Muhammad Ibrahim Tariq — Portfolio",
+  title: "Muhammad Ibrahim Tariq · Portfolio",
   description:
-    "Muhammad Ibrahim Tariq — software engineer in Manchester. Four brutalist portfolio variants built with Next.js and Remotion.",
+    "Muhammad Ibrahim Tariq. Software engineer in Manchester. Cofounder at Intellectrax. Brutalist portfolio built with Next.js and Remotion.",
 };
 
 export default function RootLayout({

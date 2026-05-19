@@ -56,7 +56,7 @@ export async function GitHubGrid() {
       <section id="activity" className="mx-auto max-w-[1400px] px-6 py-20">
         <div className={`${box} bg-white p-10 text-center`}>
           <div className="text-[11px] font-semibold uppercase tracking-[0.3em]">
-            / 04 — ACTIVITY
+            / 04 · ACTIVITY
           </div>
           <h2 className="mt-4 text-3xl font-bold uppercase">
             GitHub feed unavailable.

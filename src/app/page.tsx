@@ -1,7 +1,6 @@
 import { HeroMagnetic } from "@/components/HeroMagnetic";
 import { MetricTickerPlayer } from "@/components/MetricTickerPlayer";
 import { ProjectReelPlayer } from "@/components/ProjectReelPlayer";
-import { TimeMachineModal } from "@/components/TimeMachineModal";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import {
   ProjectScreenshotDrawer,
@@ -32,6 +31,39 @@ export default function Home() {
       {/* Hero — magnetic letters */}
       <section className="mx-auto max-w-[1400px] p-6 pt-10">
         <HeroMagnetic location={profile.location} role="Software Engineer" />
+      </section>
+
+      {/* Now-building announcement banner */}
+      <section className="mx-auto max-w-[1400px] px-6">
+        <a
+          href="https://intellectrax.co.uk"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group block border-[3px] border-[#ff0000] bg-[#000000] text-[#ff0000] transition hover:bg-[#ff0000] hover:text-[#000000]"
+        >
+          <div className="grid grid-cols-12 items-stretch divide-x-[3px] divide-[#ff0000] group-hover:divide-[#000000]">
+            <div className="col-span-12 flex items-center gap-3 p-5 md:col-span-3">
+              <span className="inline-block h-2.5 w-2.5 animate-pulse bg-[#ff0000] group-hover:bg-[#000000]" />
+              <span className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] font-bold uppercase tracking-[0.3em]">
+                / NOW BUILDING
+              </span>
+            </div>
+            <div className="col-span-12 p-5 md:col-span-7">
+              <div className="text-3xl font-black uppercase leading-[0.95] tracking-tight sm:text-4xl">
+                Cofounder @ IntellectraX
+              </div>
+              <div className="mt-1 text-sm uppercase tracking-[0.15em] opacity-80">
+                AI EdTech · Live Video · AI Summaries, Quizzes & Assignments · Parent Portal
+              </div>
+            </div>
+            <div className="col-span-12 flex items-center justify-between gap-2 p-5 md:col-span-2">
+              <span className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] font-bold uppercase tracking-[0.25em]">
+                intellectrax.co.uk
+              </span>
+              <span className="text-xl font-bold">↗</span>
+            </div>
+          </div>
+        </a>
       </section>
 
       {/* Intro strip */}
@@ -92,6 +124,16 @@ export default function Home() {
                   </div>
                   <div className="mt-1 text-base">{j.role}</div>
                   <div className="mt-1 text-sm text-[#ff0000]/60">{j.location}</div>
+                  {j.url && (
+                    <a
+                      href={j.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-2 inline-flex items-center gap-1 font-[family-name:var(--font-jetbrains-mono)] text-[11px] font-bold uppercase tracking-[0.2em] text-[#ff0000] underline decoration-[#ff0000]/40 underline-offset-4 hover:decoration-[#ff0000]"
+                    >
+                      {j.url.replace(/^https?:\/\//, "")} ↗
+                    </a>
+                  )}
                   {metric && j.highlight && (
                     <div className="mt-6">
                       <MetricTickerPlayer
@@ -117,10 +159,6 @@ export default function Home() {
             );
           })}
 
-          {/* Time Machine button — at end of Experience section */}
-          <div className="mt-8">
-            <TimeMachineModal />
-          </div>
         </div>
       </section>
       </ScrollReveal>
@@ -247,6 +285,15 @@ export default function Home() {
             ))}
           </div>
 
+          <div className="mt-10 border-[3px] border-[#ff0000] bg-[#000000] p-5 text-[#ff0000]">
+            <div className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] font-bold uppercase tracking-[0.3em] opacity-70">
+              / LANGUAGES SPOKEN
+            </div>
+            <div className="mt-2 text-xl font-semibold uppercase tracking-[0.15em]">
+              {profile.languagesSpoken.join(" · ")}
+            </div>
+          </div>
+
           <div className="mt-16">
             <div className="text-[11px] font-semibold uppercase tracking-[0.3em]">
               / EDUCATION
@@ -262,6 +309,16 @@ export default function Home() {
                   <div>
                     <div className="text-lg font-semibold">{e.degree}</div>
                     <div className="text-sm text-[#ff0000]/70">{e.school}</div>
+                    {e.honors && (
+                      <div className="mt-1 inline-block bg-[#ff0000] px-2 py-0.5 text-[11px] font-bold uppercase tracking-[0.15em] text-[#000000]">
+                        {e.honors}
+                      </div>
+                    )}
+                    {e.note && (
+                      <div className="mt-1 text-xs italic text-[#ff0000]/60">
+                        {e.note}
+                      </div>
+                    )}
                   </div>
                   <div className="text-[11px] font-semibold uppercase tracking-widest">
                     {e.period}
@@ -295,6 +352,24 @@ export default function Home() {
           >
             {profile.email} →
           </a>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <a
+              href={profile.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 border-[3px] border-[#ff0000] bg-transparent px-5 py-3 font-[family-name:var(--font-jetbrains-mono)] text-sm font-bold uppercase tracking-[0.2em] text-[#ff0000] transition hover:bg-[#ff0000] hover:text-[#000000]"
+            >
+              GitHub · @Zalaann ↗
+            </a>
+            <a
+              href={profile.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 border-[3px] border-[#ff0000] bg-transparent px-5 py-3 font-[family-name:var(--font-jetbrains-mono)] text-sm font-bold uppercase tracking-[0.2em] text-[#ff0000] transition hover:bg-[#ff0000] hover:text-[#000000]"
+            >
+              LinkedIn ↗
+            </a>
+          </div>
         </div>
         <div className="border-t-[3px] border-[#ff0000]">
           <div className="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-3 text-[10px] font-semibold uppercase tracking-[0.2em]">
