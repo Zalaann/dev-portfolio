@@ -17,6 +17,8 @@ import {
   education,
 } from "@/content/portfolio";
 
+export const revalidate = 3600;
+
 function splitMetric(value: string): { num: number; suffix: string } {
   const match = value.match(/^(\d+)(.*)$/);
   if (!match) return { num: 0, suffix: value };

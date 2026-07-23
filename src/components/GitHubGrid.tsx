@@ -12,7 +12,71 @@ type ApiResponse = {
 const EMPTY_COLOR = "#ffffff";
 const COMMIT_COLOR = "#000000";
 
+const LEVEL_MAP: Record<string, Day["level"]> = {
+  NONE: 0,
+  FIRST_QUARTILE: 1,
+  SECOND_QUARTILE: 2,
+  THIRD_QUARTILE: 3,
+  FOURTH_QUARTILE: 4,
+};
+
+type CalendarDay = {
+  date: string;
+  contributionCount: number;
+  contributionLevel: string;
+};
+
+async function fetchFromGitHub(token: string): Promise<ApiResponse | null> {
+  try {
+    const res = await fetch("https://api.github.com/graphql", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        query:
+          "query($login: String!) { user(login: $login) { contributionsCollection { contributionCalendar { totalContributions weeks { contributionDays { date contributionCount contributionLevel } } } } } }",
+        variables: { login: USERNAME },
+      }),
+      next: { revalidate: 3600 },
+    });
+    if (!res.ok) return null;
+    const json = (await res.json()) as {
+      data?: {
+        user?: {
+          contributionsCollection?: {
+            contributionCalendar?: {
+              totalContributions: number;
+              weeks: { contributionDays: CalendarDay[] }[];
+            };
+          };
+        };
+      };
+    };
+    const cal = json?.data?.user?.contributionsCollection?.contributionCalendar;
+    if (!cal?.weeks) return null;
+    const contributions: Day[] = cal.weeks
+      .flatMap((w) => w.contributionDays)
+      .map((d) => ({
+        date: d.date,
+        count: d.contributionCount,
+        level: LEVEL_MAP[d.contributionLevel] ?? 0,
+      }))
+      .sort((a, b) => a.date.localeCompare(b.date));
+    return { total: { lastYear: cal.totalContributions }, contributions };
+  } catch {
+    return null;
+  }
+}
+
 async function fetchContributions(): Promise<ApiResponse | null> {
+  // Official API when a token is configured; community API as fallback
+  const token = process.env.GITHUB_TOKEN;
+  if (token) {
+    const gh = await fetchFromGitHub(token);
+    if (gh) return gh;
+  }
   try {
     const res = await fetch(
       `https://github-contributions-api.jogruber.de/v4/${USERNAME}?y=last`,
