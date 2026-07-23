@@ -285,12 +285,12 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="mt-10 border-[3px] border-[#ff0000] bg-[#000000] p-5 text-[#ff0000]">
-            <div className="font-[family-name:var(--font-jetbrains-mono)] text-[11px] font-bold uppercase tracking-[0.3em] opacity-70">
+          <div className="mt-10 border-[3px] border-[#ff0000] bg-[#000000] p-5 text-[#ff0000] crt-scanlines">
+            <div className="font-[family-name:var(--font-glasstty)] text-[15px] font-normal uppercase tracking-[0.12em] opacity-70 crt-glow">
               / LANGUAGES SPOKEN
             </div>
-            <div className="mt-2 text-xl font-semibold uppercase tracking-[0.15em]">
-              {profile.languagesSpoken.join(" · ")}
+            <div className="mt-2 font-[family-name:var(--font-glasstty)] crt-glow text-xl uppercase tracking-[0.08em]">
+              &gt; {profile.languagesSpoken.join(" · ")} <span className="crt-cursor ml-1">█</span>
             </div>
           </div>
 
@@ -338,7 +338,7 @@ export default function Home() {
 
       {/* Footer / Contact */}
       <ScrollReveal>
-      <footer className="border-t-[3px] border-[#ff0000] bg-[#000000]">
+      <footer className="border-t-[3px] border-[#ff0000] bg-[#000000] crt-scanlines">
         <div className="mx-auto max-w-[1400px] px-6 py-16">
           <div className="text-[11px] font-semibold uppercase tracking-[0.3em]">
             / END
@@ -348,7 +348,7 @@ export default function Home() {
           </h2>
           <a
             href={`mailto:${profile.email}`}
-            className="mt-8 inline-block border-[3px] border-[#ff0000] bg-[#ff0000] px-6 py-4 text-xl font-semibold uppercase tracking-wider text-[#000000]"
+            className="mt-8 inline-block border-[3px] border-[#ff0000] bg-[#ff0000] px-6 py-4 text-xl font-bold uppercase tracking-[0.05em] text-[#000000] font-[family-name:var(--font-glasstty)]"
           >
             {profile.email} →
           </a>

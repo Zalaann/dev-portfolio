@@ -85,16 +85,18 @@ export const MetricTicker: React.FC<MetricTickerProps> = ({
         <div style={{ display: "flex", alignItems: "baseline", gap: 14 }}>
           <div
             style={{
-              fontSize: 280,
-              fontWeight: 900,
-              letterSpacing: -12,
+              fontSize: 220,
+              fontWeight: 400,
+              letterSpacing: 0,
               lineHeight: 0.85,
               fontVariantNumeric: "tabular-nums",
+              fontFamily: "var(--font-glasstty), monospace",
+              textShadow: "0 0 12px rgba(255,0,0,0.5), 0 0 40px rgba(255,0,0,0.25)",
             }}
           >
             {String(value).padStart(2, "0")}
           </div>
-          <div style={{ fontSize: 120, fontWeight: 900, letterSpacing: -6, lineHeight: 0.85 }}>
+          <div style={{ fontSize: 100, fontWeight: 400, letterSpacing: 0, lineHeight: 0.85, fontFamily: "var(--font-glasstty), monospace", textShadow: "0 0 12px rgba(255,0,0,0.5), 0 0 40px rgba(255,0,0,0.25)" }}>
             {suffix}
           </div>
         </div>

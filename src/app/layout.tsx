@@ -5,6 +5,7 @@ import {
   Space_Grotesk,
   JetBrains_Mono,
 } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
@@ -16,6 +17,11 @@ const spaceGrotesk = Space_Grotesk({
 const jetbrains = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
   subsets: ["latin"],
+});
+const glasstty = localFont({
+  src: "./fonts/Glass_TTY_VT220.ttf",
+  variable: "--font-glasstty",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -35,6 +41,7 @@ export default function RootLayout({
         geistMono.variable,
         spaceGrotesk.variable,
         jetbrains.variable,
+        glasstty.variable,
       ].join(" ")}
     >
       <body className="min-h-screen bg-white text-black">{children}</body>

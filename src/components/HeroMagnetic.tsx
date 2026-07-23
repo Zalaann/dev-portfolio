@@ -106,7 +106,7 @@ export function HeroMagnetic({
           <span className="inline-block h-1.5 w-1.5 animate-pulse bg-[#ff0000]" />
           IDENTITY · MAGNETIC
         </span>
-        <span className="hidden tabular-nums sm:inline">
+        <span className="hidden tabular-nums sm:inline font-[family-name:var(--font-glasstty)] font-bold text-[15px] tracking-[0.08em]">
           REEL 01 · FR {String(tick).padStart(6, "0")}
         </span>
         <span className="flex items-center gap-2">
@@ -168,7 +168,7 @@ export function HeroMagnetic({
         </div>
 
         <div className="mt-8 font-[family-name:var(--font-space-grotesk)] text-2xl font-semibold uppercase tracking-[0.15em] sm:text-3xl">
-          {role}
+          {role} <span className="crt-cursor ml-2">█</span>
         </div>
 
         <div
@@ -182,9 +182,9 @@ export function HeroMagnetic({
       </div>
 
       {/* Bottom — scrolling marquee inside the hero */}
-      <div className="relative z-10 overflow-hidden border-t-[3px] border-[#ff0000] bg-[#000000]">
+      <div className="relative z-10 overflow-hidden border-t-[3px] border-[#ff0000] bg-[#000000] crt-scanlines">
         <div
-          className="flex whitespace-nowrap py-2 font-[family-name:var(--font-jetbrains-mono)] text-[12px] font-bold uppercase tracking-[0.3em] text-[#ff0000]"
+          className="flex whitespace-nowrap py-2 font-[family-name:var(--font-glasstty)] text-[15px] font-bold uppercase tracking-[0.12em] text-[#ff0000] crt-glow"
           style={{ animation: "brutMarquee 35s linear infinite" }}
         >
           {[0, 1].map((copy) => (
